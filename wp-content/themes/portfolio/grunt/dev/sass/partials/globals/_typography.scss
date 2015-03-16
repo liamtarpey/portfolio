@@ -1,0 +1,96 @@
+
+// ============================================================
+// TYPOGRAPHY 
+// ============================================================
+
+@font-face {
+    font-family: 'Campton Bold';
+    src: url(/wp-content/themes/portfolio/assets/fonts/campton_bold.otf);
+}
+@font-face {
+    font-family: 'Campton Light';
+    src: url(/wp-content/themes/portfolio/assets/fonts/campton_light.otf);
+}
+
+$header-font: 'Campton Bold', arial, sans-serif;
+$body-font: 'Campton Light', arial, sans-serif;
+
+html {
+
+	font-size: 100%;
+
+}
+
+body, input, textarea, select, button, p, a {
+
+    @include font(16); 
+    color: $col-grey;
+    font-family: $body-font;
+
+}
+
+h1, h3, h4, h5, h6, p {
+
+      margin-bottom: $baseline/1.5;
+
+}
+
+// h1, .h1, .alpha {
+
+    
+// }
+
+h2, .h2, .beta {
+
+    @include font(32);
+    color: $col-black;
+
+}
+
+h3, .h3, .gamma {
+
+    @include font(20);
+
+}
+
+h4, .h4, .delta {
+
+    @include font(18);
+
+}
+
+h5, .h5, .epsilon, 
+h6, .h6, .zeta {
+
+   @include font(17);
+
+}
+
+.mega {
+
+	  @include font(72);
+
+}
+
+
+small,
+.tiny {
+
+    @include font(14);
+
+}
+
+strong {
+
+    font-weight: bold;
+
+}
+
+em {
+
+    font-style: italic;
+
+}
+
+
+// ============================================================

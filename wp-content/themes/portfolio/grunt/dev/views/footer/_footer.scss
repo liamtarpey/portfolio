@@ -1,0 +1,43 @@
+// ============================================================
+// FOOTER 
+// ============================================================
+
+.app-footer {
+
+	border-top: 1px solid $col-grey;
+	@include cf;
+
+	.footer-left {
+
+		@include breakpoint($tablet) {
+
+			float: left;
+			width: 40%;
+			background: $col-altgrey;
+			padding: $baseline $baseline*3;
+
+		}
+
+	}
+
+	.footer-right {
+
+		ul {
+
+			margin: 0;
+
+		}
+
+		@include breakpoint($tablet) {
+
+			float: right;
+			width: 60%;
+			padding: $baseline $baseline*3;
+
+		}
+
+	}
+
+}
+
+// ============================================================

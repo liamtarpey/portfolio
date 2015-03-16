@@ -1,0 +1,41 @@
+// ============================================================
+// HEADER 
+// ============================================================
+
+.app-header {
+
+	margin-bottom: $baseline;
+
+	.app-logo {
+
+		color: $col-black;
+		font-family: $header-font;
+		@include font(48);
+	    line-height: 1;
+	    letter-spacing: -1px;
+
+
+		&:hover {
+
+			text-decoration: none;
+
+		}
+
+	}
+
+	.app-tagline {
+
+		@include font(15);
+		display: inline-block;
+
+		span {
+
+			line-height:1;
+		
+		}
+
+	}
+
+}
+
+// ============================================================

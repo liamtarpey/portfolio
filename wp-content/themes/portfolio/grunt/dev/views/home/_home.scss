@@ -1,0 +1,47 @@
+// ============================================================
+// Home 
+// ============================================================
+
+.about {
+  
+  border-bottom: 1px solid $col-grey;
+
+}
+
+.projects {
+
+  
+
+}
+
+// Animations
+.list-animate.ng-enter,
+.list-animate.ng-leave,
+.list-animate.ng-move {
+  @include transition(.1s linear all);
+}
+.list-animate.ng-enter-stagger,
+.list-animate.ng-leave-stagger {
+	transition-delay: .1s;
+}
+.list-animate.ng-enter,
+.list-animate.ng-move,
+.list-animate.ng-leave {
+  opacity: 0;
+}
+.list-animate.ng-move.ng-move-active,
+.list-animate.ng-enter.ng-enter-active {
+   opacity: 1;
+}
+.list-animate.ng-leave {
+  opacity: 1;
+  overflow: hidden;
+}
+.list-animate.ng-leave.ng-leave-active {
+  opacity: 0;
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+// ============================================================

@@ -1,0 +1,23 @@
+
+	<div class="app-left">
+		<div ng-include="'/wp-content/themes/portfolio/ng-views/header.html'"></div>
+		<div class="article-animate">
+			<h2 ng-bind-html="project.custom_fields.title"></h2>
+			<!-- <h3 ng-bind-html="project.company"></h3> -->
+			<p ng-bind-html="project.custom_fields.description"></p>
+
+			<div>
+				{{project.custom_fields.languages[0]}}
+			</div>
+		</div>
+	</div>
+
+	<div class="app-right" ng-show="project.attachments.length">
+		<ul>
+			<li ng-repeat="image in project.attachments">
+				<img ng-src="{{image.images.full.url}}" alt="{{image.title}}">
+			</li>
+		</ul>
+	</div>
+
+	

@@ -1,0 +1,649 @@
+/* line 17, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 15, grunt/dev/sass/partials/globals/_core.scss */
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 23, grunt/dev/sass/partials/globals/_core.scss */
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  color: #212328;
+}
+
+/* line 31, grunt/dev/sass/partials/globals/_core.scss */
+body {
+  background: #f8f8f8;
+}
+
+/* line 37, grunt/dev/sass/partials/globals/_core.scss */
+.wrapper {
+  width: 100%;
+  max-width: 1600px;
+  padding: 0;
+  margin: 0 auto;
+}
+
+/* line 13, grunt/dev/sass/partials/globals/_blockquotes.scss */
+blockquote {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+  border-left: 7px solid #17ad8a;
+  padding: 5px 20px;
+  width: 100%;
+}
+@media (min-width: 840px) {
+  /* line 13, grunt/dev/sass/partials/globals/_blockquotes.scss */
+  blockquote {
+    max-width: 60%;
+  }
+}
+/* line 27, grunt/dev/sass/partials/globals/_blockquotes.scss */
+blockquote:before, blockquote:after {
+  font-size: 26px;
+  font-size: 1.625em;
+  line-height: 39px;
+  color: #80807e;
+  font-family: georgia;
+  display: inline;
+  line-height: 1px;
+  vertical-align: -5px;
+}
+/* line 38, grunt/dev/sass/partials/globals/_blockquotes.scss */
+blockquote:before {
+  content: open-quote;
+}
+/* line 44, grunt/dev/sass/partials/globals/_blockquotes.scss */
+blockquote:after {
+  content: close-quote;
+}
+
+/* line 27, grunt/dev/sass/partials/globals/_forms.scss */
+.btn,
+input,
+button,
+select,
+textarea {
+  margin-bottom: 10px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  border: 1px solid #80807e;
+}
+/* line 36, grunt/dev/sass/partials/globals/_forms.scss */
+.btn:focus,
+input:focus,
+button:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}
+
+/* line 50, grunt/dev/sass/partials/globals/_forms.scss */
+input[type="text"], select,
+textarea,
+input[type="date"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="password"] {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  padding: 10px;
+}
+
+/* line 60, grunt/dev/sass/partials/globals/_forms.scss */
+select,
+textarea {
+  display: block;
+}
+
+/* line 67, grunt/dev/sass/partials/globals/_forms.scss */
+textarea {
+  resize: vertical;
+  min-height: 260px;
+}
+
+/* line 76, grunt/dev/sass/partials/globals/_forms.scss */
+.btn,
+button,
+input[type="submit"] {
+  border: none;
+  width: auto;
+  padding: 5px 10px;
+  background: #2b78c4;
+  color: white;
+  display: inline-block;
+}
+/* line 85, grunt/dev/sass/partials/globals/_forms.scss */
+.btn:hover,
+button:hover,
+input[type="submit"]:hover {
+  color: white;
+  background: #d13e36;
+  text-decoration: none;
+}
+/* line 93, grunt/dev/sass/partials/globals/_forms.scss */
+.btn.secondary,
+button.secondary,
+input[type="submit"].secondary {
+  background: #2b78c4;
+  color: white;
+}
+/* line 98, grunt/dev/sass/partials/globals/_forms.scss */
+.btn.secondary:hover,
+button.secondary:hover,
+input[type="submit"].secondary:hover {
+  color: white;
+  background: #c4c416;
+}
+/* line 107, grunt/dev/sass/partials/globals/_forms.scss */
+.btn:hover,
+button:hover,
+input[type="submit"]:hover {
+  cursor: pointer;
+}
+
+/* line 7, grunt/dev/sass/partials/globals/_images.scss */
+.img-half {
+  width: 50%;
+  height: auto;
+  display: block;
+}
+
+/* line 15, grunt/dev/sass/partials/globals/_images.scss */
+.img-full {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* line 10, grunt/dev/sass/partials/globals/_links.scss */
+a {
+  text-decoration: none;
+  color: #2b78c4;
+}
+/* line 27, grunt/dev/sass/partials/globals/_links.scss */
+a.no-td:hover {
+  text-decoration: none;
+}
+
+/* line 6, grunt/dev/sass/partials/globals/_lists.scss */
+ul, ol {
+  margin-bottom: 10px;
+}
+/* line 12, grunt/dev/sass/partials/globals/_lists.scss */
+ul.inline-list li, ol.inline-list li {
+  display: inline-block;
+  margin-right: 10px;
+}
+/* line 23, grunt/dev/sass/partials/globals/_lists.scss */
+ul.stacked-list li, ol.stacked-list li {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* line 12, grunt/dev/sass/partials/globals/_tables.scss */
+table {
+  width: 100%;
+}
+/* line 16, grunt/dev/sass/partials/globals/_tables.scss */
+table th, table td {
+  border-bottom: 1px solid #80807e;
+  padding: 10px;
+  width: 25%;
+}
+
+@font-face {
+  font-family: 'Campton Bold';
+  src: url(/wp-content/themes/portfolio/assets/fonts/campton_bold.otf);
+}
+
+@font-face {
+  font-family: 'Campton Light';
+  src: url(/wp-content/themes/portfolio/assets/fonts/campton_light.otf);
+}
+
+/* line 18, grunt/dev/sass/partials/globals/_typography.scss */
+html {
+  font-size: 100%;
+}
+
+/* line 24, grunt/dev/sass/partials/globals/_typography.scss */
+body, input, textarea, select, button, p, a {
+  font-size: 16px;
+  font-size: 1em;
+  line-height: 24px;
+  color: #80807e;
+  font-family: "Campton Light", arial, sans-serif;
+}
+
+/* line 32, grunt/dev/sass/partials/globals/_typography.scss */
+h1, h3, h4, h5, h6, p {
+  margin-bottom: 13.33333px;
+}
+
+/* line 43, grunt/dev/sass/partials/globals/_typography.scss */
+h2, .h2, .beta {
+  font-size: 32px;
+  font-size: 2em;
+  line-height: 48px;
+  color: #212328;
+}
+
+/* line 50, grunt/dev/sass/partials/globals/_typography.scss */
+h3, .h3, .gamma {
+  font-size: 20px;
+  font-size: 1.25em;
+  line-height: 30px;
+}
+
+/* line 56, grunt/dev/sass/partials/globals/_typography.scss */
+h4, .h4, .delta {
+  font-size: 18px;
+  font-size: 1.125em;
+  line-height: 27px;
+}
+
+/* line 63, grunt/dev/sass/partials/globals/_typography.scss */
+h5, .h5, .epsilon,
+h6, .h6, .zeta {
+  font-size: 17px;
+  font-size: 1.0625em;
+  line-height: 25.5px;
+}
+
+/* line 69, grunt/dev/sass/partials/globals/_typography.scss */
+.mega {
+  font-size: 72px;
+  font-size: 4.5em;
+  line-height: 108px;
+}
+
+/* line 77, grunt/dev/sass/partials/globals/_typography.scss */
+small,
+.tiny {
+  font-size: 14px;
+  font-size: 0.875em;
+  line-height: 21px;
+}
+
+/* line 83, grunt/dev/sass/partials/globals/_typography.scss */
+strong {
+  font-weight: bold;
+}
+
+/* line 89, grunt/dev/sass/partials/globals/_typography.scss */
+em {
+  font-style: italic;
+}
+
+/* line 5, grunt/dev/sass/partials/modules/_app-layout.scss */
+.app-content {
+  *zoom: 1;
+}
+/* line 38, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.app-content:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* line 11, grunt/dev/sass/partials/modules/_app-layout.scss */
+.app-left {
+  padding: 60px;
+}
+@media (min-width: 840px) {
+  /* line 11, grunt/dev/sass/partials/modules/_app-layout.scss */
+  .app-left {
+    float: left;
+    width: 40%;
+  }
+}
+
+@media (min-width: 840px) {
+  /* line 24, grunt/dev/sass/partials/modules/_app-layout.scss */
+  .app-right {
+    float: right;
+    width: 60%;
+  }
+}
+
+/* line 5, grunt/dev/views/header/_header.scss */
+.app-header {
+  margin-bottom: 20px;
+}
+/* line 9, grunt/dev/views/header/_header.scss */
+.app-header .app-logo {
+  color: #212328;
+  font-family: "Campton Bold", arial, sans-serif;
+  font-size: 48px;
+  font-size: 3em;
+  line-height: 72px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+/* line 18, grunt/dev/views/header/_header.scss */
+.app-header .app-logo:hover {
+  text-decoration: none;
+}
+/* line 26, grunt/dev/views/header/_header.scss */
+.app-header .app-tagline {
+  font-size: 15px;
+  font-size: 0.9375em;
+  line-height: 22.5px;
+  display: inline-block;
+}
+/* line 31, grunt/dev/views/header/_header.scss */
+.app-header .app-tagline span {
+  line-height: 1;
+}
+
+/* line 5, grunt/dev/views/home/_home.scss */
+.about {
+  border-bottom: 1px solid #80807e;
+}
+
+/* line 20, grunt/dev/views/home/_home.scss */
+.list-animate.ng-enter,
+.list-animate.ng-leave,
+.list-animate.ng-move {
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  -o-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+}
+
+/* line 24, grunt/dev/views/home/_home.scss */
+.list-animate.ng-enter-stagger,
+.list-animate.ng-leave-stagger {
+  transition-delay: .1s;
+}
+
+/* line 29, grunt/dev/views/home/_home.scss */
+.list-animate.ng-enter,
+.list-animate.ng-move,
+.list-animate.ng-leave {
+  opacity: 0;
+}
+
+/* line 33, grunt/dev/views/home/_home.scss */
+.list-animate.ng-move.ng-move-active,
+.list-animate.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+/* line 36, grunt/dev/views/home/_home.scss */
+.list-animate.ng-leave {
+  opacity: 1;
+  overflow: hidden;
+}
+
+/* line 40, grunt/dev/views/home/_home.scss */
+.list-animate.ng-leave.ng-leave-active {
+  opacity: 0;
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* line 5, grunt/dev/views/article/_article.scss */
+.app-right {
+  padding: 60px;
+  background: #f4f4f4;
+}
+/* line 12, grunt/dev/views/article/_article.scss */
+.app-right ul li {
+  margin-bottom: 20px;
+}
+/* line 16, grunt/dev/views/article/_article.scss */
+.app-right ul li img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* line 33, grunt/dev/views/article/_article.scss */
+.article-animate.ng-enter,
+.article-animate.ng-leave,
+.article-animate.ng-move {
+  -webkit-transition: 0.3s linear all;
+  -moz-transition: 0.3s linear all;
+  -o-transition: 0.3s linear all;
+  transition: 0.3s linear all;
+}
+
+/* line 41, grunt/dev/views/article/_article.scss */
+.article-animate.ng-enter,
+.article-animate.ng-move {
+  opacity: 0;
+}
+
+/* line 45, grunt/dev/views/article/_article.scss */
+.article-animate.ng-move.ng-move-active,
+.article-animate.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+/* line 48, grunt/dev/views/article/_article.scss */
+.article-animate.ng-leave {
+  opacity: 1;
+  overflow: hidden;
+}
+
+/* line 52, grunt/dev/views/article/_article.scss */
+.article-animate.ng-leave.ng-leave-active {
+  opacity: 0;
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* line 5, grunt/dev/views/footer/_footer.scss */
+.app-footer {
+  border-top: 1px solid #80807e;
+  *zoom: 1;
+}
+/* line 38, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.app-footer:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+@media (min-width: 840px) {
+  /* line 10, grunt/dev/views/footer/_footer.scss */
+  .app-footer .footer-left {
+    float: left;
+    width: 40%;
+    background: #ededeb;
+    padding: 20px 60px;
+  }
+}
+/* line 25, grunt/dev/views/footer/_footer.scss */
+.app-footer .footer-right ul {
+  margin: 0;
+}
+@media (min-width: 840px) {
+  /* line 23, grunt/dev/views/footer/_footer.scss */
+  .app-footer .footer-right {
+    float: right;
+    width: 60%;
+    padding: 20px 60px;
+  }
+}
+
+/* line 6, grunt/dev/sass/misc/_helpers.scss */
+.block {
+  display: block;
+}
+
+/* line 12, grunt/dev/sass/misc/_helpers.scss */
+.inline {
+  display: inline-block;
+}
+
+/* line 18, grunt/dev/sass/misc/_helpers.scss */
+.pull-left {
+  float: left;
+}
+
+/* line 24, grunt/dev/sass/misc/_helpers.scss */
+.pull-right {
+  float: right;
+}
+
+/* line 30, grunt/dev/sass/misc/_helpers.scss */
+.text-center {
+  text-align: center;
+}
+
+/* line 36, grunt/dev/sass/misc/_helpers.scss */
+.text-right {
+  text-align: right;
+}
+
+/* line 42, grunt/dev/sass/misc/_helpers.scss */
+.browsehappy {
+  color: white;
+  background: red;
+  width: 100%;
+  text-align: center;
+}
+
+/* line 51, grunt/dev/sass/misc/_helpers.scss */
+.mb {
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* line 58, grunt/dev/sass/misc/_helpers.scss */
+.invisible {
+  visibility: hidden;
+}
+
+/* line 64, grunt/dev/sass/misc/_helpers.scss */
+.skip-link {
+  visibility: hidden;
+  position: absolute;
+  left: -999999px;
+  top: -99999px;
+}
+/* line 71, grunt/dev/sass/misc/_helpers.scss */
+.skip-link:focus {
+  position: static;
+  visibility: visible;
+}
+
+/* line 80, grunt/dev/sass/misc/_helpers.scss */
+.padding {
+  padding: 20px;
+}
+
+@media print {
+  /* line 13, grunt/dev/sass/misc/_print.scss */
+  *,
+  *:before,
+  *:after {
+    color: #000;
+    text-shadow: none;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  /* line 22, grunt/dev/sass/misc/_print.scss */
+  a {
+    text-decoration: underline;
+  }
+  /* line 27, grunt/dev/sass/misc/_print.scss */
+  a:visited {
+    text-decoration: underline;
+  }
+  /* line 35, grunt/dev/sass/misc/_print.scss */
+  a[href]:after {
+    content: " (" attr(href) ") ";
+    font-size: 0.8em;
+    font-weight: normal;
+  }
+  /* line 50, grunt/dev/sass/misc/_print.scss */
+  a[href^="#"]:after, a[href*="#"]:after, a[href^="javascript:;"]:after, a[href*="javascript:;"]:after {
+    content: '';
+  }
+
+  /* line 60, grunt/dev/sass/misc/_print.scss */
+  input[type="submit"] {
+    display: none;
+  }
+
+  /* line 78, grunt/dev/sass/misc/_print.scss */
+  footer {
+    display: none;
+  }
+}

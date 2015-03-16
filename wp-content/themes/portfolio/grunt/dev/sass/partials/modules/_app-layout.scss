@@ -1,0 +1,35 @@
+// ============================================================
+// LAYOUT 
+// ============================================================
+
+.app-content {
+
+	@include cf;
+
+}
+
+.app-left {
+
+	padding: $baseline*3;
+
+	@include breakpoint($tablet) {
+
+		float: left;
+		width: 40%;
+
+	}
+
+}
+
+.app-right {
+
+	@include breakpoint($tablet) {
+
+		float: right;
+		width: 60%;
+
+	}
+
+}
+
+// ============================================================

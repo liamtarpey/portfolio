@@ -1,0 +1,59 @@
+// ============================================================
+// Article 
+// ============================================================
+
+.app-right {
+
+  padding: $baseline*3;
+  background: darken($col-lightgrey, 1.6%);
+
+  ul {
+
+    li {
+
+      margin-bottom: $baseline;
+
+      img {
+
+        display: block;
+        width: 100%;
+        height: auto;
+
+      }
+
+    }
+
+  }
+
+}
+
+// Animations
+.article-animate.ng-enter,
+.article-animate.ng-leave,
+.article-animate.ng-move {
+  @include transition(.3s linear all);
+}
+// .article-animate.ng-enter-stagger,
+// .article-animate.ng-leave-stagger {
+//   transition-delay: 1s;
+// }
+.article-animate.ng-enter,
+.article-animate.ng-move {
+  opacity: 0;
+}
+.article-animate.ng-move.ng-move-active,
+.article-animate.ng-enter.ng-enter-active {
+   opacity: 1;
+}
+.article-animate.ng-leave {
+  opacity: 1;
+  overflow: hidden;
+}
+.article-animate.ng-leave.ng-leave-active {
+  opacity: 0;
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+// ============================================================

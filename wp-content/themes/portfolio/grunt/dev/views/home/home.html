@@ -1,0 +1,11 @@
+
+	<div class="app-left">
+		<div ng-include="'/wp-content/themes/portfolio/ng-views/header.html'"></div>
+		<p class="about">{{about[0].custom_fields.about[0]}}</p>
+		<ul class="projects">
+			<li ng-repeat="projectItem in projectItems" class="list-animate">
+				<a ng-href="{{projectItem.url}}" ng-bind-html="projectItem.title"></a>
+			</li>
+		</ul>
+	</div>
+
