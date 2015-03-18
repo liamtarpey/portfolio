@@ -24798,12 +24798,20 @@ var app = angular.module('portfolio', [
 
         .when('/', {
             templateUrl : path + 'home.html',
-            controller  : 'home'
+            controller  : 'home',
+            animations  : {
+                enter: 'enter-right',
+                leave: 'leave-left'
+            }
         })
 
         .when('/projects/:any', {
             templateUrl : path + 'project.html',
-            controller  : 'project'
+            controller  : 'project',
+            animations  : {
+                enter: 'enter-left',
+                leave: 'leave-right'
+            }
         })
 
         .otherwise({
@@ -24879,6 +24887,25 @@ var app = angular.module('portfolio', [
         	
         }
     }
+})
+.directive('viewAnimations', function ($route) {
+
+  return {
+
+    restrict: 'A',
+    link: function (scope, element) {
+
+    	var animations = $route.current.animations;
+      
+        if (!animations) return;
+
+        if (animations.enter) element.addClass(animations.enter);
+        if (animations.leave) element.addClass(animations.leave);
+
+    }
+
+  }
+
 })
 	
 	.factory('api', ['$http', '$q', function($http, $q) {

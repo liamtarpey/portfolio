@@ -2,15 +2,26 @@
 // LAYOUT 
 // ============================================================
 
+
+#page {
+
+	min-height: 100%;
+
+}
+
 .app-content {
 
-	@include cf;
+	.main-view {
+
+		@include cf;
+
+	}
 
 }
 
 .app-left {
 
-	padding: $baseline*3;
+	padding: 140px $baseline*3 $baseline*3 $baseline*3;
 
 	@include breakpoint($tablet) {
 

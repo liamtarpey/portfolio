@@ -5,6 +5,9 @@
 .app-header {
 
 	margin-bottom: $baseline;
+	position: absolute;
+	top: $baseline*3;
+	left: $baseline*3;
 
 	.app-logo {
 

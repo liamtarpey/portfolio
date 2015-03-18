@@ -2,17 +2,101 @@
 // Home 
 // ============================================================
 
-.about {
-  
-  border-bottom: 1px solid $col-grey;
+
+// Animations
+.enter-right.ng-enter,
+.enter-right.ng-leave,
+// .enter-right.ng-move, 
+.enter-left.ng-enter,
+.enter-left.ng-leave,
+// .enter-left.ng-move,
+.leave-right.ng-enter,
+.leave-right.ng-leave,
+// .leave-right.ng-move,
+.leave-left.ng-enter,
+.leave-left.ng-leave
+// .leave-left.ng-move {
+  {
+
+  transition: all 2s ease-in-out;
 
 }
 
-.projects {
-
-  
-
+// right
+.enter-right.ng-enter {
+  transform: translateX(-60%);
+  opacity: 0;
 }
+.enter-right.ng-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+}
+.leave-left.ng-leave {
+  transform: translateX(0);
+  opacity: 1;
+}
+.leave-left.ng-leave-active {
+  transform: translateX(-60%);
+  opacity: 0;
+}
+
+// left
+.enter-left.ng-enter {
+  transform: translateX(60%);
+  opacity: 0;
+}
+.enter-left.ng-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+}
+.leave-right.ng-leave {
+  transform: translateX(0);
+  opacity: 1;
+}
+.leave-right.ng-leave-active {
+  transform: translateX(60%);
+  opacity: 0;
+}
+
+// .enter-right.ng-enter,
+// // .enter-right.ng-move,
+// .enter-right.ng-leave {
+
+//   transform: translateX(-100%);
+
+// }
+
+// // .enter-right.ng-move.ng-move-active,
+// .enter-right.ng-enter.ng-enter-active {
+
+//   transform: translateX(0);
+
+// }
+
+// .enter-left.ng-enter,
+// .enter-left.ng-move,
+// .enter-left.ng-leave {
+
+//   transform: translateX(100%);
+
+// }
+// .enter-left.ng-move.ng-move-active,
+// .enter-left.ng-enter.ng-enter-active {
+
+//    transform: translateX(0);
+
+// }
+// .leave-right.ng-leave {
+//   opacity: 1;
+//   overflow: hidden;
+// }
+// .leave-right.ng-leave.ng-leave-active {
+//   opacity: 0;
+//   height: 0;
+// }
+
+
+
 
 // Animations
 .list-animate.ng-enter,
@@ -40,8 +124,8 @@
 .list-animate.ng-leave.ng-leave-active {
   opacity: 0;
   height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+  // padding-top: 0;
+  // padding-bottom: 0;
 }
 
 // ============================================================

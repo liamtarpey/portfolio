@@ -8,12 +8,20 @@
 
         .when('/', {
             templateUrl : path + 'home.html',
-            controller  : 'home'
+            controller  : 'home',
+            animations  : {
+                enter: 'enter-right',
+                leave: 'leave-left'
+            }
         })
 
         .when('/projects/:any', {
             templateUrl : path + 'project.html',
-            controller  : 'project'
+            controller  : 'project',
+            animations  : {
+                enter: 'enter-left',
+                leave: 'leave-right'
+            }
         })
 
         .otherwise({

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> ng-app="portfolio">
 
@@ -11,13 +12,17 @@
 
 	<body <?php body_class(); ?>>
 
+		<?php include('assets/svg/svg-defs.svg') ;?>
+
 		<div id="page" class="hfeed site">
 
 			<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
 
+			<div ng-include="'/wp-content/themes/portfolio/ng-views/header.html'"></div>
+
 			<main class="app-content" role="main">
 
-				<ng-view></ng-view>
+				<div ng-view view-animations class="main-view"></div>
 
 			</main>
 
