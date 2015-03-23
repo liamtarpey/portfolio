@@ -14,6 +14,12 @@ ul, ol {
 			display: inline-block;
 			margin-right: $baseline/2;
 
+			&:last-child {
+
+				margin-right: 0;
+
+			}
+
 		}
 
 	}

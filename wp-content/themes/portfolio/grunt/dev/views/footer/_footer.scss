@@ -5,7 +5,47 @@
 .app-footer {
 
 	border-top: 1px solid $col-grey;
+	// height: 85px;
 	@include cf;
+
+	// Icons
+	.icons {
+
+		margin: 0;
+
+		&.lang {
+
+			float: right;
+
+		}
+
+		li {
+
+			background-image: url(/wp-content/themes/portfolio/assets/img/sprite.png);
+			background-repeat: no-repeat;
+			height: 36px;
+			background-size: 338px 36px;
+
+			&.icon-angular { background-position: 0 0;      width: 34px; }
+			&.icon-sass    { background-position: -34px 0;  width: 49px; }
+			&.icon-css3    { background-position: -83px 0;  width: 39px; }
+			&.icon-html5   { background-position: -159px 0; width: 32px; }
+			&.icon-wp      { background-position: -122px 0; width: 37px; }
+			&.icon-github  { background-position: -192px 0; width: 37px; }
+			&.icon-twitter { background-position: -229px 0; width: 45px; }
+			&.icon-cv	   { background-position: -273px 0; width: 28px; }
+			&.icon-email   { background-position: -302px 0; width: 36px; }
+
+			a {
+
+				display: block;
+				height: 36px;
+
+			}
+
+		}
+
+	}
 
 	.footer-left {
 
@@ -13,8 +53,9 @@
 
 			float: left;
 			width: 40%;
-			background: $col-altgrey;
+			background: darken($col-lightgrey, 1.6%);
 			padding: $baseline $baseline*3;
+			height: 85px;
 
 		}
 
@@ -22,11 +63,8 @@
 
 	.footer-right {
 
-		ul {
-
-			margin: 0;
-
-		}
+		@include cf;
+		height: 85px;
 
 		@include breakpoint($tablet) {
 

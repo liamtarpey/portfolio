@@ -13,8 +13,6 @@
 
 	<body <?php body_class(); ?>>
 
-		<?php include('assets/svg/svg-defs.svg') ;?>
-
 		<div id="page" class="hfeed site">
 
 			<a class="skip-link screen-reader-text" href="#content">Skip to content</a>

@@ -247,7 +247,11 @@ ul.inline-list li, ol.inline-list li {
   display: inline-block;
   margin-right: 10px;
 }
-/* line 23, grunt/dev/sass/partials/globals/_lists.scss */
+/* line 17, grunt/dev/sass/partials/globals/_lists.scss */
+ul.inline-list li:last-child, ol.inline-list li:last-child {
+  margin-right: 0;
+}
+/* line 29, grunt/dev/sass/partials/globals/_lists.scss */
 ul.stacked-list li, ol.stacked-list li {
   display: block;
   margin-bottom: 10px;
@@ -529,23 +533,23 @@ em {
   height: 0;
 }
 
-/* line 5, grunt/dev/views/article/_article.scss */
+/* line 5, grunt/dev/views/project/_project.scss */
 .app-right {
   padding: 60px;
   background: #f4f4f4;
 }
-/* line 12, grunt/dev/views/article/_article.scss */
+/* line 12, grunt/dev/views/project/_project.scss */
 .app-right ul li {
   margin-bottom: 20px;
 }
-/* line 16, grunt/dev/views/article/_article.scss */
+/* line 16, grunt/dev/views/project/_project.scss */
 .app-right ul li img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-/* line 33, grunt/dev/views/article/_article.scss */
+/* line 33, grunt/dev/views/project/_project.scss */
 .article-animate.ng-enter,
 .article-animate.ng-leave,
 .article-animate.ng-move {
@@ -555,25 +559,25 @@ em {
   transition: 0.3s linear all;
 }
 
-/* line 41, grunt/dev/views/article/_article.scss */
+/* line 41, grunt/dev/views/project/_project.scss */
 .article-animate.ng-enter,
 .article-animate.ng-move {
   opacity: 0;
 }
 
-/* line 45, grunt/dev/views/article/_article.scss */
+/* line 45, grunt/dev/views/project/_project.scss */
 .article-animate.ng-move.ng-move-active,
 .article-animate.ng-enter.ng-enter-active {
   opacity: 1;
 }
 
-/* line 48, grunt/dev/views/article/_article.scss */
+/* line 48, grunt/dev/views/project/_project.scss */
 .article-animate.ng-leave {
   opacity: 1;
   overflow: hidden;
 }
 
-/* line 52, grunt/dev/views/article/_article.scss */
+/* line 52, grunt/dev/views/project/_project.scss */
 .article-animate.ng-leave.ng-leave-active {
   opacity: 0;
   height: 0;
@@ -592,21 +596,94 @@ em {
   display: table;
   clear: both;
 }
+/* line 12, grunt/dev/views/footer/_footer.scss */
+.app-footer .icons {
+  margin: 0;
+}
+/* line 16, grunt/dev/views/footer/_footer.scss */
+.app-footer .icons.lang {
+  float: right;
+}
+/* line 22, grunt/dev/views/footer/_footer.scss */
+.app-footer .icons li {
+  background-image: url(/wp-content/themes/portfolio/assets/img/sprite.png);
+  background-repeat: no-repeat;
+  height: 36px;
+  background-size: 338px 36px;
+}
+/* line 29, grunt/dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-angular {
+  background-position: 0 0;
+  width: 34px;
+}
+/* line 30, grunt/dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-sass {
+  background-position: -34px 0;
+  width: 49px;
+}
+/* line 31, grunt/dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-css3 {
+  background-position: -83px 0;
+  width: 39px;
+}
+/* line 32, grunt/dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-html5 {
+  background-position: -159px 0;
+  width: 32px;
+}
+/* line 33, grunt/dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-wp {
+  background-position: -122px 0;
+  width: 37px;
+}
+/* line 34, grunt/dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-github {
+  background-position: -192px 0;
+  width: 37px;
+}
+/* line 35, grunt/dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-twitter {
+  background-position: -229px 0;
+  width: 45px;
+}
+/* line 36, grunt/dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-cv {
+  background-position: -273px 0;
+  width: 28px;
+}
+/* line 37, grunt/dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-email {
+  background-position: -302px 0;
+  width: 36px;
+}
+/* line 39, grunt/dev/views/footer/_footer.scss */
+.app-footer .icons li a {
+  display: block;
+  height: 36px;
+}
 @media (min-width: 840px) {
-  /* line 10, grunt/dev/views/footer/_footer.scss */
+  /* line 50, grunt/dev/views/footer/_footer.scss */
   .app-footer .footer-left {
     float: left;
     width: 40%;
-    background: #ededeb;
+    background: #f4f4f4;
     padding: 20px 60px;
+    height: 85px;
   }
 }
-/* line 25, grunt/dev/views/footer/_footer.scss */
-.app-footer .footer-right ul {
-  margin: 0;
+/* line 64, grunt/dev/views/footer/_footer.scss */
+.app-footer .footer-right {
+  *zoom: 1;
+  height: 85px;
+}
+/* line 38, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.app-footer .footer-right:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 @media (min-width: 840px) {
-  /* line 23, grunt/dev/views/footer/_footer.scss */
+  /* line 64, grunt/dev/views/footer/_footer.scss */
   .app-footer .footer-right {
     float: right;
     width: 60%;

@@ -24845,6 +24845,7 @@ var app = angular.module('portfolio', [
 		api.getData($scope.aboutUrl).then(function (data) {
 
 			$scope.about = data.posts
+			console.log($scope.about)
 
 		})
 
