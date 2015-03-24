@@ -71,6 +71,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 /* line 23, grunt/dev/sass/partials/globals/_core.scss */
+::selection {
+  background: #ED326A;
+  color: white;
+}
+
+/* line 30, grunt/dev/sass/partials/globals/_core.scss */
 html, body {
   width: 100%;
   height: 100%;
@@ -78,13 +84,13 @@ html, body {
   color: #212328;
 }
 
-/* line 32, grunt/dev/sass/partials/globals/_core.scss */
+/* line 39, grunt/dev/sass/partials/globals/_core.scss */
 body {
   background: #f8f8f8;
   position: relative;
 }
 
-/* line 39, grunt/dev/sass/partials/globals/_core.scss */
+/* line 46, grunt/dev/sass/partials/globals/_core.scss */
 .wrapper {
   width: 100%;
   max-width: 1600px;
@@ -232,15 +238,24 @@ input[type="submit"]:hover {
 a {
   text-decoration: none;
   color: #2b78c4;
+  border-bottom: 2px solid transparent;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
-/* line 27, grunt/dev/sass/partials/globals/_links.scss */
+/* line 21, grunt/dev/sass/partials/globals/_links.scss */
+a:hover {
+  border-bottom: 2px solid #80807e;
+}
+/* line 30, grunt/dev/sass/partials/globals/_links.scss */
 a.no-td:hover {
   text-decoration: none;
 }
 
 /* line 6, grunt/dev/sass/partials/globals/_lists.scss */
 ul, ol {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 /* line 12, grunt/dev/sass/partials/globals/_lists.scss */
 ul.inline-list li, ol.inline-list li {
@@ -304,7 +319,7 @@ body, input, textarea, select, button, p, a {
 }
 
 /* line 32, grunt/dev/sass/partials/globals/_typography.scss */
-h1, h3, h4, h5, h6, p {
+h1, h4, h5, h6, p {
   margin-bottom: 13.33333px;
 }
 
@@ -321,16 +336,17 @@ h3, .h3, .gamma {
   font-size: 20px;
   font-size: 1.25em;
   line-height: 30px;
+  color: #212328;
 }
 
-/* line 56, grunt/dev/sass/partials/globals/_typography.scss */
+/* line 57, grunt/dev/sass/partials/globals/_typography.scss */
 h4, .h4, .delta {
   font-size: 18px;
   font-size: 1.125em;
   line-height: 27px;
 }
 
-/* line 63, grunt/dev/sass/partials/globals/_typography.scss */
+/* line 64, grunt/dev/sass/partials/globals/_typography.scss */
 h5, .h5, .epsilon,
 h6, .h6, .zeta {
   font-size: 17px;
@@ -338,14 +354,14 @@ h6, .h6, .zeta {
   line-height: 25.5px;
 }
 
-/* line 69, grunt/dev/sass/partials/globals/_typography.scss */
+/* line 70, grunt/dev/sass/partials/globals/_typography.scss */
 .mega {
   font-size: 72px;
   font-size: 4.5em;
   line-height: 108px;
 }
 
-/* line 77, grunt/dev/sass/partials/globals/_typography.scss */
+/* line 78, grunt/dev/sass/partials/globals/_typography.scss */
 small,
 .tiny {
   font-size: 14px;
@@ -353,12 +369,12 @@ small,
   line-height: 21px;
 }
 
-/* line 83, grunt/dev/sass/partials/globals/_typography.scss */
+/* line 84, grunt/dev/sass/partials/globals/_typography.scss */
 strong {
   font-weight: bold;
 }
 
-/* line 89, grunt/dev/sass/partials/globals/_typography.scss */
+/* line 90, grunt/dev/sass/partials/globals/_typography.scss */
 em {
   font-style: italic;
 }
@@ -432,7 +448,12 @@ em {
   line-height: 1;
 }
 
-/* line 19, grunt/dev/views/home/_home.scss */
+/* line 5, grunt/dev/views/home/_home.scss */
+.about {
+  margin-bottom: 20px;
+}
+
+/* line 29, grunt/dev/views/home/_home.scss */
 .enter-right.ng-enter,
 .enter-right.ng-leave,
 .enter-left.ng-enter,
@@ -444,55 +465,55 @@ em {
   transition: all 2s ease-in-out;
 }
 
-/* line 26, grunt/dev/views/home/_home.scss */
+/* line 36, grunt/dev/views/home/_home.scss */
 .enter-right.ng-enter {
   transform: translateX(-60%);
   opacity: 0;
 }
 
-/* line 30, grunt/dev/views/home/_home.scss */
+/* line 40, grunt/dev/views/home/_home.scss */
 .enter-right.ng-enter-active {
   transform: translateX(0);
   opacity: 1;
 }
 
-/* line 34, grunt/dev/views/home/_home.scss */
+/* line 44, grunt/dev/views/home/_home.scss */
 .leave-left.ng-leave {
   transform: translateX(0);
   opacity: 1;
 }
 
-/* line 38, grunt/dev/views/home/_home.scss */
+/* line 48, grunt/dev/views/home/_home.scss */
 .leave-left.ng-leave-active {
   transform: translateX(-60%);
   opacity: 0;
 }
 
-/* line 44, grunt/dev/views/home/_home.scss */
+/* line 54, grunt/dev/views/home/_home.scss */
 .enter-left.ng-enter {
   transform: translateX(60%);
   opacity: 0;
 }
 
-/* line 48, grunt/dev/views/home/_home.scss */
+/* line 58, grunt/dev/views/home/_home.scss */
 .enter-left.ng-enter-active {
   transform: translateX(0);
   opacity: 1;
 }
 
-/* line 52, grunt/dev/views/home/_home.scss */
+/* line 62, grunt/dev/views/home/_home.scss */
 .leave-right.ng-leave {
   transform: translateX(0);
   opacity: 1;
 }
 
-/* line 56, grunt/dev/views/home/_home.scss */
+/* line 66, grunt/dev/views/home/_home.scss */
 .leave-right.ng-leave-active {
   transform: translateX(60%);
   opacity: 0;
 }
 
-/* line 104, grunt/dev/views/home/_home.scss */
+/* line 114, grunt/dev/views/home/_home.scss */
 .list-animate.ng-enter,
 .list-animate.ng-leave,
 .list-animate.ng-move {
@@ -502,32 +523,32 @@ em {
   transition: 0.1s linear all;
 }
 
-/* line 108, grunt/dev/views/home/_home.scss */
+/* line 118, grunt/dev/views/home/_home.scss */
 .list-animate.ng-enter-stagger,
 .list-animate.ng-leave-stagger {
   transition-delay: .1s;
 }
 
-/* line 113, grunt/dev/views/home/_home.scss */
+/* line 123, grunt/dev/views/home/_home.scss */
 .list-animate.ng-enter,
 .list-animate.ng-move,
 .list-animate.ng-leave {
   opacity: 0;
 }
 
-/* line 117, grunt/dev/views/home/_home.scss */
+/* line 127, grunt/dev/views/home/_home.scss */
 .list-animate.ng-move.ng-move-active,
 .list-animate.ng-enter.ng-enter-active {
   opacity: 1;
 }
 
-/* line 120, grunt/dev/views/home/_home.scss */
+/* line 130, grunt/dev/views/home/_home.scss */
 .list-animate.ng-leave {
   opacity: 1;
   overflow: hidden;
 }
 
-/* line 124, grunt/dev/views/home/_home.scss */
+/* line 134, grunt/dev/views/home/_home.scss */
 .list-animate.ng-leave.ng-leave-active {
   opacity: 0;
   height: 0;
@@ -633,8 +654,8 @@ em {
 }
 /* line 33, grunt/dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-wp {
-  background-position: -122px 0;
-  width: 37px;
+  background-position: -123px 0;
+  width: 36px;
 }
 /* line 34, grunt/dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-github {

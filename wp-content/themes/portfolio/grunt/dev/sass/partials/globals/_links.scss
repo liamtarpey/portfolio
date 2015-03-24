@@ -11,6 +11,8 @@ a {
 
 	text-decoration: none;
 	color: $linkColor;
+	border-bottom: 2px solid transparent;
+	@include transition(all .3s ease-in-out);
 
 	&:link {}
 
@@ -19,6 +21,7 @@ a {
 	&:hover {
 
 		// text-decoration: underline;
+		border-bottom: 2px solid $col-grey;
 
 	}
 

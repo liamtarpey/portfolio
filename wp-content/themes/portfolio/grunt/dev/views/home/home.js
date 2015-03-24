@@ -4,6 +4,7 @@
 
 		$scope.projectUrl  = document.location.href + "?json=1&post_type=projects"
 		$scope.aboutUrl    = document.location.href + "?json=1&post_type=about"
+		$scope.languageUrl = document.location.href + '?json=1&post_type=languages'
 		$scope.contactUrl  = document.location.href + "?json=1&post_type=contact"
 
 
@@ -22,7 +23,17 @@
 		api.getData($scope.aboutUrl).then(function (data) {
 
 			$scope.about = data.posts
-			console.log($scope.about)
+			//console.log($scope.about)
+
+		})
+
+		// ======
+		// Languages 
+		// ======
+		api.getData($scope.languageUrl).then(function (data) {
+
+			$scope.languages = data.posts
+			console.log($scope.languages)
 
 		})
 
@@ -32,7 +43,7 @@
 		api.getData($scope.contactUrl).then(function (data) {
 
 			$scope.contact = data.posts
-			console.log($scope.contact)
+			//console.log($scope.contact)
 
 		})
 

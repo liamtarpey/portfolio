@@ -20,6 +20,13 @@ $includeBorderBox: true;
 
 }
 
+::selection {
+
+	background: #ED326A;
+	color: $col-white;
+
+}
+
 html, body {
 
 	width: 100%;

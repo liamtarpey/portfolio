@@ -29,7 +29,7 @@ body, input, textarea, select, button, p, a {
 
 }
 
-h1, h3, h4, h5, h6, p {
+h1, h4, h5, h6, p {
 
       margin-bottom: $baseline/1.5;
 
@@ -50,6 +50,7 @@ h2, .h2, .beta {
 h3, .h3, .gamma {
 
     @include font(20);
+    color: $col-black;
 
 }
 
