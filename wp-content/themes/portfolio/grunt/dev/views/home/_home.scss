@@ -10,23 +10,19 @@
 
 .languages {
 
+
 }
 
 
-// Animations
+// Animations swipe articles in/out
 .enter-right.ng-enter,
 .enter-right.ng-leave,
-// .enter-right.ng-move, 
 .enter-left.ng-enter,
 .enter-left.ng-leave,
-// .enter-left.ng-move,
 .leave-right.ng-enter,
 .leave-right.ng-leave,
-// .leave-right.ng-move,
 .leave-left.ng-enter,
-.leave-left.ng-leave
-// .leave-left.ng-move {
-  {
+.leave-left.ng-leave {
 
   transition: all 2s ease-in-out;
 
@@ -68,47 +64,8 @@
   opacity: 0;
 }
 
-// .enter-right.ng-enter,
-// // .enter-right.ng-move,
-// .enter-right.ng-leave {
 
-//   transform: translateX(-100%);
-
-// }
-
-// // .enter-right.ng-move.ng-move-active,
-// .enter-right.ng-enter.ng-enter-active {
-
-//   transform: translateX(0);
-
-// }
-
-// .enter-left.ng-enter,
-// .enter-left.ng-move,
-// .enter-left.ng-leave {
-
-//   transform: translateX(100%);
-
-// }
-// .enter-left.ng-move.ng-move-active,
-// .enter-left.ng-enter.ng-enter-active {
-
-//    transform: translateX(0);
-
-// }
-// .leave-right.ng-leave {
-//   opacity: 1;
-//   overflow: hidden;
-// }
-// .leave-right.ng-leave.ng-leave-active {
-//   opacity: 0;
-//   height: 0;
-// }
-
-
-
-
-// Animations
+// Animations - display projects slowly
 .list-animate.ng-enter,
 .list-animate.ng-leave,
 .list-animate.ng-move {
@@ -134,8 +91,6 @@
 .list-animate.ng-leave.ng-leave-active {
   opacity: 0;
   height: 0;
-  // padding-top: 0;
-  // padding-bottom: 0;
 }
 
 // ============================================================

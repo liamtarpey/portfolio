@@ -1,11 +1,9 @@
 
 	<div class="app-left">
-		<div class="article-animate">
-			<h2 ng-bind-html="project.custom_fields.title"></h2>
-			<!-- <h3 ng-bind-html="project.company"></h3> -->
-			<p ng-bind-html="project.custom_fields.description"></p>
-			<div ng-bind-html="project.custom_fields.languages[0]"></div>
-		</div>
+		<h2 ng-bind-html="project.custom_fields.title"></h2>
+		<!-- <h3 ng-bind-html="project.company"></h3> -->
+		<p ng-bind-html="project.custom_fields.description"></p>
+		<div ng-bind-html="project.custom_fields.languages[0]"></div>
 	</div>
 
 	<div class="app-right" ng-show="project.attachments.length">
