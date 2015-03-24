@@ -1,5 +1,3 @@
-# README #
-
 ## Personal portfolio ##
 
 * AngularJS SPA
