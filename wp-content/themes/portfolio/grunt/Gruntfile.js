@@ -13,11 +13,12 @@ module.exports = function(grunt) {
                     'dev/js/libs/angular-sanitize.js',
                     'dev/js/libs/modernizr.js',
                     'dev/js/app.js',
+                    'dev/js/factories/*.js',
                     'dev/js/config/*.js',
                     'dev/js/controllers/*.js',
                     'dev/views/**/*.js',
-                    'dev/js/directives/*.js',
-                    'dev/js/factories/*.js'
+                    'dev/js/directives/*.js'
+                    
                 ],
                 dest: '../assets/js/main.js',
             }

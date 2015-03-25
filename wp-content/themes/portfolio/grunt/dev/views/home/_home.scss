@@ -13,6 +13,9 @@
 
 }
 
+// .projects {
+// }
+
 
 // Animations swipe articles in/out
 .enter-right.ng-enter,
@@ -24,73 +27,87 @@
 .leave-left.ng-enter,
 .leave-left.ng-leave {
 
-  transition: all 2s ease-in-out;
+  transition: all .6s ease-in-out;
 
 }
 
 // right
 .enter-right.ng-enter {
-  transform: translateX(-60%);
+  //transform: translateX(-100%);
+  transform: scale(.7);
   opacity: 0;
 }
 .enter-right.ng-enter-active {
-  transform: translateX(0);
+  //transform: translateX(0);
+  transform: scale(1);
   opacity: 1;
 }
+.leave-right.ng-leave {
+  // transform: translateX(0);
+  transform: scale(1);
+  opacity: 1;
+}
+.leave-right.ng-leave-active {
+  // transform: translateX(100%);
+  transform: scale(.7);
+  opacity: 0;
+}
+
+
+
+
 .leave-left.ng-leave {
-  transform: translateX(0);
+  // transform: translateX(0);
+  transform: scale(1);
   opacity: 1;
 }
 .leave-left.ng-leave-active {
-  transform: translateX(-60%);
+  // transform: translateX(-100%);
+  transform: scale(.7);
   opacity: 0;
 }
 
 // left
 .enter-left.ng-enter {
-  transform: translateX(60%);
+  // transform: translateX(100%);
+  transform: scale(.7);
   opacity: 0;
 }
 .enter-left.ng-enter-active {
-  transform: translateX(0);
+  // transform: translateX(0);
+  transform: scale(1);
   opacity: 1;
 }
-.leave-right.ng-leave {
-  transform: translateX(0);
-  opacity: 1;
-}
-.leave-right.ng-leave-active {
-  transform: translateX(60%);
-  opacity: 0;
-}
+
+
 
 
 // Animations - display projects slowly
-.list-animate.ng-enter,
-.list-animate.ng-leave,
-.list-animate.ng-move {
-  @include transition(.1s linear all);
-}
-.list-animate.ng-enter-stagger,
-.list-animate.ng-leave-stagger {
-	transition-delay: .1s;
-}
-.list-animate.ng-enter,
-.list-animate.ng-move,
-.list-animate.ng-leave {
-  opacity: 0;
-}
-.list-animate.ng-move.ng-move-active,
-.list-animate.ng-enter.ng-enter-active {
-   opacity: 1;
-}
-.list-animate.ng-leave {
-  opacity: 1;
-  overflow: hidden;
-}
-.list-animate.ng-leave.ng-leave-active {
-  opacity: 0;
-  height: 0;
-}
+// .list-animate.ng-enter,
+// .list-animate.ng-leave,
+// .list-animate.ng-move {
+//   @include transition(.1s linear all);
+// }
+// .list-animate.ng-enter-stagger,
+// .list-animate.ng-leave-stagger {
+// 	transition-delay: .1s;
+// }
+// .list-animate.ng-enter,
+// .list-animate.ng-move,
+// .list-animate.ng-leave {
+//   opacity: 0;
+// }
+// .list-animate.ng-move.ng-move-active,
+// .list-animate.ng-enter.ng-enter-active {
+//    opacity: 1;
+// }
+// .list-animate.ng-leave {
+//   opacity: 1;
+//   overflow: hidden;
+// }
+// .list-animate.ng-leave.ng-leave-active {
+//   opacity: 0;
+//   height: 0;
+// }
 
 // ============================================================

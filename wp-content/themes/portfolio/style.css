@@ -453,7 +453,7 @@ em {
   margin-bottom: 20px;
 }
 
-/* line 25, grunt/dev/views/home/_home.scss */
+/* line 28, grunt/dev/views/home/_home.scss */
 .enter-right.ng-enter,
 .enter-right.ng-leave,
 .enter-left.ng-enter,
@@ -462,96 +462,55 @@ em {
 .leave-right.ng-leave,
 .leave-left.ng-enter,
 .leave-left.ng-leave {
-  transition: all 2s ease-in-out;
+  transition: all .6s ease-in-out;
 }
 
-/* line 32, grunt/dev/views/home/_home.scss */
+/* line 35, grunt/dev/views/home/_home.scss */
 .enter-right.ng-enter {
-  transform: translateX(-60%);
+  transform: scale(0.7);
   opacity: 0;
-}
-
-/* line 36, grunt/dev/views/home/_home.scss */
-.enter-right.ng-enter-active {
-  transform: translateX(0);
-  opacity: 1;
 }
 
 /* line 40, grunt/dev/views/home/_home.scss */
-.leave-left.ng-leave {
-  transform: translateX(0);
+.enter-right.ng-enter-active {
+  transform: scale(1);
   opacity: 1;
 }
 
-/* line 44, grunt/dev/views/home/_home.scss */
-.leave-left.ng-leave-active {
-  transform: translateX(-60%);
-  opacity: 0;
+/* line 45, grunt/dev/views/home/_home.scss */
+.leave-right.ng-leave {
+  transform: scale(1);
+  opacity: 1;
 }
 
 /* line 50, grunt/dev/views/home/_home.scss */
-.enter-left.ng-enter {
-  transform: translateX(60%);
+.leave-right.ng-leave-active {
+  transform: scale(0.7);
   opacity: 0;
 }
 
-/* line 54, grunt/dev/views/home/_home.scss */
-.enter-left.ng-enter-active {
-  transform: translateX(0);
+/* line 59, grunt/dev/views/home/_home.scss */
+.leave-left.ng-leave {
+  transform: scale(1);
   opacity: 1;
 }
 
-/* line 58, grunt/dev/views/home/_home.scss */
-.leave-right.ng-leave {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-/* line 62, grunt/dev/views/home/_home.scss */
-.leave-right.ng-leave-active {
-  transform: translateX(60%);
+/* line 64, grunt/dev/views/home/_home.scss */
+.leave-left.ng-leave-active {
+  transform: scale(0.7);
   opacity: 0;
 }
 
 /* line 71, grunt/dev/views/home/_home.scss */
-.list-animate.ng-enter,
-.list-animate.ng-leave,
-.list-animate.ng-move {
-  -webkit-transition: 0.1s linear all;
-  -moz-transition: 0.1s linear all;
-  -o-transition: 0.1s linear all;
-  transition: 0.1s linear all;
-}
-
-/* line 75, grunt/dev/views/home/_home.scss */
-.list-animate.ng-enter-stagger,
-.list-animate.ng-leave-stagger {
-  transition-delay: .1s;
-}
-
-/* line 80, grunt/dev/views/home/_home.scss */
-.list-animate.ng-enter,
-.list-animate.ng-move,
-.list-animate.ng-leave {
+.enter-left.ng-enter {
+  transform: scale(0.7);
   opacity: 0;
 }
 
-/* line 84, grunt/dev/views/home/_home.scss */
-.list-animate.ng-move.ng-move-active,
-.list-animate.ng-enter.ng-enter-active {
+/* line 76, grunt/dev/views/home/_home.scss */
+.enter-left.ng-enter-active {
+  transform: scale(1);
   opacity: 1;
-}
-
-/* line 87, grunt/dev/views/home/_home.scss */
-.list-animate.ng-leave {
-  opacity: 1;
-  overflow: hidden;
-}
-
-/* line 91, grunt/dev/views/home/_home.scss */
-.list-animate.ng-leave.ng-leave-active {
-  opacity: 0;
-  height: 0;
 }
 
 /* line 5, grunt/dev/views/project/_project.scss */

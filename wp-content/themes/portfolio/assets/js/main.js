@@ -24788,6 +24788,43 @@ var app = angular.module('portfolio', [
 ])
 
 
+	
+	.factory('api', ['$http', '$q', function($http, $q) {
+
+	    return {
+
+	    	// API call to retreive data
+	    	getData	: function(url) {
+
+	    		var defer = $q.defer(),
+	    			prefix = this.prefix(url);
+
+				$http.get(url)
+
+				.success(function(data){
+
+					defer.resolve(data);
+
+		        })
+
+		        .error(function() {
+		        	console.log("error with request")
+		        })
+
+		        return defer.promise 
+
+	    	},
+
+	    	prefix : function(path){
+
+	    		var prefix = (path.indexOf('?') > -1) ? "&" : "?";
+	    		return prefix
+
+	    	}
+
+	    }
+	    
+	}])
 
 
 	.config(function($routeProvider, $locationProvider) {
@@ -24821,6 +24858,30 @@ var app = angular.module('portfolio', [
         $locationProvider.html5Mode(true);
 
 	})
+	
+	.controller('loading', ['$scope', function ($scope) {
+
+		$scope.isLoading = false
+		console.log($scope.isLoading)
+
+		$scope.$on('$routeChangeStart', function(event, next, current) {
+  			
+			$scope.isLoading = true
+			console.log("start: ", $scope.isLoading)
+
+		});
+
+		$scope.$on('$routeChangeSuccess', function(event, next, current) {
+
+			$scope.isLoading = false
+			console.log("succes: ", $scope.isLoading)
+
+		});
+
+	}])
+
+
+
 	
 	.controller('home', ['$scope', '$http', '$sce', '$timeout', 'api', function ($scope, $http, $sce, $timeout, api) {
 
@@ -24911,6 +24972,60 @@ var app = angular.module('portfolio', [
         }
     }
 })
+
+	.directive('loading', ['$http', function($http) {
+
+		return {
+
+			restrict: 'A',
+
+			link: function(scope, ele, attr) {
+
+				scope.isLoading = function() {
+
+					return $http.pendingRequests.length > 0;
+
+				};
+
+				scope.isntLoading = function() {
+
+					return $http.pendingRequests.length == 0;
+
+				}
+
+				scope.$watch(scope.isLoading, function(v) {
+
+					if(v) {
+
+						ele.show();
+
+					} else {
+
+						ele.hide();
+
+					}
+
+				})
+
+				scope.$watch(scope.isntLoading, function(x) {
+
+					if(x) {
+
+						ele.hide();
+
+					} else {
+
+						ele.show();
+
+					}
+
+				})
+
+			}
+
+		}
+
+	}])
 .directive('viewAnimations', function ($route) {
 
   return {
@@ -24930,40 +25045,3 @@ var app = angular.module('portfolio', [
   }
 
 })
-	
-	.factory('api', ['$http', '$q', function($http, $q) {
-
-	    return {
-
-	    	// API call to retreive data
-	    	getData	: function(url) {
-
-	    		var defer = $q.defer(),
-	    			prefix = this.prefix(url);
-
-				$http.get(url)
-
-				.success(function(data){
-
-					defer.resolve(data);
-
-		        })
-
-		        .error(function() {
-		        	console.log("error with request")
-		        })
-
-		        return defer.promise 
-
-	    	},
-
-	    	prefix : function(path){
-
-	    		var prefix = (path.indexOf('?') > -1) ? "&" : "?";
-	    		return prefix
-
-	    	}
-
-	    }
-	    
-	}])

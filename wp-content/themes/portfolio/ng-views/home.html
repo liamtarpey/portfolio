@@ -1,20 +1,21 @@
 
 	<div class="app-left">
-
 		<!-- About -->
 		<div class="about" ng-bind-html="about[0].custom_fields.about[0]"></div>
 		
 		<!-- Skills -->
 		<h3>Skills</h3>
 		<div class="languages" ng-bind-html="languages[0].content"></div>
+	</div>
 
-		<!-- Projects -->
-		<h3>Projects</h3>
-		<ul class="projects">
-			<li ng-repeat="projectItem in projectItems" class="list-animate">
-				<a ng-href="{{projectItem.url}}" ng-bind-html="projectItem.title"></a>
-			</li>
-		</ul>
-
+	<div class="app-right">
+		<div class="projects">
+			<h3>Projects</h3>
+			<ul>
+				<li ng-repeat="projectItem in projectItems" class="list-animate">
+					<a ng-href="{{projectItem.url}}" ng-bind-html="projectItem.title"></a>
+				</li>
+			</ul>
+		</div>
 	</div>
 

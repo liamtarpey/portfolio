@@ -11,11 +11,13 @@
 		<?php wp_head(); ?>
 	</head>
 
-	<body <?php body_class(); ?>>
+	<body <?php body_class(); ?> ng-controller="loading">
 
 		<div id="page" class="hfeed site">
 
 			<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+			<p>TEST</p>
 
 			<div ng-include="'/wp-content/themes/portfolio/ng-views/header.html'"></div>
 
