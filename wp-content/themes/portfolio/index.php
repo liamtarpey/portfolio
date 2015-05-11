@@ -17,8 +17,6 @@
 
 			<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
 
-			<p>TEST</p>
-
 			<div ng-include="'/wp-content/themes/portfolio/ng-views/header.html'"></div>
 
 			<main class="app-content" role="main">
