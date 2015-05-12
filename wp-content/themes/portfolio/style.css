@@ -251,9 +251,9 @@ a {
 }
 /* line 21, grunt/dev/sass/partials/globals/_links.scss */
 a:hover {
-  border-bottom: 2px solid #80807e;
+  text-decoration: none;
 }
-/* line 30, grunt/dev/sass/partials/globals/_links.scss */
+/* line 28, grunt/dev/sass/partials/globals/_links.scss */
 a.no-td:hover {
   text-decoration: none;
 }
@@ -398,6 +398,7 @@ em {
 /* line 15, grunt/dev/sass/partials/modules/_app-layout.scss */
 .app-left {
   padding: 140px 60px 60px 60px;
+  position: relative;
 }
 @media (min-width: 840px) {
   /* line 15, grunt/dev/sass/partials/modules/_app-layout.scss */
@@ -407,8 +408,12 @@ em {
   }
 }
 
+/* line 27, grunt/dev/sass/partials/modules/_app-layout.scss */
+.app-right {
+  position: relative;
+}
 @media (min-width: 840px) {
-  /* line 28, grunt/dev/sass/partials/modules/_app-layout.scss */
+  /* line 27, grunt/dev/sass/partials/modules/_app-layout.scss */
   .app-right {
     float: right;
     width: 60%;
@@ -421,8 +426,9 @@ em {
   position: absolute;
   top: 60px;
   left: 60px;
+  z-index: 2;
 }
-/* line 12, grunt/dev/views/header/_header.scss */
+/* line 13, grunt/dev/views/header/_header.scss */
 .app-header .app-logo {
   color: #212328;
   font-family: "Campton Bold", arial, sans-serif;
@@ -436,14 +442,14 @@ em {
 .app-header .app-logo:hover {
   text-decoration: none;
 }
-/* line 29, grunt/dev/views/header/_header.scss */
+/* line 27, grunt/dev/views/header/_header.scss */
 .app-header .app-tagline {
   font-size: 15px;
   font-size: 0.9375em;
   line-height: 22.5px;
   display: inline-block;
 }
-/* line 34, grunt/dev/views/header/_header.scss */
+/* line 32, grunt/dev/views/header/_header.scss */
 .app-header .app-tagline span {
   line-height: 1;
 }
@@ -453,7 +459,12 @@ em {
   margin-bottom: 20px;
 }
 
-/* line 28, grunt/dev/views/home/_home.scss */
+/* line 11, grunt/dev/views/home/_home.scss */
+.skills {
+  padding-top: 80px;
+}
+
+/* line 27, grunt/dev/views/home/_home.scss */
 .enter-right.ng-enter,
 .enter-right.ng-leave,
 .enter-left.ng-enter,
@@ -465,49 +476,49 @@ em {
   transition: all .6s ease-in-out;
 }
 
-/* line 35, grunt/dev/views/home/_home.scss */
+/* line 34, grunt/dev/views/home/_home.scss */
 .enter-right.ng-enter {
   transform: scale(0.7);
   opacity: 0;
 }
 
-/* line 40, grunt/dev/views/home/_home.scss */
+/* line 39, grunt/dev/views/home/_home.scss */
 .enter-right.ng-enter-active {
   transform: scale(1);
   opacity: 1;
 }
 
-/* line 45, grunt/dev/views/home/_home.scss */
+/* line 44, grunt/dev/views/home/_home.scss */
 .leave-right.ng-leave {
   transform: scale(1);
   opacity: 1;
 }
 
-/* line 50, grunt/dev/views/home/_home.scss */
+/* line 49, grunt/dev/views/home/_home.scss */
 .leave-right.ng-leave-active {
   transform: scale(0.7);
   opacity: 0;
 }
 
-/* line 59, grunt/dev/views/home/_home.scss */
+/* line 58, grunt/dev/views/home/_home.scss */
 .leave-left.ng-leave {
   transform: scale(1);
   opacity: 1;
 }
 
-/* line 64, grunt/dev/views/home/_home.scss */
+/* line 63, grunt/dev/views/home/_home.scss */
 .leave-left.ng-leave-active {
   transform: scale(0.7);
   opacity: 0;
 }
 
-/* line 71, grunt/dev/views/home/_home.scss */
+/* line 70, grunt/dev/views/home/_home.scss */
 .enter-left.ng-enter {
   transform: scale(0.7);
   opacity: 0;
 }
 
-/* line 76, grunt/dev/views/home/_home.scss */
+/* line 75, grunt/dev/views/home/_home.scss */
 .enter-left.ng-enter-active {
   transform: scale(1);
   opacity: 1;
@@ -518,15 +529,12 @@ em {
   padding: 60px;
   background: #f4f4f4;
 }
-/* line 12, grunt/dev/views/project/_project.scss */
-.app-right ul li {
-  margin-bottom: 20px;
-}
-/* line 16, grunt/dev/views/project/_project.scss */
+/* line 14, grunt/dev/views/project/_project.scss */
 .app-right ul li img {
   display: block;
   width: 100%;
   height: auto;
+  margin-bottom: 20px;
 }
 
 /* line 5, grunt/dev/views/footer/_footer.scss */

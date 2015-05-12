@@ -8,6 +8,7 @@
 	position: absolute;
 	top: $baseline*3;
 	left: $baseline*3;
+	z-index: 2;
 
 	.app-logo {
 
@@ -17,13 +18,10 @@
 	    line-height: 1;
 	    letter-spacing: -1px;
 
-
 		&:hover {
 
 			text-decoration: none;
-
 		}
-
 	}
 
 	.app-tagline {
@@ -34,11 +32,8 @@
 		span {
 
 			line-height:1;
-		
 		}
-
 	}
-
 }
 
 // ============================================================

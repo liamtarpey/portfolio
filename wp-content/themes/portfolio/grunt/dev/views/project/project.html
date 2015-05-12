@@ -4,6 +4,7 @@
 		<!-- <h3 ng-bind-html="project.company"></h3> -->
 		<p ng-bind-html="project.custom_fields.description"></p>
 		<div ng-bind-html="project.custom_fields.languages[0]"></div>
+		<a href="{{project.custom_fields.link[0]}}" target="_blank">Visit site &rarr;</a>
 	</div>
 
 	<div class="app-right" ng-show="project.attachments.length">

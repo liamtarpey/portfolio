@@ -15,25 +15,24 @@
 .app-left {
 
 	padding: 140px $baseline*3 $baseline*3 $baseline*3;
+	position: relative;
 
 	@include breakpoint($tablet) {
 
 		float: left;
 		width: 40%;
-
 	}
-
 }
 
 .app-right {
+
+	position: relative;
 
 	@include breakpoint($tablet) {
 
 		float: right;
 		width: 60%;
-
 	}
-
 }
 
 // ============================================================

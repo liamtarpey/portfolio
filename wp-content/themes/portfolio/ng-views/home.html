@@ -1,14 +1,17 @@
 
 	<div class="app-left">
-		<!-- About -->
+
 		<div class="about" ng-bind-html="about[0].custom_fields.about[0]"></div>
 		
-		<!-- Skills -->
-		<h3>Skills</h3>
-		<div class="languages" ng-bind-html="languages[0].content"></div>
 	</div>
 
 	<div class="app-right">
+
+		<div class="skills">
+			<h3>Skills</h3>
+			<div class="languages" ng-bind-html="languages[0].content"></div>
+		</div>
+
 		<div class="projects">
 			<h3>Projects</h3>
 			<ul>
@@ -17,5 +20,6 @@
 				</li>
 			</ul>
 		</div>
+
 	</div>
 

@@ -13,7 +13,7 @@
 
 	<body <?php body_class(); ?> ng-controller="loading">
 
-		<div id="page" class="hfeed site">
+		<div id="page" class="site">
 
 			<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
 
