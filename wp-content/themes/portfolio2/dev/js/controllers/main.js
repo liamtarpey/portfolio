@@ -21,10 +21,18 @@ app.controller('main', ['$scope',
 	$scope.firstLoad      = true;
 	$scope.slideBack      = false;
 	$scope.logoFadeIn     = false;
-	$scope.homePageHeight = window.innerHeight;
 	$scope.fadePage       = false;
 	$scope.absoluteHome   = false;
 	$scope.absoluteProj   = true;
+
+	$scope.$watch(function() {
+
+		$scope.homePageHeight = window.innerHeight;
+	});
+
+	//====================
+	// Timeout animations
+	//====================
 
 	$timeout(function() {
 
@@ -54,24 +62,36 @@ app.controller('main', ['$scope',
 	//==============
 	// Show project
 	//==============
-	$scope.showProject = function(projectUrl) {
+	$scope.showProject = function(projectUrl, route) {
 
-		$scope.homeVisible 	  = false;
-		$scope.projectLoading = true;
+		if(route == "home") {
 
-		$timeout(function() {
-			$scope.absoluteHome = true;
-			$scope.absoluteProj = false;
-		},400);
+			$scope.homeVisible 	  = false;
+			$scope.projectLoading = true;
+
+			$timeout(function() {
+				$scope.absoluteHome = true;
+				$scope.absoluteProj = false;
+			},400);
+		} else {
+
+			$scope.projectLoading = true;
+			$scope.projectVisible = false;
+
+			$timeout(function() {
+				$scope.absoluteProj = false;
+			},400);
+		}
 	
 		// JSON call
 		api.getData(projectUrl + "?json=1").then(function(data) {
 
-			console.log(projectUrl);
-
 			$scope.projectLoading = false;
-			$scope.project = data.post;
-			console.log($scope.project)
+			$scope.project        = data.post;
+			$scope.prev           = data.next_url;
+			$scope.next           = data.previous_url;
+
+			console.log($scope.project);
 
 			$timeout(function(){
 
@@ -91,7 +111,7 @@ app.controller('main', ['$scope',
 
 		$timeout(function() {
 			$scope.absoluteHome = false;
-			$scope.absoluteProj = home;
+			$scope.absoluteProj = true;
 		},400);
 
 		$timeout(function() {

@@ -115,6 +115,15 @@ body {
 }
 
 /* line 33, dev/sass/partials/globals/_core.scss */
+.home-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  display: block;
+  z-index: 99999;
+}
+
+/* line 42, dev/sass/partials/globals/_core.scss */
 .loading {
   opacity: 1;
   -webkit-transition: opacity 0.3s ease-in-out;
@@ -122,12 +131,12 @@ body {
   -o-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
 }
-/* line 38, dev/sass/partials/globals/_core.scss */
+/* line 47, dev/sass/partials/globals/_core.scss */
 .loading.active {
   opacity: .4;
 }
 
-/* line 44, dev/sass/partials/globals/_core.scss */
+/* line 53, dev/sass/partials/globals/_core.scss */
 .first-load {
   position: fixed;
   top: 0;
@@ -143,13 +152,13 @@ body {
   opacity: 1;
   z-index: 999;
 }
-/* line 57, dev/sass/partials/globals/_core.scss */
+/* line 66, dev/sass/partials/globals/_core.scss */
 .first-load.hide {
   opacity: 0;
   z-index: -999999;
 }
 
-/* line 64, dev/sass/partials/globals/_core.scss */
+/* line 73, dev/sass/partials/globals/_core.scss */
 .fade-page {
   opacity: 0;
   -webkit-transition: opacity 0.8s ease-in-out;
@@ -164,7 +173,7 @@ body {
   display: table;
   clear: both;
 }
-/* line 70, dev/sass/partials/globals/_core.scss */
+/* line 79, dev/sass/partials/globals/_core.scss */
 .fade-page.active {
   opacity: 1;
 }
@@ -494,7 +503,7 @@ em {
 }
 /* line 20, dev/views/footer/_footer.scss */
 .app-footer .icons li {
-  background-image: url(/wp-content/themes/portfolio/assets/img/sprite.png);
+  background-image: url(/wp-content/themes/portfolio2/assets/img/sprite.png);
   background-repeat: no-repeat;
   height: 36px;
   background-size: 338px 36px;
