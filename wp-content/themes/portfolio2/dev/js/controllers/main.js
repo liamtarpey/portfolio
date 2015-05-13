@@ -25,6 +25,7 @@ app.controller('main', ['$scope',
 	$scope.fadePage       = false;
 	$scope.absoluteHome   = false;
 	$scope.absoluteProj   = true;
+	$scope.slugUrlLoad    = false;
 
 	$scope.$watch(function() {
 		$scope.homePageHeight = window.innerHeight;
@@ -54,7 +55,6 @@ app.controller('main', ['$scope',
 		$scope.firstLoadHide = true;
 	},2500);
 
-
 	//==============
 	// Show project
 	//==============
@@ -73,9 +73,10 @@ app.controller('main', ['$scope',
 
 		} else {
 
-			var newSlug = slug.replace(location, "");
+			var newSlug = "";
+			($scope.slugUrlLoad == true) ? newSlug = slug.replace(window.location.origin, "") : newSlug = slug.replace(location, "");
 			$location.path(newSlug);
-
+			
 			$scope.projectLoading = true;
 			$scope.projectVisible = false;
 
@@ -91,8 +92,6 @@ app.controller('main', ['$scope',
 			$scope.project        = data.post;
 			$scope.prev           = data.next_url;
 			$scope.next           = data.previous_url;
-
-			console.log($scope.project)
 
 			$timeout(function(){
 				$scope.projectVisible = true;
@@ -122,13 +121,26 @@ app.controller('main', ['$scope',
 		},600);
 	};
 
+	//====================================================
+	// If URL contains project name, load correct project
+	//====================================================
+	if(window.location.href.indexOf('projects') > -1) {
+
+		var loadSlug = window.location.href.replace(window.location.origin, "");
+		$scope.showProject(loadSlug, 'project', loadSlug);
+		$scope.slugUrlLoad = true;
+	} 
+
 
 	//===================
 	// Load project list
 	//===================
 	api.getData(project).then(function(data) {
 
+		console.log(project);
+
 		$scope.projectItems = data.posts;
+		console.log("success");
 	});
 
 
@@ -139,4 +151,6 @@ app.controller('main', ['$scope',
 
 		$scope.about = data.posts;
 	});
+
+
 }]);
