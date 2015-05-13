@@ -26617,6 +26617,25 @@ app.controller('main', ['$scope',
 	$scope.homeVisible 	  = true;
 	$scope.projectVisible = false;
 	$scope.projectLoading = false;
+	$scope.homePageHeight = window.innerHeight;
+	$scope.firstLoad      = true;
+	$scope.slideBack      = false;
+	$scope.logoFadeIn     = false;
+
+	$timeout(function() {
+
+		$scope.logoFadeIn = true;
+	},500);
+
+	$timeout(function() {
+
+		$scope.slideBack = true;
+	},1000);
+
+	$timeout(function() {
+
+		$scope.firstLoad = false;
+	},1800);
 
 	//==============
 	// Show project

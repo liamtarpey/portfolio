@@ -1,0 +1,27 @@
+
+
+.slide-out-left {
+
+	transform: translateX(-150%);
+	@include transition(transform 0.5s ease-in-out);
+	position: absolute;
+
+	&.active {
+
+		transform: translateX(0);
+		position: static;
+	}
+}
+
+.slide-out-right {
+
+	transform: translateX(150%);
+	@include transition(transform 0.5s ease-in-out);
+	position: absolute;
+
+	&.active {
+
+		transform: translateX(0);
+		position: static;
+	}
+}

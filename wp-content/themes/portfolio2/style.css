@@ -63,6 +63,36 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
+/* line 3, dev/sass/partials/globals/_animations.scss */
+.slide-out-left {
+  transform: translateX(-150%);
+  -webkit-transition: -webkit-transform 0.5s ease-in-out;
+  -moz-transition: -moz-transform 0.5s ease-in-out;
+  -o-transition: -o-transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
+  position: absolute;
+}
+/* line 9, dev/sass/partials/globals/_animations.scss */
+.slide-out-left.active {
+  transform: translateX(0);
+  position: static;
+}
+
+/* line 16, dev/sass/partials/globals/_animations.scss */
+.slide-out-right {
+  transform: translateX(150%);
+  -webkit-transition: -webkit-transform 0.5s ease-in-out;
+  -moz-transition: -moz-transform 0.5s ease-in-out;
+  -o-transition: -o-transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
+  position: absolute;
+}
+/* line 22, dev/sass/partials/globals/_animations.scss */
+.slide-out-right.active {
+  transform: translateX(0);
+  position: static;
+}
+
 /* line 15, dev/sass/partials/globals/_core.scss */
 *, *:before, *:after {
   -webkit-box-sizing: border-box;
@@ -84,38 +114,37 @@ body {
 
 /* line 33, dev/sass/partials/globals/_core.scss */
 .loading {
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  z-index: -999;
+  opacity: 1;
   -webkit-transition: opacity 0.3s ease-in-out;
   -moz-transition: opacity 0.3s ease-in-out;
   -o-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
 }
-/* line 46, dev/sass/partials/globals/_core.scss */
-.loading span {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-}
-/* line 54, dev/sass/partials/globals/_core.scss */
+/* line 38, dev/sass/partials/globals/_core.scss */
 .loading.active {
+  opacity: .5;
+}
+
+/* line 44, dev/sass/partials/globals/_core.scss */
+.first-load {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  padding: 60px;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
   opacity: 1;
-  z-index: 99999;
+  z-index: 999;
+}
+/* line 57, dev/sass/partials/globals/_core.scss */
+.first-load.hide {
+  opacity: 0;
+  z-index: -999999;
 }
 
 /* line 13, dev/sass/partials/globals/_blockquotes.scss */
@@ -254,14 +283,6 @@ input[type="submit"]:hover {
   display: block;
 }
 
-/* line 5, dev/sass/partials/globals/_layout.scss */
-.app-content .left {
-  width: 40%;
-  float: left;
-  padding: 60px;
-  position: relative;
-}
-
 /* line 10, dev/sass/partials/globals/_links.scss */
 a {
   text-decoration: none;
@@ -395,8 +416,22 @@ em {
 /* line 3, dev/views/header/_header.scss */
 .app-header {
   margin-bottom: 40px;
+  margin: 0 -100px 0 40%;
+  -webkit-transition: all 0.6s ease-in-out;
+  -moz-transition: all 0.6s ease-in-out;
+  -o-transition: all 0.6s ease-in-out;
+  transition: all 0.6s ease-in-out;
+  opacity: 0;
 }
-/* line 7, dev/views/header/_header.scss */
+/* line 10, dev/views/header/_header.scss */
+.app-header.fade {
+  opacity: 1;
+}
+/* line 15, dev/views/header/_header.scss */
+.app-header.slide {
+  margin: 0;
+}
+/* line 20, dev/views/header/_header.scss */
 .app-header .logo {
   font-family: 'Campton Bold', arial, sans-serif;
   display: inline-block;
@@ -407,73 +442,16 @@ em {
   line-height: 1;
   letter-spacing: -1px;
 }
-/* line 17, dev/views/header/_header.scss */
+/* line 30, dev/views/header/_header.scss */
 .app-header h1 {
   display: inline-block;
 }
-/* line 21, dev/views/header/_header.scss */
+/* line 34, dev/views/header/_header.scss */
 .app-header h1 span {
   line-height: 1;
 }
 
-/* line 3, dev/views/about/_about.scss */
-.about {
-  transform: translateX(-150%);
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-}
-/* line 8, dev/views/about/_about.scss */
-.about.active {
-  transform: translateX(0);
-}
-
-/* line 3, dev/views/projects/_projects.scss */
-.projects {
-  transform: translateX(-150%);
-  -webkit-transition: -webkit-transform 0.5s ease-in-out;
-  -moz-transition: -moz-transform 0.5s ease-in-out;
-  -o-transition: -o-transform 0.5s ease-in-out;
-  transition: transform 0.5s ease-in-out;
-  position: absolute;
-}
-/* line 9, dev/views/projects/_projects.scss */
-.projects.active {
-  transform: translateX(0);
-  position: static;
-}
-
-/* line 3, dev/views/individual-project/_project-left.scss */
-.project-left {
-  transform: translateX(-150%);
-  -webkit-transition: -webkit-transform 0.5s ease-in-out;
-  -moz-transition: -moz-transform 0.5s ease-in-out;
-  -o-transition: -o-transform 0.5s ease-in-out;
-  transition: transform 0.5s ease-in-out;
-  position: absolute;
-}
-/* line 9, dev/views/individual-project/_project-left.scss */
-.project-left.active {
-  transform: translateX(0);
-  position: static;
-}
-
-/* line 3, dev/views/individual-project/_project-right.scss */
-.project-right {
-  transform: translateX(150%);
-  -webkit-transition: -webkit-transform 0.5s ease-in-out;
-  -moz-transition: -moz-transform 0.5s ease-in-out;
-  -o-transition: -o-transform 0.5s ease-in-out;
-  transition: transform 0.5s ease-in-out;
-  position: absolute;
-}
-/* line 9, dev/views/individual-project/_project-right.scss */
-.project-right.active {
-  transform: translateX(0);
-  position: static;
-}
-/* line 15, dev/views/individual-project/_project-right.scss */
+/* line 5, dev/views/individual-project/_project-right.scss */
 .project-right img {
   margin-bottom: 20px;
 }
@@ -487,13 +465,12 @@ em {
   padding: 60px;
 }
 
-/* line 3, dev/views/right-col/_right-col.scss */
-.right-col {
-  width: 60%;
-  float: right;
-  background: #f4f4f4;
-  position: relative;
+/* line 3, dev/views/left-col/_left-col.scss */
+.left-col {
+  width: 40%;
+  float: left;
   padding: 60px;
+  position: relative;
 }
 
 /* line 6, dev/sass/misc/_helpers.scss */

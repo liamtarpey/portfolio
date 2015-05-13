@@ -25,11 +25,11 @@
 		"mixins/typography",
 
 		// Globals
+		"partials/globals/animations",
 		"partials/globals/core",
 		"partials/globals/blockquotes",
 		"partials/globals/forms",
 		"partials/globals/images",
-		"partials/globals/layout",
 		"partials/globals/links",
 		"partials/globals/lists",
 		"partials/globals/tables",
@@ -45,7 +45,7 @@
 		"../views/individual-project/project-left",
 		"../views/individual-project/project-right",
 		"../views/right-col/right-col",
-		"../views/right-col/right-col",
+		"../views/left-col/left-col",
 
 		// Misc
 		"misc/helpers",

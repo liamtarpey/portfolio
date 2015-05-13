@@ -12,17 +12,21 @@
 		<?php wp_head(); ?>
 	</head>
 
-	<body <?php body_class(); ?>>
+	<body ng-controller="main" ng-class="{active:projectLoading}" class="loading">
 
 		<!-- <a class="skip-link screen-reader-text" href="#content">Skip to content</a> -->
 
-		<main class="app-content" role="main" ng-controller="main">
+		<main class="app-content" role="main">
 
-			<div style="background:darkblue;color:white;">
-				<pre>Home visible? {{homeVisible}} , Project visible? {{projectVisible}} , Project Loading? {{projectLoading}}</pre>
+			<!-- <div style="background:darkblue;color:white;">
+				<pre>slideback? {{slideBack}}</pre>
+			</div>
+ -->
+			<div class="first-load" ng-class="{hide:!firstLoad}">
+				<div ng-include="'/wp-content/themes/portfolio2/views/header.html'"></div>
 			</div>
 
-			<div class="left">
+			<div class="left-col">
 
 				<!-- Header -->
 				<div ng-include="'/wp-content/themes/portfolio2/views/header.html'"></div>
@@ -38,17 +42,19 @@
 
 			</div>
 
-			<div class="right right-col">
+			<div ng-if="!firstLoad">
+				<div class="right-col" ng-style="{'min-height':homePageHeight}">
 
-				<!-- <div class="home-right" ng-class="{active:homeVisible}">derp dee derp</div> -->
+					<!-- Individual project right -->
+					<div ng-include="'/wp-content/themes/portfolio2/views/project-right.html'"></div>
 
-				<!-- Individual project right -->
-				<div ng-include="'/wp-content/themes/portfolio2/views/project-right.html'"></div>
-
+				</div>
 			</div>
 
 			<span ng-class="{active:projectLoading}" class="loading">
-				<span>...</span>
+				<span class="left-side" ng-style="{'min-height':homePageHeight}"></span>
+				<span class="right-side" ng-style="{'min-height':homePageHeight}"></span>
+				<span class="loading-message">...</span>
 			</span>
 
 		</main>

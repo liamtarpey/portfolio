@@ -3,6 +3,19 @@
 .app-header {
 
 	margin-bottom: $baseline*2;
+	margin: 0 -100px 0 40%;
+	@include transition(all .6s ease-in-out);
+	opacity: 0;
+
+	&.fade {
+
+		opacity: 1;
+	}
+
+	&.slide {
+
+		margin: 0;
+	}
 
 	.logo {
 
