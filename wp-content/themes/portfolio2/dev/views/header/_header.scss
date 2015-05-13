@@ -1,0 +1,26 @@
+
+
+.app-header {
+
+	margin-bottom: $baseline*2;
+
+	.logo {
+
+		font-family: 'Campton Bold', arial, sans-serif;
+		display: inline-block;
+		color: $col-black;
+		@include font(48);
+	    line-height: 1;
+	    letter-spacing: -1px;
+	}
+
+	h1 {
+
+		display: inline-block;
+
+		span {
+
+			line-height: 1;
+		}
+	}
+}

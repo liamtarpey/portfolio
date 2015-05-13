@@ -1,1 +1,1 @@
-var app = angular.module('ftapp', ['ngTouch','ngRoute','ngSanitize'])
+var app = angular.module('portfolio', ['ngSanitize']);

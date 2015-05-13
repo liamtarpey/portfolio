@@ -10,7 +10,7 @@ module.exports = function(grunt) {
          */
         clean: {
             css: [
-                'assets/css'
+                'assets/css'            
             ],
             js: [
                 'assets/js'
@@ -21,9 +21,7 @@ module.exports = function(grunt) {
             dist: {
                 src: [
                     'dev/js/libs/angular.js',
-                    'dev/js/libs/angular-route.js',
                     'dev/js/libs/angular-sanitize.js',
-                    'dev/js/libs/angular-touch.js',
                     'dev/js/libs/modernizr.js',
                     'dev/js/app.js',
                     'dev/js/**/*.js'
@@ -74,7 +72,8 @@ module.exports = function(grunt) {
             },
             css: {
                 files: [
-                    'dev/sass/**/*.scss'
+                    'dev/sass/**/*.scss',
+                    'dev/views/**/*.scss'
                 ],
                 tasks: ['clean:css', 'compass'],
                 options: {

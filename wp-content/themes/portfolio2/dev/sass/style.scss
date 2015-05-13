@@ -29,14 +29,18 @@
 		"partials/globals/blockquotes",
 		"partials/globals/forms",
 		"partials/globals/images",
+		"partials/globals/layout",
 		"partials/globals/links",
 		"partials/globals/lists",
 		"partials/globals/tables",
 		"partials/globals/typography",
 
 		// Modules
-		"partials/modules/app-header",
 		"partials/modules/app-footer",
+
+		// Views
+		"../views/header/header",
+		"../views/right-col/right-col",
 
 		// Misc
 		"misc/helpers",
