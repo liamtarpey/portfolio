@@ -1,4 +1,4 @@
-<ul ng-class="{active:projectVisible}" class="project-right slide-out-right">
+<ul ng-class="{active:projectVisible,absolute:absoluteProj}" class="project-right slide-out-right">
 	<li ng-repeat="image in project.attachments">
 		<img ng-src="{{image.images.full.url}}" alt="{{image.title}}" class="img-full" />
 	</li>

@@ -1,8 +1,8 @@
-<div ng-class="{active:projectVisible}" class="project-left slide-out-left">
+<div ng-class="{active:projectVisible,absolute:absoluteProj}" class="project-left slide-out-left">
 	<h2 ng-bind-html="project.custom_fields.title"></h2>
 	<h3 ng-bind-html="project.company"></h3>
 	<p ng-bind-html="project.custom_fields.description"></p>
 	<div ng-bind-html="project.custom_fields.languages[0]"></div>
-	<a href="{{project.custom_fields.link[0]}}" target="_blank" class="block">visit site &rarr;</a>
-	<a href="javascript:;" ng-click="showHome();" class="block">&lt; back</a>
+	<a href="{{project.custom_fields.link[0]}}" target="_blank" class="block">Visit site &rarr;</a>
+	<a href="javascript:;" ng-click="showHome();" class="block">&lt; Back</a>
 </div>

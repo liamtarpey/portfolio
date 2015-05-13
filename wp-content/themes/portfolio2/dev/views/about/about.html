@@ -1,3 +1,4 @@
 <div class="about slide-out-left" 
-     ng-bind-html="about[0].custom_fields.about[0]"
-	 ng-class="{active:$parent.homeVisible}" ></div>
+	 ng-class="{active:$parent.homeVisible, absolute:absoluteHome}">
+	 <p ng-bind-html="about[0].custom_fields.about[0]"></p>
+</div>

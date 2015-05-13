@@ -64,33 +64,35 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 /* line 3, dev/sass/partials/globals/_animations.scss */
-.slide-out-left {
-  transform: translateX(-250%);
+.slide-out-left,
+.slide-out-right {
   -webkit-transition: -webkit-transform 0.7s ease-in-out;
   -moz-transition: -moz-transform 0.7s ease-in-out;
   -o-transition: -o-transform 0.7s ease-in-out;
   transition: transform 0.7s ease-in-out;
-  position: fixed;
+  width: 100%;
+  max-width: 100%;
 }
 /* line 9, dev/sass/partials/globals/_animations.scss */
-.slide-out-left.active {
+.slide-out-left.absolute,
+.slide-out-right.absolute {
+  position: absolute;
+}
+/* line 14, dev/sass/partials/globals/_animations.scss */
+.slide-out-left.active,
+.slide-out-right.active {
   transform: translateX(0);
   position: static;
 }
 
-/* line 16, dev/sass/partials/globals/_animations.scss */
+/* line 21, dev/sass/partials/globals/_animations.scss */
+.slide-out-left {
+  transform: translateX(-250%);
+}
+
+/* line 26, dev/sass/partials/globals/_animations.scss */
 .slide-out-right {
   transform: translateX(250%);
-  -webkit-transition: -webkit-transform 0.7s ease-in-out;
-  -moz-transition: -moz-transform 0.7s ease-in-out;
-  -o-transition: -o-transform 0.7s ease-in-out;
-  transition: transform 0.7s ease-in-out;
-  position: fixed;
-}
-/* line 22, dev/sass/partials/globals/_animations.scss */
-.slide-out-right.active {
-  transform: translateX(0);
-  position: static;
 }
 
 /* line 15, dev/sass/partials/globals/_core.scss */
@@ -122,7 +124,7 @@ body {
 }
 /* line 38, dev/sass/partials/globals/_core.scss */
 .loading.active {
-  opacity: .5;
+  opacity: .4;
 }
 
 /* line 44, dev/sass/partials/globals/_core.scss */
@@ -154,8 +156,15 @@ body {
   -moz-transition: opacity 0.8s ease-in-out;
   -o-transition: opacity 0.8s ease-in-out;
   transition: opacity 0.8s ease-in-out;
+  *zoom: 1;
 }
-/* line 69, dev/sass/partials/globals/_core.scss */
+/* line 38, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.fade-page:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 70, dev/sass/partials/globals/_core.scss */
 .fade-page.active {
   opacity: 1;
 }
@@ -462,6 +471,117 @@ em {
 /* line 34, dev/views/header/_header.scss */
 .app-header h1 span {
   line-height: 1;
+}
+
+/* line 5, dev/views/footer/_footer.scss */
+.app-footer {
+  border-top: 1px solid #f4f4f4;
+  *zoom: 1;
+}
+/* line 38, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.app-footer:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 11, dev/views/footer/_footer.scss */
+.app-footer .icons {
+  margin: 0;
+}
+/* line 15, dev/views/footer/_footer.scss */
+.app-footer .icons.lang {
+  float: right;
+}
+/* line 20, dev/views/footer/_footer.scss */
+.app-footer .icons li {
+  background-image: url(/wp-content/themes/portfolio/assets/img/sprite.png);
+  background-repeat: no-repeat;
+  height: 36px;
+  background-size: 338px 36px;
+}
+/* line 27, dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-angular {
+  background-position: 0 0;
+  width: 34px;
+}
+/* line 28, dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-sass {
+  background-position: -34px 0;
+  width: 49px;
+}
+/* line 29, dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-css3 {
+  background-position: -83px 0;
+  width: 39px;
+}
+/* line 30, dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-html5 {
+  background-position: -159px 0;
+  width: 32px;
+}
+/* line 31, dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-wp {
+  background-position: -123px 0;
+  width: 36px;
+}
+/* line 32, dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-github {
+  background-position: -192px 0;
+  width: 37px;
+}
+/* line 33, dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-twitter {
+  background-position: -229px 0;
+  width: 45px;
+}
+/* line 34, dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-cv {
+  background-position: -273px 0;
+  width: 28px;
+}
+/* line 35, dev/views/footer/_footer.scss */
+.app-footer .icons li.icon-email {
+  background-position: -302px 0;
+  width: 36px;
+}
+/* line 37, dev/views/footer/_footer.scss */
+.app-footer .icons li a {
+  display: block;
+  height: 36px;
+}
+@media (min-width: 840px) {
+  /* line 45, dev/views/footer/_footer.scss */
+  .app-footer .footer-left {
+    float: left;
+    width: 40%;
+    background: #f4f4f4;
+    padding: 20px 60px;
+    height: 85px;
+  }
+}
+/* line 57, dev/views/footer/_footer.scss */
+.app-footer .footer-right {
+  *zoom: 1;
+  height: 85px;
+}
+/* line 38, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.app-footer .footer-right:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+@media (min-width: 840px) {
+  /* line 57, dev/views/footer/_footer.scss */
+  .app-footer .footer-right {
+    float: right;
+    width: 60%;
+    padding: 20px 60px;
+  }
+}
+
+/* line 3, dev/views/about/_about.scss */
+.about {
+  margin: 20px 0;
 }
 
 /* line 5, dev/views/individual-project/_project-right.scss */

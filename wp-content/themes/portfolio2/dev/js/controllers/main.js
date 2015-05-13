@@ -23,6 +23,8 @@ app.controller('main', ['$scope',
 	$scope.logoFadeIn     = false;
 	$scope.homePageHeight = window.innerHeight;
 	$scope.fadePage       = false;
+	$scope.absoluteHome   = false;
+	$scope.absoluteProj   = true;
 
 	$timeout(function() {
 
@@ -56,6 +58,11 @@ app.controller('main', ['$scope',
 
 		$scope.homeVisible 	  = false;
 		$scope.projectLoading = true;
+
+		$timeout(function() {
+			$scope.absoluteHome = true;
+			$scope.absoluteProj = false;
+		},400);
 	
 		// JSON call
 		api.getData(projectUrl + "?json=1").then(function(data) {
@@ -81,6 +88,11 @@ app.controller('main', ['$scope',
 
 		$scope.projectLoading = true;
 		$scope.projectVisible = false;
+
+		$timeout(function() {
+			$scope.absoluteHome = false;
+			$scope.absoluteProj = home;
+		},400);
 
 		$timeout(function() {
 

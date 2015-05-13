@@ -30,7 +30,7 @@
 					<div ng-include="'/wp-content/themes/portfolio2/views/header.html'"></div>
 
 					<!-- About -->
-					<!-- <div ng-include="'/wp-content/themes/portfolio2/views/about.html'"></div> -->
+					<div ng-include="'/wp-content/themes/portfolio2/views/about.html'"></div>
 					
 					<!-- Project list-->
 					<div ng-include="'/wp-content/themes/portfolio2/views/projects.html'"></div>
