@@ -50,7 +50,7 @@
 			</div>
 		</main>
 
-		<div ng-include="'/wp-content/themes/portfolio/ng-views/footer.html'"></div>
+		<div ng-include="'/wp-content/themes/portfolio2/views/footer.html'"></div>
 		<?php wp_footer(); ?>
 
 		<script src="<?php bloginfo('template_directory'); ?>/assets/js/main.js"></script>
