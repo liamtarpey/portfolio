@@ -65,12 +65,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 /* line 3, dev/sass/partials/globals/_animations.scss */
 .slide-out-left {
-  transform: translateX(-150%);
-  -webkit-transition: -webkit-transform 0.5s ease-in-out;
-  -moz-transition: -moz-transform 0.5s ease-in-out;
-  -o-transition: -o-transform 0.5s ease-in-out;
-  transition: transform 0.5s ease-in-out;
-  position: absolute;
+  transform: translateX(-250%);
+  -webkit-transition: -webkit-transform 0.7s ease-in-out;
+  -moz-transition: -moz-transform 0.7s ease-in-out;
+  -o-transition: -o-transform 0.7s ease-in-out;
+  transition: transform 0.7s ease-in-out;
+  position: fixed;
 }
 /* line 9, dev/sass/partials/globals/_animations.scss */
 .slide-out-left.active {
@@ -80,12 +80,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 /* line 16, dev/sass/partials/globals/_animations.scss */
 .slide-out-right {
-  transform: translateX(150%);
-  -webkit-transition: -webkit-transform 0.5s ease-in-out;
-  -moz-transition: -moz-transform 0.5s ease-in-out;
-  -o-transition: -o-transform 0.5s ease-in-out;
-  transition: transform 0.5s ease-in-out;
-  position: absolute;
+  transform: translateX(250%);
+  -webkit-transition: -webkit-transform 0.7s ease-in-out;
+  -moz-transition: -moz-transform 0.7s ease-in-out;
+  -o-transition: -o-transform 0.7s ease-in-out;
+  transition: transform 0.7s ease-in-out;
+  position: fixed;
 }
 /* line 22, dev/sass/partials/globals/_animations.scss */
 .slide-out-right.active {
@@ -145,6 +145,19 @@ body {
 .first-load.hide {
   opacity: 0;
   z-index: -999999;
+}
+
+/* line 64, dev/sass/partials/globals/_core.scss */
+.fade-page {
+  opacity: 0;
+  -webkit-transition: opacity 0.8s ease-in-out;
+  -moz-transition: opacity 0.8s ease-in-out;
+  -o-transition: opacity 0.8s ease-in-out;
+  transition: opacity 0.8s ease-in-out;
+}
+/* line 69, dev/sass/partials/globals/_core.scss */
+.fade-page.active {
+  opacity: 1;
 }
 
 /* line 13, dev/sass/partials/globals/_blockquotes.scss */
@@ -429,7 +442,7 @@ em {
 }
 /* line 15, dev/views/header/_header.scss */
 .app-header.slide {
-  margin: 0;
+  margin: 0 0 10px 0;
 }
 /* line 20, dev/views/header/_header.scss */
 .app-header .logo {
@@ -458,19 +471,30 @@ em {
 
 /* line 3, dev/views/right-col/_right-col.scss */
 .right-col {
-  width: 60%;
-  float: right;
   background: #f4f4f4;
   position: relative;
-  padding: 60px;
+  padding: 20px;
+}
+@media (min-width: 840px) {
+  /* line 3, dev/views/right-col/_right-col.scss */
+  .right-col {
+    width: 60%;
+    float: right;
+    padding: 60px;
+  }
 }
 
 /* line 3, dev/views/left-col/_left-col.scss */
 .left-col {
-  width: 40%;
-  float: left;
   padding: 60px;
   position: relative;
+}
+@media (min-width: 840px) {
+  /* line 3, dev/views/left-col/_left-col.scss */
+  .left-col {
+    width: 40%;
+    float: left;
+  }
 }
 
 /* line 6, dev/sass/misc/_helpers.scss */

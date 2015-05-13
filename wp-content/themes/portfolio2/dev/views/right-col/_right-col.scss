@@ -2,33 +2,14 @@
 
 .right-col {
 
-	width: 60%;
-	float: right;
 	background: $col-grey;
 	position: relative;
-	padding: $baseline*3;
+	padding: $baseline;
 
-	// Views for homepage right column
-	// .home-right {
+	@include breakpoint($tablet) {
 
-	// 	transform: translateX(150%);
-	// 	@include transition(all 0.5s ease-in-out);
-
-	// 	&.active {
-
-	// 		transform: translateX(0);
-	// 	}
-	// }
-
-	// // Views for project right column
-	// .project-right {
-
-	// 	transform: translateX(150%);
-	// 	@include transition(all 0.5s ease-in-out);
-
-	// 	&.active {
-
-	// 		transform: translateX(0);
-	// 	}
-	// }
+		width: 60%;
+		float: right;
+		padding: $baseline*3;
+	}
 }

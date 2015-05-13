@@ -61,5 +61,16 @@ body {
 	} 
 }
 
+.fade-page {
+
+	opacity: 0;
+	@include transition(opacity .8s ease-in-out);
+
+	&.active {
+
+		opacity: 1;
+	}
+}
+
 
 // ============================================================

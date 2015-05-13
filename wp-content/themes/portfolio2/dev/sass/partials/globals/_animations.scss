@@ -2,9 +2,9 @@
 
 .slide-out-left {
 
-	transform: translateX(-150%);
-	@include transition(transform 0.5s ease-in-out);
-	position: absolute;
+	transform: translateX(-250%);
+	@include transition(transform 0.7s ease-in-out);
+	position: fixed;
 
 	&.active {
 
@@ -15,9 +15,9 @@
 
 .slide-out-right {
 
-	transform: translateX(150%);
-	@include transition(transform 0.5s ease-in-out);
-	position: absolute;
+	transform: translateX(250%);
+	@include transition(transform 0.7s ease-in-out);
+	position: fixed;
 
 	&.active {
 

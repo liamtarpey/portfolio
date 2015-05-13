@@ -18,31 +18,29 @@
 
 		<main class="app-content" role="main">
 
-			<!-- <div style="background:darkblue;color:white;">
-				<pre>slideback? {{slideBack}}</pre>
-			</div>
- -->
-			<div class="first-load" ng-class="{hide:!firstLoad}">
+			<div class="first-load" ng-class="{hide:!firstLoad}" ng-if="!firstLoadHide">
 				<div ng-include="'/wp-content/themes/portfolio2/views/header.html'"></div>
 			</div>
 
-			<div class="left-col">
+			<div ng-class="{active:fadePage}" class="fade-page">
 
-				<!-- Header -->
-				<div ng-include="'/wp-content/themes/portfolio2/views/header.html'"></div>
+				<div class="left-col">
 
-				<!-- About -->
-				<!-- <div ng-include="'/wp-content/themes/portfolio2/views/about.html'"></div> -->
-				
-				<!-- Project list-->
-				<div ng-include="'/wp-content/themes/portfolio2/views/projects.html'"></div>
+					<!-- Header -->
+					<div ng-include="'/wp-content/themes/portfolio2/views/header.html'"></div>
 
-				<!-- Individual project left -->
-				<div ng-include="'/wp-content/themes/portfolio2/views/project-left.html'"></div>
+					<!-- About -->
+					<!-- <div ng-include="'/wp-content/themes/portfolio2/views/about.html'"></div> -->
+					
+					<!-- Project list-->
+					<div ng-include="'/wp-content/themes/portfolio2/views/projects.html'"></div>
 
-			</div>
+					<!-- Individual project left -->
+					<div ng-include="'/wp-content/themes/portfolio2/views/project-left.html'"></div>
 
-			<div ng-if="!firstLoad">
+				</div>
+
+			
 				<div class="right-col" ng-style="{'min-height':homePageHeight}">
 
 					<!-- Individual project right -->
@@ -50,16 +48,9 @@
 
 				</div>
 			</div>
-
-			<span ng-class="{active:projectLoading}" class="loading">
-				<span class="left-side" ng-style="{'min-height':homePageHeight}"></span>
-				<span class="right-side" ng-style="{'min-height':homePageHeight}"></span>
-				<span class="loading-message">...</span>
-			</span>
-
 		</main>
 
-		<!-- <div ng-include="'/wp-content/themes/portfolio/ng-views/footer.html'"></div> -->
+		<div ng-include="'/wp-content/themes/portfolio/ng-views/footer.html'"></div>
 		<?php wp_footer(); ?>
 
 		<script src="<?php bloginfo('template_directory'); ?>/assets/js/main.js"></script>

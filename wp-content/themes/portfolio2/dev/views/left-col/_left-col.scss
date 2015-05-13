@@ -2,8 +2,12 @@
 
 .left-col {
 
-	width: 40%;
-	float: left;
 	padding: $baseline*3;
 	position: relative;
+
+	@include breakpoint($tablet) {
+
+		width: 40%;
+		float: left;
+	}
 }

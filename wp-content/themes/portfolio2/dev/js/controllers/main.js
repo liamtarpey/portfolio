@@ -18,10 +18,11 @@ app.controller('main', ['$scope',
 	$scope.homeVisible 	  = true;
 	$scope.projectVisible = false;
 	$scope.projectLoading = false;
-	$scope.homePageHeight = window.innerHeight;
 	$scope.firstLoad      = true;
 	$scope.slideBack      = false;
 	$scope.logoFadeIn     = false;
+	$scope.homePageHeight = window.innerHeight;
+	$scope.fadePage       = false;
 
 	$timeout(function() {
 
@@ -35,8 +36,18 @@ app.controller('main', ['$scope',
 
 	$timeout(function() {
 
+		$scope.fadePage = true;
+	},1650);
+
+	$timeout(function() {
+
 		$scope.firstLoad = false;
 	},1800);
+
+	$timeout(function() {
+
+		$scope.firstLoadHide = true;
+	},2500);
 
 	//==============
 	// Show project
