@@ -82,6 +82,42 @@ body {
   background: #f8f8f8;
 }
 
+/* line 33, dev/sass/partials/globals/_core.scss */
+.loading {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  z-index: -999;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.3s ease-in-out;
+  -o-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+}
+/* line 46, dev/sass/partials/globals/_core.scss */
+.loading span {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+}
+/* line 54, dev/sass/partials/globals/_core.scss */
+.loading.active {
+  opacity: 1;
+  z-index: 99999;
+}
+
 /* line 13, dev/sass/partials/globals/_blockquotes.scss */
 blockquote {
   quotes: "\201C" "\201D" "\2018" "\2019";
@@ -380,6 +416,68 @@ em {
   line-height: 1;
 }
 
+/* line 3, dev/views/about/_about.scss */
+.about {
+  transform: translateX(-150%);
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+/* line 8, dev/views/about/_about.scss */
+.about.active {
+  transform: translateX(0);
+}
+
+/* line 3, dev/views/projects/_projects.scss */
+.projects {
+  transform: translateX(-150%);
+  -webkit-transition: -webkit-transform 0.5s ease-in-out;
+  -moz-transition: -moz-transform 0.5s ease-in-out;
+  -o-transition: -o-transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
+  position: absolute;
+}
+/* line 9, dev/views/projects/_projects.scss */
+.projects.active {
+  transform: translateX(0);
+  position: static;
+}
+
+/* line 3, dev/views/individual-project/_project-left.scss */
+.project-left {
+  transform: translateX(-150%);
+  -webkit-transition: -webkit-transform 0.5s ease-in-out;
+  -moz-transition: -moz-transform 0.5s ease-in-out;
+  -o-transition: -o-transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
+  position: absolute;
+}
+/* line 9, dev/views/individual-project/_project-left.scss */
+.project-left.active {
+  transform: translateX(0);
+  position: static;
+}
+
+/* line 3, dev/views/individual-project/_project-right.scss */
+.project-right {
+  transform: translateX(150%);
+  -webkit-transition: -webkit-transform 0.5s ease-in-out;
+  -moz-transition: -moz-transform 0.5s ease-in-out;
+  -o-transition: -o-transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
+  position: absolute;
+}
+/* line 9, dev/views/individual-project/_project-right.scss */
+.project-right.active {
+  transform: translateX(0);
+  position: static;
+}
+/* line 15, dev/views/individual-project/_project-right.scss */
+.project-right img {
+  margin-bottom: 20px;
+}
+
 /* line 3, dev/views/right-col/_right-col.scss */
 .right-col {
   width: 60%;
@@ -388,29 +486,14 @@ em {
   position: relative;
   padding: 60px;
 }
-/* line 12, dev/views/right-col/_right-col.scss */
-.right-col .home-right {
-  transform: translateX(150%);
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-}
-/* line 17, dev/views/right-col/_right-col.scss */
-.right-col .home-right.active {
-  transform: translateX(0);
-}
-/* line 24, dev/views/right-col/_right-col.scss */
-.right-col .project-right {
-  transform: translateX(150%);
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-}
-/* line 29, dev/views/right-col/_right-col.scss */
-.right-col .project-right.active {
-  transform: translateX(0);
+
+/* line 3, dev/views/right-col/_right-col.scss */
+.right-col {
+  width: 60%;
+  float: right;
+  background: #f4f4f4;
+  position: relative;
+  padding: 60px;
 }
 
 /* line 6, dev/sass/misc/_helpers.scss */

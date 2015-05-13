@@ -26621,16 +26621,19 @@ app.controller('main', ['$scope',
 	//==============
 	// Show project
 	//==============
-	$scope.showProject = function() {
+	$scope.showProject = function(projectUrl) {
 
 		$scope.homeVisible 	  = false;
 		$scope.projectLoading = true;
 	
 		// JSON call
-		api.getData(project).then(function(data) {
+		api.getData(projectUrl + "?json=1").then(function(data) {
+
+			console.log(projectUrl);
 
 			$scope.projectLoading = false;
-			$scope.project = data.posts;
+			$scope.project = data.post;
+			console.log($scope.project)
 
 			$timeout(function(){
 
@@ -26645,8 +26648,24 @@ app.controller('main', ['$scope',
 	//===========
 	$scope.showHome = function() {
 
+		$scope.projectLoading = true;
+		$scope.projectVisible = false;
 
+		$timeout(function() {
+
+			$scope.projectLoading = false;
+			$scope.homeVisible 	  = true;
+		},600);
 	};
+
+
+	//===================
+	// Load project list
+	//===================
+	api.getData(project).then(function(data) {
+
+		$scope.projectItems = data.posts;
+	});
 
 
 	//============

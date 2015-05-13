@@ -18,26 +18,38 @@
 
 		<main class="app-content" role="main" ng-controller="main">
 
+			<div style="background:darkblue;color:white;">
+				<pre>Home visible? {{homeVisible}} , Project visible? {{projectVisible}} , Project Loading? {{projectLoading}}</pre>
+			</div>
+
 			<div class="left">
+
+				<!-- Header -->
 				<div ng-include="'/wp-content/themes/portfolio2/views/header.html'"></div>
-				<a href="javascript:;" ng-click="showProject()">Rolls</a>
-				{{projectVisible}}
-				{{projectLoading}}
+
+				<!-- About -->
+				<!-- <div ng-include="'/wp-content/themes/portfolio2/views/about.html'"></div> -->
+				
+				<!-- Project list-->
+				<div ng-include="'/wp-content/themes/portfolio2/views/projects.html'"></div>
+
+				<!-- Individual project left -->
+				<div ng-include="'/wp-content/themes/portfolio2/views/project-left.html'"></div>
+
 			</div>
 
 			<div class="right right-col">
 
-				<div class="home-right" ng-class="{active:homeVisible}">derp dee derp</div>
+				<!-- <div class="home-right" ng-class="{active:homeVisible}">derp dee derp</div> -->
 
-				<span ng-show="projectLoading">...</span>
-
-				<!-- <div class="project-right" ng-class="{active:projectVisible}"></div> -->
-	
-				<!-- About -->
-				<div ng-include="'/wp-content/themes/portfolio2/views/about.html'" 
-					 ng-class="{active:projectVisible && projectLoading == false}" ></div>
+				<!-- Individual project right -->
+				<div ng-include="'/wp-content/themes/portfolio2/views/project-right.html'"></div>
 
 			</div>
+
+			<span ng-class="{active:projectLoading}" class="loading">
+				<span>...</span>
+			</span>
 
 		</main>
 

@@ -9,26 +9,26 @@
 	padding: $baseline*3;
 
 	// Views for homepage right column
-	.home-right {
+	// .home-right {
 
-		transform: translateX(150%);
-		@include transition(all 0.5s ease-in-out);
+	// 	transform: translateX(150%);
+	// 	@include transition(all 0.5s ease-in-out);
 
-		&.active {
+	// 	&.active {
 
-			transform: translateX(0);
-		}
-	}
+	// 		transform: translateX(0);
+	// 	}
+	// }
 
-	// Views for project right column
-	.project-right {
+	// // Views for project right column
+	// .project-right {
 
-		transform: translateX(150%);
-		@include transition(all 0.5s ease-in-out);
+	// 	transform: translateX(150%);
+	// 	@include transition(all 0.5s ease-in-out);
 
-		&.active {
+	// 	&.active {
 
-			transform: translateX(0);
-		}
-	}
+	// 		transform: translateX(0);
+	// 	}
+	// }
 }

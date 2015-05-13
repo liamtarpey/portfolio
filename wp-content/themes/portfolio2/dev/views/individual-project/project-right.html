@@ -1,0 +1,5 @@
+<ul ng-class="{active:projectVisible}" class="project-right">
+	<li ng-repeat="image in project.attachments">
+		<img ng-src="{{image.images.full.url}}" alt="{{image.title}}" class="img-full" />
+	</li>
+</ul>
