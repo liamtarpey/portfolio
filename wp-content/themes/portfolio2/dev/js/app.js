@@ -1,9 +1,15 @@
-var app = angular.module('portfolio', ['ngSanitize']);
+var app = angular.module('portfolio', ['ngSanitize', 'ngRoute']);
 
 app.config( [
     '$compileProvider',
-    function( $compileProvider ) {  
+    '$locationProvider',
+    function( $compileProvider, $locationProvider ) {  
      
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|javascript):/);
+        
+        $locationProvider.html5Mode({
+		  enabled: true,
+		  requireBase: false
+		});
     }
 ]);

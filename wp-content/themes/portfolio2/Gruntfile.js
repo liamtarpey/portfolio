@@ -22,6 +22,7 @@ module.exports = function(grunt) {
                 src: [
                     'dev/js/libs/angular.js',
                     'dev/js/libs/angular-sanitize.js',
+                    'dev/js/libs/angular-route.js',
                     'dev/js/libs/modernizr.js',
                     'dev/js/app.js',
                     'dev/js/**/*.js'

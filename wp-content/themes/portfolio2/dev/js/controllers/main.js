@@ -3,7 +3,8 @@ app.controller('main', ['$scope',
 						'$sce', 
 						'api',
 						'$timeout', 
-						function ($scope, $http, $sce, api, $timeout) {
+						'$location',
+						function ($scope, $http, $sce, api, $timeout, $location) {
 
 	// Urls
 	var location    = document.location.href,
@@ -26,54 +27,54 @@ app.controller('main', ['$scope',
 	$scope.absoluteProj   = true;
 
 	$scope.$watch(function() {
-
 		$scope.homePageHeight = window.innerHeight;
 	});
+
 
 	//====================
 	// Timeout animations
 	//====================
-
 	$timeout(function() {
-
 		$scope.logoFadeIn = true;
 	},500);
 
 	$timeout(function() {
-
 		$scope.slideBack = true;
 	},1000);
 
 	$timeout(function() {
-
 		$scope.fadePage = true;
 	},1650);
 
 	$timeout(function() {
-
 		$scope.firstLoad = false;
 	},1800);
 
 	$timeout(function() {
-
 		$scope.firstLoadHide = true;
 	},2500);
+
 
 	//==============
 	// Show project
 	//==============
-	$scope.showProject = function(projectUrl, route) {
+	$scope.showProject = function(projectUrl, route, slug) {
 
 		if(route == "home") {
 
 			$scope.homeVisible 	  = false;
 			$scope.projectLoading = true;
+			$location.path("/projects/" + slug);
 
 			$timeout(function() {
 				$scope.absoluteHome = true;
 				$scope.absoluteProj = false;
 			},400);
+
 		} else {
+
+			var newSlug = slug.replace(location, "");
+			$location.path(newSlug);
 
 			$scope.projectLoading = true;
 			$scope.projectVisible = false;
@@ -91,10 +92,9 @@ app.controller('main', ['$scope',
 			$scope.prev           = data.next_url;
 			$scope.next           = data.previous_url;
 
-			console.log($scope.project);
+			console.log($scope.project)
 
 			$timeout(function(){
-
 				$scope.projectVisible = true;
 			},200);
 		});
@@ -108,6 +108,7 @@ app.controller('main', ['$scope',
 
 		$scope.projectLoading = true;
 		$scope.projectVisible = false;
+		$location.path(""); // Remove location path
 
 		$timeout(function() {
 			$scope.absoluteHome = false;
