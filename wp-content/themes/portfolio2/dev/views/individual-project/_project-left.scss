@@ -2,5 +2,24 @@
 
 .project-left {
 
-	
+	.individual-languages {
+
+		ul {
+
+			li {
+
+				&:before {
+
+					content: '';
+					width: 5px;
+					height: 5px;
+					background: red;
+					@include border-radius(50%);
+					display: inline-block;
+					vertical-align: middle;
+					margin: 0 $baseline/2;
+				}
+			}
+		}
+	}
 }

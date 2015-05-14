@@ -27616,9 +27616,9 @@ app.controller('main', ['$scope',
 						function ($scope, $http, $sce, api, $timeout, $location) {
 
 	// Urls
-	var location    = document.location.href,
+	var location    = window.location.origin,
 		postType    = "?json=1&post_type=",
-		project     = location + postType + "projects",
+		projects    = location + postType + "projects",
 		about       = location + postType + "about",
 		languages   = location + postType + 'languages',
 		contact     = location + postType + "contact";
@@ -27635,10 +27635,7 @@ app.controller('main', ['$scope',
 	$scope.absoluteHome   = false;
 	$scope.absoluteProj   = true;
 	$scope.slugUrlLoad    = false;
-
-	$scope.$watch(function() {
-		$scope.homePageHeight = window.innerHeight;
-	});
+	//$scope.homePageHeight = window.innerHeight;
 
 
 	//====================
@@ -27664,6 +27661,7 @@ app.controller('main', ['$scope',
 		$scope.firstLoadHide = true;
 	},2500);
 
+
 	//==============
 	// Show project
 	//==============
@@ -27688,6 +27686,8 @@ app.controller('main', ['$scope',
 			
 			$scope.projectLoading = true;
 			$scope.projectVisible = false;
+			$scope.homeVisible  = false;
+			$scope.absoluteHome = true;
 
 			$timeout(function() {
 				$scope.absoluteProj = false;
@@ -27721,6 +27721,7 @@ app.controller('main', ['$scope',
 		$timeout(function() {
 			$scope.absoluteHome = false;
 			$scope.absoluteProj = true;
+			$scope.project = ""; // Unload project 
 		},400);
 
 		$timeout(function() {
@@ -27737,19 +27738,24 @@ app.controller('main', ['$scope',
 
 		var loadSlug = window.location.href.replace(window.location.origin, "");
 		$scope.showProject(loadSlug, 'project', loadSlug);
-		$scope.slugUrlLoad = true;
+		$scope.slugUrlLoad  = true;
 	} 
 
 
 	//===================
 	// Load project list
 	//===================
-	api.getData(project).then(function(data) {
-
-		console.log(project);
+	api.getData(projects).then(function(data) {
 
 		$scope.projectItems = data.posts;
-		console.log("success");
+	});
+
+	//============
+	// Load skills
+	//============
+	api.getData(languages).then(function(data) {
+
+		$scope.languages = data.posts;
 	});
 
 

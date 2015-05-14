@@ -10,8 +10,6 @@
 	// Icons
 	.icons {
 
-		margin: 0;
-
 		&.lang {
 
 			float: right;
@@ -23,6 +21,7 @@
 			background-repeat: no-repeat;
 			height: 36px;
 			background-size: 338px 36px;
+			@include scale(.7);
 
 			&.icon-angular { background-position: 0 0;      width: 34px; }
 			&.icon-sass    { background-position: -34px 0;  width: 49px; }
@@ -50,14 +49,14 @@
 			width: 40%;
 			background: darken($col-lightgrey, 1.6%);
 			padding: $baseline $baseline*3;
-			height: 85px;
+			height: 74px;
 		}
 	}
 
 	.footer-right {
 
 		@include cf;
-		height: 85px;
+		height: 74px;
 
 		@include breakpoint($tablet) {
 

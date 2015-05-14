@@ -8,6 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="profile" href="http://gmpg.org/xfn/11">
 		<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+		<link href='http://fonts.googleapis.com/css?family=Muli:300,400' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="/wp-content/themes/portfolio2/style.css">
 		<?php wp_head(); ?>
 	</head>
@@ -33,6 +34,9 @@
 
 					<!-- About -->
 					<div ng-include="'/wp-content/themes/portfolio2/views/about.html'"></div>
+
+					<!-- Skill list-->
+					<div ng-include="'/wp-content/themes/portfolio2/views/skills.html'"></div>
 					
 					<!-- Project list-->
 					<div ng-include="'/wp-content/themes/portfolio2/views/projects.html'"></div>
@@ -43,7 +47,7 @@
 				</div>
 
 			
-				<div class="right-col" ng-style="{'min-height':homePageHeight}">
+				<div class="right-col"> <!-- style="min-height:{{homePageHeight}}px" -->
 
 					<!-- Individual project right -->
 					<div ng-include="'/wp-content/themes/portfolio2/views/project-right.html'"></div>

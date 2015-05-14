@@ -335,9 +335,9 @@ ul, ol {
 /* line 12, dev/sass/partials/globals/_lists.scss */
 ul.inline-list li, ol.inline-list li {
   display: inline-block;
-  margin-right: 10px;
+  margin-bottom: 0;
 }
-/* line 23, dev/sass/partials/globals/_lists.scss */
+/* line 24, dev/sass/partials/globals/_lists.scss */
 ul.stacked-list li, ol.stacked-list li {
   display: block;
   margin-bottom: 10px;
@@ -364,54 +364,55 @@ table th, table td {
   src: url(/wp-content/themes/portfolio2/assets/fonts/campton_light.otf);
 }
 
-/* line 15, dev/sass/partials/globals/_typography.scss */
+/* line 17, dev/sass/partials/globals/_typography.scss */
 html {
   font-size: 100%;
 }
 
-/* line 20, dev/sass/partials/globals/_typography.scss */
+/* line 22, dev/sass/partials/globals/_typography.scss */
 h1, h2, h3, h4, h5, h6, p {
   margin-bottom: 10px;
 }
 
-/* line 25, dev/sass/partials/globals/_typography.scss */
+/* line 27, dev/sass/partials/globals/_typography.scss */
 body, input, textarea, select, button, p, a {
   font-size: 16px;
   font-size: 1em;
   line-height: 24px;
   color: #80807e;
-  font-family: 'Campton Light', arial, sans-serif;
+  font-family: "Muli", arial, sans-serif;
+  font-weight: 400;
 }
 
-/* line 32, dev/sass/partials/globals/_typography.scss */
+/* line 36, dev/sass/partials/globals/_typography.scss */
 h1, .alpha {
   font-size: 15px;
   font-size: 0.9375em;
   line-height: 22.5px;
 }
 
-/* line 37, dev/sass/partials/globals/_typography.scss */
+/* line 41, dev/sass/partials/globals/_typography.scss */
 h2, .beta {
   font-size: 32px;
   font-size: 2em;
   line-height: 48px;
 }
 
-/* line 42, dev/sass/partials/globals/_typography.scss */
+/* line 46, dev/sass/partials/globals/_typography.scss */
 h3, .gamma {
   font-size: 24px;
   font-size: 1.5em;
   line-height: 36px;
 }
 
-/* line 47, dev/sass/partials/globals/_typography.scss */
+/* line 51, dev/sass/partials/globals/_typography.scss */
 h4, .delta {
   font-size: 22px;
   font-size: 1.375em;
   line-height: 33px;
 }
 
-/* line 53, dev/sass/partials/globals/_typography.scss */
+/* line 57, dev/sass/partials/globals/_typography.scss */
 h5, .epsilon,
 h6, .zeta {
   font-size: 18px;
@@ -419,14 +420,14 @@ h6, .zeta {
   line-height: 27px;
 }
 
-/* line 58, dev/sass/partials/globals/_typography.scss */
+/* line 62, dev/sass/partials/globals/_typography.scss */
 .mega {
   font-size: 72px;
   font-size: 4.5em;
   line-height: 108px;
 }
 
-/* line 64, dev/sass/partials/globals/_typography.scss */
+/* line 68, dev/sass/partials/globals/_typography.scss */
 small,
 .tiny {
   font-size: 14px;
@@ -434,12 +435,12 @@ small,
   line-height: 21px;
 }
 
-/* line 69, dev/sass/partials/globals/_typography.scss */
+/* line 73, dev/sass/partials/globals/_typography.scss */
 strong {
   font-weight: bold;
 }
 
-/* line 74, dev/sass/partials/globals/_typography.scss */
+/* line 78, dev/sass/partials/globals/_typography.scss */
 em {
   font-style: italic;
 }
@@ -493,85 +494,86 @@ em {
   display: table;
   clear: both;
 }
-/* line 11, dev/views/footer/_footer.scss */
-.app-footer .icons {
-  margin: 0;
-}
-/* line 15, dev/views/footer/_footer.scss */
+/* line 13, dev/views/footer/_footer.scss */
 .app-footer .icons.lang {
   float: right;
 }
-/* line 20, dev/views/footer/_footer.scss */
+/* line 18, dev/views/footer/_footer.scss */
 .app-footer .icons li {
   background-image: url(/wp-content/themes/portfolio2/assets/img/sprite.png);
   background-repeat: no-repeat;
   height: 36px;
   background-size: 338px 36px;
+  -webkit-transform: scale(0.7, 0.7);
+  -moz-transform: scale(0.7, 0.7);
+  -ms-transform: scale(0.7, 0.7);
+  -o-transform: scale(0.7, 0.7);
+  transform: scale(0.7, 0.7);
 }
-/* line 27, dev/views/footer/_footer.scss */
+/* line 26, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-angular {
   background-position: 0 0;
   width: 34px;
 }
-/* line 28, dev/views/footer/_footer.scss */
+/* line 27, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-sass {
   background-position: -34px 0;
   width: 49px;
 }
-/* line 29, dev/views/footer/_footer.scss */
+/* line 28, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-css3 {
   background-position: -83px 0;
   width: 39px;
 }
-/* line 30, dev/views/footer/_footer.scss */
+/* line 29, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-html5 {
   background-position: -159px 0;
   width: 32px;
 }
-/* line 31, dev/views/footer/_footer.scss */
+/* line 30, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-wp {
   background-position: -123px 0;
   width: 36px;
 }
-/* line 32, dev/views/footer/_footer.scss */
+/* line 31, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-github {
   background-position: -192px 0;
   width: 37px;
 }
-/* line 33, dev/views/footer/_footer.scss */
+/* line 32, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-twitter {
   background-position: -229px 0;
   width: 45px;
 }
-/* line 34, dev/views/footer/_footer.scss */
+/* line 33, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-cv {
   background-position: -273px 0;
   width: 28px;
 }
-/* line 35, dev/views/footer/_footer.scss */
+/* line 34, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-email {
   background-position: -302px 0;
   width: 36px;
 }
-/* line 37, dev/views/footer/_footer.scss */
+/* line 36, dev/views/footer/_footer.scss */
 .app-footer .icons li a {
   display: block;
   height: 36px;
 }
 @media (min-width: 840px) {
-  /* line 45, dev/views/footer/_footer.scss */
+  /* line 44, dev/views/footer/_footer.scss */
   .app-footer .footer-left {
     float: left;
     width: 40%;
     background: #f4f4f4;
     padding: 20px 60px;
-    height: 85px;
+    height: 74px;
   }
 }
-/* line 57, dev/views/footer/_footer.scss */
+/* line 56, dev/views/footer/_footer.scss */
 .app-footer .footer-right {
   *zoom: 1;
-  height: 85px;
+  height: 74px;
 }
 /* line 38, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 .app-footer .footer-right:after {
@@ -580,7 +582,7 @@ em {
   clear: both;
 }
 @media (min-width: 840px) {
-  /* line 57, dev/views/footer/_footer.scss */
+  /* line 56, dev/views/footer/_footer.scss */
   .app-footer .footer-right {
     float: right;
     width: 60%;
@@ -591,6 +593,22 @@ em {
 /* line 3, dev/views/about/_about.scss */
 .about {
   margin: 20px 0;
+}
+
+/* line 11, dev/views/individual-project/_project-left.scss */
+.project-left .individual-languages ul li:before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  background: red;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 10px;
 }
 
 /* line 5, dev/views/individual-project/_project-right.scss */
