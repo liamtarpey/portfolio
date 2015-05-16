@@ -30,4 +30,9 @@ function add_image_to_posts_data($response) {
 }
 add_filter('json_api_encode', 'add_image_to_posts_data');
 
+// Custom image sizes
+add_image_size('thumb-size', 410);
+add_image_size('single-size', 930);
+add_image_size('large-size', 1400);
+
 ?>

@@ -22,4 +22,29 @@
 			}
 		}
 	}
+
+	.scroll-wrapper {
+
+		@include cf;
+		margin: $baseline*2 -60px 0 -60px;
+		padding: $baseline $baseline*3;
+
+		background: $col-grey;
+
+		.prev,
+		.next {
+
+
+		}
+
+		.prev {
+
+			float: left;
+		}
+
+		.next {
+
+			float: right;
+		}
+	}
 }

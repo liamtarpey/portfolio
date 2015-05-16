@@ -47,7 +47,7 @@
 				</div>
 
 			
-				<div class="right-col"> <!-- style="min-height:{{homePageHeight}}px" -->
+				<div class="right-col" style="min-height:{{homePageHeight}}px">
 
 					<!-- Individual project right -->
 					<div ng-include="'/wp-content/themes/portfolio2/views/project-right.html'"></div>

@@ -27635,7 +27635,7 @@ app.controller('main', ['$scope',
 	$scope.absoluteHome   = false;
 	$scope.absoluteProj   = true;
 	$scope.slugUrlLoad    = false;
-	//$scope.homePageHeight = window.innerHeight;
+	$scope.homePageHeight = window.innerHeight - 74;
 
 
 	//====================
