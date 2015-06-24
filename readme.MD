@@ -1,5 +1,7 @@
 ## Portfolio ##
 
+Personal portfolio displaying latest work
+
 * AngularJS SPA
 * CSS3/Compass/SASS
 * GruntJS
