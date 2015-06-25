@@ -1,6 +1,6 @@
 # README #
 
-### This repository is a front end boilerplate that is set up with Grunt, Compass and AngularJS or jQuery. ###
+### Liam Tarpey Portfolio ###
 
 
 #### Necessary Ruby gems ####
