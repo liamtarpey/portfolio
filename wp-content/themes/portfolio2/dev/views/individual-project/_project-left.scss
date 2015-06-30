@@ -4,21 +4,60 @@
 
 	.individual-languages {
 
+		margin: $baseline*2 0;
+		border-left: 3px solid $col-gold;
+
 		ul {
+
+			padding-top: 6px;
 
 			li {
 
-				&:before {
+				text-indent: $baseline/2;
+			}
+		}
+	}
 
-					content: '';
-					width: 5px;
-					height: 5px;
-					background: red;
-					@include border-radius(50%);
-					display: inline-block;
-					vertical-align: middle;
-					margin: 0 $baseline/2;
-				}
+	.visit-site {
+
+		position: relative;
+		@include transition(all .3s ease-in-out);
+
+		&:before, 
+		&:after {
+
+			content: '';
+			width: 3px;
+			background: $col-gold;
+			height: 25px;
+			position: absolute;
+			top: -5px;
+			@include transition(all .3s ease-in-out);
+		}
+
+		&:before {
+
+			left: -800%;
+		}
+
+		&:after {
+
+			right: -1000%;
+		}
+
+		&:hover {
+
+			text-decoration: none;
+			padding-left: 14px;
+
+			&:before {
+
+				left: 0;
+			}
+
+			&:after {
+
+				right: -14px;
 			}
 		}
 	}
@@ -33,7 +72,6 @@
 
 		.prev,
 		.next {
-
 
 		}
 

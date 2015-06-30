@@ -26,8 +26,13 @@ app.controller('main', ['$scope',
 	$scope.absoluteHome   = false;
 	$scope.absoluteProj   = true;
 	$scope.slugUrlLoad    = false;
-	$scope.homePageHeight = window.innerHeight - 74;
 
+	// Get height to append as min height to right col at all times.
+	$scope.$watch(function() {
+
+		$scope.homePageHeight = document.getElementById('left-col').offsetHeight;
+	});
+	
 
 	//====================
 	// Timeout animations
@@ -87,6 +92,8 @@ app.controller('main', ['$scope',
 	
 		// JSON call
 		api.getData(projectUrl + "?json=1").then(function(data) {
+
+			console.log(data);
 
 			$scope.projectLoading = false;
 			$scope.project        = data.post;

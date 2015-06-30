@@ -24,12 +24,12 @@ h1, h2, h3, h4, h5, h6, p {
 	margin-bottom: $baseline/2;
 }
 
-body, input, textarea, select, button, p, a {
+body, input, textarea, select, button, p {
 
     @include font(16);
     color: $col-darkgrey;
-    //font-family: 'Campton Light', arial, sans-serif;
-    font-family: $mulilight;
+    font-family: 'Campton Light', arial, sans-serif;
+    //font-family: $mulilight;
     font-weight: 400;
 }
 

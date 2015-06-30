@@ -27,7 +27,7 @@
 
 			<div ng-class="{active:fadePage}" class="fade-page">
 
-				<div class="left-col">
+				<div class="left-col" id="left-col">
 
 					<!-- Header -->
 					<div ng-include="'/wp-content/themes/portfolio2/views/header.html'"></div>
