@@ -1,3 +1,14 @@
+<svg style="display:none" viewBox="0 0 3 3">
+	<symbol id="arrow-left">
+		<polygon fill="#c1966b" points="44.4,87.9 54,78.4 35.1,59.4 89.3,59.4 89.3,45.2 35.1,45.2 54,26.2 44.4,16.7 
+		9,52.3 "/>
+	</symbol>
+	<symbol id="arrow-right">
+		<polygon fill="#c1966b" points="53.9,16.7 44.4,26.2 63.3,45.2 9,45.2 9,59.4 63.3,59.4 44.4,78.4 53.9,87.9 
+		89.3,52.3 "/>
+	</symbol>
+</svg>
+
 <div ng-class="{active:projectVisible,absolute:absoluteProj}" class="project-left slide-out-left">
 	<h2 ng-bind-html="project.custom_fields.title"></h2>
 	<!-- <h3 ng-bind-html="project.company"></h3> -->
@@ -5,7 +16,15 @@
 	<div ng-bind-html="project.custom_fields.languages[0]" class="individual-languages"></div>
 	<a href="{{project.custom_fields.link[0]}}" target="_blank" class="visit-site">Visit site</a>
 	<div class="scroll-wrapper">
-		<a href="javascript:;" ng-click="showProject(prev, 'project', prev);" ng-if="prev" class="block prev">Prev project</a>
-		<a href="javascript:;" ng-click="showProject(next, 'project', next)" ng-if="next" class="block next">Next project</a>
+		<a href="javascript:;" ng-click="showProject(prev, 'project', prev);" ng-if="prev" class="block prev">
+			<svg class="arrow-left">
+			  <use xlink:href="#arrow-left"></use>
+			<svg>
+		</a>
+		<a href="javascript:;" ng-click="showProject(next, 'project', next)" ng-if="next" class="block next">
+			<svg class="arrow-right">
+			  <use xlink:href="#arrow-right"></use>
+			<svg>
+		</a>
 	</div>
 </div>

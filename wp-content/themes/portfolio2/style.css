@@ -633,29 +633,32 @@ em {
   -moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+  opacity: 0;
 }
-/* line 38, dev/views/individual-project/_project-left.scss */
+/* line 39, dev/views/individual-project/_project-left.scss */
 .project-left .visit-site:before {
   left: -800%;
 }
-/* line 43, dev/views/individual-project/_project-left.scss */
+/* line 44, dev/views/individual-project/_project-left.scss */
 .project-left .visit-site:after {
   right: -1000%;
 }
-/* line 48, dev/views/individual-project/_project-left.scss */
+/* line 49, dev/views/individual-project/_project-left.scss */
 .project-left .visit-site:hover {
   text-decoration: none;
   padding-left: 14px;
 }
-/* line 53, dev/views/individual-project/_project-left.scss */
+/* line 54, dev/views/individual-project/_project-left.scss */
 .project-left .visit-site:hover:before {
   left: 0;
+  opacity: 1;
 }
-/* line 58, dev/views/individual-project/_project-left.scss */
+/* line 60, dev/views/individual-project/_project-left.scss */
 .project-left .visit-site:hover:after {
   right: -14px;
+  opacity: 1;
 }
-/* line 65, dev/views/individual-project/_project-left.scss */
+/* line 68, dev/views/individual-project/_project-left.scss */
 .project-left .scroll-wrapper {
   *zoom: 1;
   margin: 40px -60px 0 -60px;
@@ -668,13 +671,41 @@ em {
   display: table;
   clear: both;
 }
-/* line 78, dev/views/individual-project/_project-left.scss */
+/* line 76, dev/views/individual-project/_project-left.scss */
+.project-left .scroll-wrapper .prev,
+.project-left .scroll-wrapper .next {
+  width: 27px;
+  height: 27px;
+  overflow: hidden;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+/* line 83, dev/views/individual-project/_project-left.scss */
+.project-left .scroll-wrapper .prev svg use,
+.project-left .scroll-wrapper .next svg use {
+  -webkit-transform: scale(0.3, 0.3);
+  -moz-transform: scale(0.3, 0.3);
+  -ms-transform: scale(0.3, 0.3);
+  -o-transform: scale(0.3, 0.3);
+  transform: scale(0.3, 0.3);
+}
+/* line 89, dev/views/individual-project/_project-left.scss */
 .project-left .scroll-wrapper .prev {
   float: left;
 }
-/* line 83, dev/views/individual-project/_project-left.scss */
+/* line 93, dev/views/individual-project/_project-left.scss */
+.project-left .scroll-wrapper .prev:hover {
+  margin-left: 6px;
+}
+/* line 99, dev/views/individual-project/_project-left.scss */
 .project-left .scroll-wrapper .next {
   float: right;
+}
+/* line 103, dev/views/individual-project/_project-left.scss */
+.project-left .scroll-wrapper .next:hover {
+  margin-right: 6px;
 }
 
 /* line 5, dev/views/individual-project/_project-right.scss */
