@@ -595,6 +595,11 @@ em {
   margin: 20px 0;
 }
 
+/* line 3, dev/views/projects/_projects.scss */
+.projects {
+  margin-top: 20px;
+}
+
 /* line 11, dev/views/individual-project/_project-left.scss */
 .project-left .individual-languages ul li:before {
   content: '';
