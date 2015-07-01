@@ -121,9 +121,10 @@ body {
   left: 10px;
   display: block;
   z-index: 99999;
+  width: 21px;
 }
 
-/* line 42, dev/sass/partials/globals/_core.scss */
+/* line 43, dev/sass/partials/globals/_core.scss */
 .loading {
   opacity: 1;
   -webkit-transition: opacity 0.3s ease-in-out;
@@ -131,12 +132,12 @@ body {
   -o-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
 }
-/* line 47, dev/sass/partials/globals/_core.scss */
+/* line 48, dev/sass/partials/globals/_core.scss */
 .loading.active {
   opacity: .4;
 }
 
-/* line 53, dev/sass/partials/globals/_core.scss */
+/* line 54, dev/sass/partials/globals/_core.scss */
 .first-load {
   position: fixed;
   top: 0;
@@ -152,13 +153,13 @@ body {
   opacity: 1;
   z-index: 999;
 }
-/* line 66, dev/sass/partials/globals/_core.scss */
+/* line 67, dev/sass/partials/globals/_core.scss */
 .first-load.hide {
   opacity: 0;
   z-index: -999999;
 }
 
-/* line 73, dev/sass/partials/globals/_core.scss */
+/* line 74, dev/sass/partials/globals/_core.scss */
 .fade-page {
   opacity: 0;
   -webkit-transition: opacity 0.8s ease-in-out;
@@ -173,7 +174,7 @@ body {
   display: table;
   clear: both;
 }
-/* line 79, dev/sass/partials/globals/_core.scss */
+/* line 80, dev/sass/partials/globals/_core.scss */
 .fade-page.active {
   opacity: 1;
 }

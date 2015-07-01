@@ -19,7 +19,9 @@
 
 		<main class="app-content" role="main">
 
-			<a href="javascript:;" ng-click="showHome();" ng-if="projectVisible" class="home-btn">&lt;</a>
+			<a href="javascript:;" ng-click="showHome();" ng-if="projectVisible" class="home-btn">
+				<img src="/wp-content/themes/portfolio2/assets/img/home-icon.png" alt="Home Icon"  class="img-full" />
+			</a>
 
 			<div class="first-load" ng-class="{hide:!firstLoad}" ng-if="!firstLoadHide">
 				<div ng-include="'/wp-content/themes/portfolio2/views/header.html'"></div>
