@@ -18,53 +18,6 @@
 		}
 	}
 
-	.visit-site {
-
-		position: relative;
-		@include transition(all .3s ease-in-out);
-
-		&:before, 
-		&:after {
-
-			content: '';
-			width: 3px;
-			background: $col-gold;
-			height: 25px;
-			position: absolute;
-			top: -5px;
-			@include transition(all .3s ease-in-out);
-			opacity: 0;
-		}
-
-		&:before {
-
-			left: -800%;
-		}
-
-		&:after {
-
-			right: -1000%;
-		}
-
-		&:hover {
-
-			text-decoration: none;
-			padding-left: 14px;
-
-			&:before {
-
-				left: 0;
-				opacity: 1;
-			}
-
-			&:after {
-
-				right: -14px;
-				opacity: 1;
-			}
-		}
-	}
-
 	.scroll-wrapper {
 
 		@include cf;

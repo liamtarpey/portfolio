@@ -51,6 +51,12 @@
 			padding: $baseline $baseline*3;
 			height: 74px;
 		}
+
+		a {
+
+			padding-right: $baseline;
+			line-height: 46px;
+		}
 	}
 
 	.footer-right {
