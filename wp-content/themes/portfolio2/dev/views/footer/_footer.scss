@@ -4,15 +4,25 @@
 
 .app-footer {
 
-	border-top: 1px solid $col-grey;
+	border-top: 3px solid $col-grey;
 	@include cf;
+	padding-top: $baseline;
+
+	@include breakpoint($tablet) {
+
+		border-top: 1px solid $col-grey;
+		padding-top: 0;
+	}
 
 	// Icons
 	.icons {
 
 		&.lang {
 
-			float: right;
+			@include breakpoint($tablet) {
+
+				float: right;
+			}
 		}
 
 		li {
@@ -43,6 +53,8 @@
 
 	.footer-left {
 
+		text-align: center;
+
 		@include breakpoint($tablet) {
 
 			float: left;
@@ -50,18 +62,28 @@
 			background: darken($col-lightgrey, 1.6%);
 			padding: $baseline $baseline*3;
 			height: 74px;
+			text-align: left;
 		}
 
-		a {
+		li {
 
-			padding-right: $baseline;
-			line-height: 46px;
+			a {
+
+				line-height: $baseline*2;
+				padding: 0 $baseline/2;
+				
+				@include breakpoint($tablet) {
+
+					padding: 0 $baseline 0 0;
+				}
+			}
 		}
 	}
 
 	.footer-right {
 
 		@include cf;
+		text-align: center;
 		height: 74px;
 
 		@include breakpoint($tablet) {
@@ -69,6 +91,7 @@
 			float: right;
 			width: 60%;
 			padding: $baseline $baseline*3;
+			text-align: left;
 		}
 	}
 }

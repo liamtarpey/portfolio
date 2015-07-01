@@ -4,12 +4,12 @@
 
 	background: $col-grey;
 	position: relative;
-	padding: $baseline;
+	//padding: $baseline;
 
 	@include breakpoint($tablet) {
 
 		width: 60%;
 		float: right;
-		padding: $baseline*3;
+		//padding: $baseline*3;
 	}
 }

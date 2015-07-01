@@ -2,6 +2,14 @@
 
 .project-right {
 
+	padding: $baseline;
+	margin-bottom: 0;
+
+	@include breakpoint($tablet) {
+
+		padding: $baseline*3;
+	}
+
 	img {
 
 		margin-bottom: $baseline;

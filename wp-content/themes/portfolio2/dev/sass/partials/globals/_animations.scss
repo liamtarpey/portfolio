@@ -13,17 +13,17 @@
 
 	&.active {
 
-		transform: translateX(0);
+		@include translateX(0);
 		position: static;
 	}
 }
 
 .slide-out-left {
 
-	transform: translateX(-250%);
+	@include translateX(-250%);
 }
 
 .slide-out-right {
 
-	transform: translateX(250%);
+	@include translateX(250%);
 }

@@ -27637,10 +27637,34 @@ app.controller('main', ['$scope',
 	$scope.slugUrlLoad    = false;
 
 	// Get height to append as min height to right col at all times.
-	$scope.$watch(function() {
+	// var rightCol = document.getElementById('right-col')
 
-		$scope.homePageHeight = document.getElementById('left-col').offsetHeight;
-	});
+	// $scope.rightHeight = function() {
+
+	// 	$scope.$watch(function() {
+
+	// 		$scope.homePageHeight = document.getElementById('left-col').offsetHeight;
+
+	// 		if ($(window).width() >= 840) { 
+
+	// 			rightCol.style.minHeight = scope.homePageHeight + "px";
+	// 			console.log("resizing big");
+
+	// 		} else {
+
+	// 			rightCol.style.minHeight = "1px";
+	// 			console.log("resizing small");
+	// 		}
+
+	// 	});
+	// };
+
+	// $scope.rightHeight();
+
+	// window.onresize = function() {
+
+	//     $scope.rightHeight();
+	// };
 	
 
 	//====================

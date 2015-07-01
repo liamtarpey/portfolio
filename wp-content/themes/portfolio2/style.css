@@ -81,17 +81,29 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 /* line 14, dev/sass/partials/globals/_animations.scss */
 .slide-out-left.active,
 .slide-out-right.active {
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
   transform: translateX(0);
   position: static;
 }
 
 /* line 21, dev/sass/partials/globals/_animations.scss */
 .slide-out-left {
+  -webkit-transform: translateX(-250%);
+  -moz-transform: translateX(-250%);
+  -ms-transform: translateX(-250%);
+  -o-transform: translateX(-250%);
   transform: translateX(-250%);
 }
 
 /* line 26, dev/sass/partials/globals/_animations.scss */
 .slide-out-right {
+  -webkit-transform: translateX(250%);
+  -moz-transform: translateX(250%);
+  -ms-transform: translateX(250%);
+  -o-transform: translateX(250%);
   transform: translateX(250%);
 }
 
@@ -118,13 +130,20 @@ body {
 .home-btn {
   position: fixed;
   top: 10px;
-  left: 10px;
+  right: 10px;
   display: block;
   z-index: 99999;
   width: 21px;
 }
+@media (min-width: 840px) {
+  /* line 33, dev/sass/partials/globals/_core.scss */
+  .home-btn {
+    left: 10px;
+    right: auto;
+  }
+}
 
-/* line 43, dev/sass/partials/globals/_core.scss */
+/* line 49, dev/sass/partials/globals/_core.scss */
 .loading {
   opacity: 1;
   -webkit-transition: opacity 0.3s ease-in-out;
@@ -132,12 +151,12 @@ body {
   -o-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
 }
-/* line 48, dev/sass/partials/globals/_core.scss */
+/* line 54, dev/sass/partials/globals/_core.scss */
 .loading.active {
   opacity: .4;
 }
 
-/* line 54, dev/sass/partials/globals/_core.scss */
+/* line 60, dev/sass/partials/globals/_core.scss */
 .first-load {
   position: fixed;
   top: 0;
@@ -145,7 +164,7 @@ body {
   right: 0;
   bottom: 0;
   background: white;
-  padding: 60px;
+  padding: 20px;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
@@ -153,13 +172,19 @@ body {
   opacity: 1;
   z-index: 999;
 }
-/* line 67, dev/sass/partials/globals/_core.scss */
+@media (min-width: 840px) {
+  /* line 60, dev/sass/partials/globals/_core.scss */
+  .first-load {
+    padding: 60px;
+  }
+}
+/* line 78, dev/sass/partials/globals/_core.scss */
 .first-load.hide {
   opacity: 0;
   z-index: -999999;
 }
 
-/* line 74, dev/sass/partials/globals/_core.scss */
+/* line 85, dev/sass/partials/globals/_core.scss */
 .fade-page {
   opacity: 0;
   -webkit-transition: opacity 0.8s ease-in-out;
@@ -174,7 +199,7 @@ body {
   display: table;
   clear: both;
 }
-/* line 80, dev/sass/partials/globals/_core.scss */
+/* line 91, dev/sass/partials/globals/_core.scss */
 .fade-page.active {
   opacity: 1;
 }
@@ -528,8 +553,9 @@ em {
 
 /* line 5, dev/views/footer/_footer.scss */
 .app-footer {
-  border-top: 1px solid #f4f4f4;
+  border-top: 3px solid #f4f4f4;
   *zoom: 1;
+  padding-top: 20px;
 }
 /* line 38, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 .app-footer:after {
@@ -537,11 +563,20 @@ em {
   display: table;
   clear: both;
 }
-/* line 13, dev/views/footer/_footer.scss */
-.app-footer .icons.lang {
-  float: right;
+@media (min-width: 840px) {
+  /* line 5, dev/views/footer/_footer.scss */
+  .app-footer {
+    border-top: 1px solid #f4f4f4;
+    padding-top: 0;
+  }
 }
-/* line 18, dev/views/footer/_footer.scss */
+@media (min-width: 840px) {
+  /* line 20, dev/views/footer/_footer.scss */
+  .app-footer .icons.lang {
+    float: right;
+  }
+}
+/* line 28, dev/views/footer/_footer.scss */
 .app-footer .icons li {
   background-image: url(/wp-content/themes/portfolio2/assets/img/sprite.png);
   background-repeat: no-repeat;
@@ -553,74 +588,86 @@ em {
   -o-transform: scale(0.7, 0.7);
   transform: scale(0.7, 0.7);
 }
-/* line 26, dev/views/footer/_footer.scss */
+/* line 36, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-angular {
   background-position: 0 0;
   width: 34px;
 }
-/* line 27, dev/views/footer/_footer.scss */
+/* line 37, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-sass {
   background-position: -34px 0;
   width: 49px;
 }
-/* line 28, dev/views/footer/_footer.scss */
+/* line 38, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-css3 {
   background-position: -83px 0;
   width: 39px;
 }
-/* line 29, dev/views/footer/_footer.scss */
+/* line 39, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-html5 {
   background-position: -159px 0;
   width: 32px;
 }
-/* line 30, dev/views/footer/_footer.scss */
+/* line 40, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-wp {
   background-position: -123px 0;
   width: 36px;
 }
-/* line 31, dev/views/footer/_footer.scss */
+/* line 41, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-github {
   background-position: -192px 0;
   width: 37px;
 }
-/* line 32, dev/views/footer/_footer.scss */
+/* line 42, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-twitter {
   background-position: -229px 0;
   width: 45px;
 }
-/* line 33, dev/views/footer/_footer.scss */
+/* line 43, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-cv {
   background-position: -273px 0;
   width: 28px;
 }
-/* line 34, dev/views/footer/_footer.scss */
+/* line 44, dev/views/footer/_footer.scss */
 .app-footer .icons li.icon-email {
   background-position: -302px 0;
   width: 36px;
 }
-/* line 36, dev/views/footer/_footer.scss */
+/* line 46, dev/views/footer/_footer.scss */
 .app-footer .icons li a {
   display: block;
   height: 36px;
 }
+/* line 54, dev/views/footer/_footer.scss */
+.app-footer .footer-left {
+  text-align: center;
+}
 @media (min-width: 840px) {
-  /* line 44, dev/views/footer/_footer.scss */
+  /* line 54, dev/views/footer/_footer.scss */
   .app-footer .footer-left {
     float: left;
     width: 40%;
     background: #f4f4f4;
     padding: 20px 60px;
     height: 74px;
+    text-align: left;
   }
 }
-/* line 55, dev/views/footer/_footer.scss */
-.app-footer .footer-left a {
-  padding-right: 20px;
-  line-height: 46px;
+/* line 70, dev/views/footer/_footer.scss */
+.app-footer .footer-left li a {
+  line-height: 40px;
+  padding: 0 10px;
 }
-/* line 62, dev/views/footer/_footer.scss */
+@media (min-width: 840px) {
+  /* line 70, dev/views/footer/_footer.scss */
+  .app-footer .footer-left li a {
+    padding: 0 20px 0 0;
+  }
+}
+/* line 83, dev/views/footer/_footer.scss */
 .app-footer .footer-right {
   *zoom: 1;
+  text-align: center;
   height: 74px;
 }
 /* line 38, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
@@ -630,11 +677,12 @@ em {
   clear: both;
 }
 @media (min-width: 840px) {
-  /* line 62, dev/views/footer/_footer.scss */
+  /* line 83, dev/views/footer/_footer.scss */
   .app-footer .footer-right {
     float: right;
     width: 60%;
     padding: 20px 60px;
+    text-align: left;
   }
 }
 
@@ -659,7 +707,7 @@ em {
 }
 /* line 14, dev/views/individual-project/_project-left.scss */
 .project-left .individual-languages ul li {
-  text-indent: 10px;
+  padding-left: 10px;
 }
 /* line 21, dev/views/individual-project/_project-left.scss */
 .project-left .scroll-wrapper {
@@ -711,7 +759,18 @@ em {
   margin-right: 6px;
 }
 
-/* line 5, dev/views/individual-project/_project-right.scss */
+/* line 3, dev/views/individual-project/_project-right.scss */
+.project-right {
+  padding: 20px;
+  margin-bottom: 0;
+}
+@media (min-width: 840px) {
+  /* line 3, dev/views/individual-project/_project-right.scss */
+  .project-right {
+    padding: 60px;
+  }
+}
+/* line 13, dev/views/individual-project/_project-right.scss */
 .project-right img {
   margin-bottom: 20px;
 }
@@ -720,20 +779,18 @@ em {
 .right-col {
   background: #f4f4f4;
   position: relative;
-  padding: 20px;
 }
 @media (min-width: 840px) {
   /* line 3, dev/views/right-col/_right-col.scss */
   .right-col {
     width: 60%;
     float: right;
-    padding: 60px;
   }
 }
 
 /* line 3, dev/views/left-col/_left-col.scss */
 .left-col {
-  padding: 60px;
+  padding: 20px;
   position: relative;
 }
 @media (min-width: 840px) {
@@ -741,6 +798,7 @@ em {
   .left-col {
     width: 40%;
     float: left;
+    padding: 60px;
   }
 }
 
