@@ -22,6 +22,8 @@ module.exports = function(grunt) {
                 src: [
                     'dev/js/libs/angular.js',
                     'dev/js/libs/angular-sanitize.js',
+                    'dev/js/libs/angular-scroll.js',
+                    'dev/js/libs/angular-touch.js',
                     'dev/js/libs/angular-route.js',
                     'dev/js/libs/modernizr.js',
                     'dev/js/app.js',
@@ -43,7 +45,7 @@ module.exports = function(grunt) {
                 options: {
                     sassDir: 'dev/sass',
                     cssDir: './',
-                    environment: 'development'
+                    environment: 'production'
                 }
             }
         },

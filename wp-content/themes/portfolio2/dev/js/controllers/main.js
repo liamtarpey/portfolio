@@ -4,7 +4,8 @@ app.controller('main', ['$scope',
 						'api',
 						'$timeout', 
 						'$location',
-						function ($scope, $http, $sce, api, $timeout, $location) {
+						'$document',
+						function ($scope, $http, $sce, api, $timeout, $location, $document) {
 
 	// Urls
 	var location    = window.location.origin,
@@ -27,36 +28,6 @@ app.controller('main', ['$scope',
 	$scope.absoluteProj   = true;
 	$scope.slugUrlLoad    = false;
 
-	// Get height to append as min height to right col at all times.
-	// var rightCol = document.getElementById('right-col')
-
-	// $scope.rightHeight = function() {
-
-	// 	$scope.$watch(function() {
-
-	// 		$scope.homePageHeight = document.getElementById('left-col').offsetHeight;
-
-	// 		if ($(window).width() >= 840) { 
-
-	// 			rightCol.style.minHeight = scope.homePageHeight + "px";
-	// 			console.log("resizing big");
-
-	// 		} else {
-
-	// 			rightCol.style.minHeight = "1px";
-	// 			console.log("resizing small");
-	// 		}
-
-	// 	});
-	// };
-
-	// $scope.rightHeight();
-
-	// window.onresize = function() {
-
-	//     $scope.rightHeight();
-	// };
-	
 
 	//====================
 	// Timeout animations
@@ -85,7 +56,13 @@ app.controller('main', ['$scope',
 	//==============
 	// Show project
 	//==============
-	$scope.showProject = function(projectUrl, route, slug) {
+	$scope.showProject = function(projectUrl, route, slug, source) {
+
+		// Kill the function if swipe event and no more articles to load
+		if( (source == 'swipe') && (projectUrl == undefined) ) {
+
+			return false;
+		}
 
 		if(route == "home") {
 
@@ -117,7 +94,7 @@ app.controller('main', ['$scope',
 		// JSON call
 		api.getData(projectUrl + "?json=1").then(function(data) {
 
-			console.log(data);
+			// console.log(data);
 
 			$scope.projectLoading = false;
 			$scope.project        = data.post;
@@ -125,8 +102,18 @@ app.controller('main', ['$scope',
 			$scope.next           = data.previous_url;
 
 			$timeout(function(){
+
 				$scope.projectVisible = true;
 			},200);
+
+			$timeout(function(){
+
+				if ($(window).width() <= 840) { 
+
+		      		$document.scrollTop(0, 500);
+		      	}
+
+			},1000);
 		});
 	};
 
@@ -159,9 +146,26 @@ app.controller('main', ['$scope',
 	if(window.location.href.indexOf('projects') > -1) {
 
 		var loadSlug = window.location.href.replace(window.location.origin, "");
-		$scope.showProject(loadSlug, 'project', loadSlug);
+		$scope.showProject(loadSlug, 'project', loadSlug, 'noswipe');
 		$scope.slugUrlLoad  = true;
-	} 
+	};
+
+
+	//====================================================
+	// Listener for back/forward buttons on browser
+	//====================================================
+	window.onpopstate = function(){
+
+		if(window.location.href.indexOf('projects') > -1) {
+
+			var loadSlug = window.location.href.replace(window.location.origin, "");
+			$scope.showProject(loadSlug, 'project', loadSlug, 'noswipe');
+			$scope.slugUrlLoad  = true;
+		} else {
+
+			$scope.showHome();
+		}	    
+	};
 
 
 	//===================

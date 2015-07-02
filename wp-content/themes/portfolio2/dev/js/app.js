@@ -1,4 +1,4 @@
-var app = angular.module('portfolio', ['ngSanitize', 'ngRoute']);
+var app = angular.module('portfolio', ['ngSanitize', 'ngRoute', 'ngTouch', 'duScroll']);
 
 app.config( [
     '$compileProvider',

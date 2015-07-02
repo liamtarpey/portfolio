@@ -35,4 +35,8 @@ add_image_size('thumb-size', 410);
 add_image_size('single-size', 930);
 add_image_size('large-size', 1400);
 
+// Remove WP things
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+
 ?>

@@ -26592,6 +26592,1238 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 })(window, window.angular);
 /**
+  * x is a value between 0 and 1, indicating where in the animation you are.
+  */
+var duScrollDefaultEasing = function (x) {
+  'use strict';
+
+  if(x < 0.5) {
+    return Math.pow(x*2, 2)/2;
+  }
+  return 1-Math.pow((1-x)*2, 2)/2;
+};
+
+angular.module('duScroll', [
+  'duScroll.scrollspy',
+  'duScroll.smoothScroll',
+  'duScroll.scrollContainer',
+  'duScroll.spyContext',
+  'duScroll.scrollHelpers'
+])
+  //Default animation duration for smoothScroll directive
+  .value('duScrollDuration', 350)
+  //Scrollspy debounce interval, set to 0 to disable
+  .value('duScrollSpyWait', 100)
+  //Wether or not multiple scrollspies can be active at once
+  .value('duScrollGreedy', false)
+  //Default offset for smoothScroll directive
+  .value('duScrollOffset', 0)
+  //Default easing function for scroll animation
+  .value('duScrollEasing', duScrollDefaultEasing)
+  //Which events on the container (such as body) should cancel scroll animations
+  .value('duScrollCancelOnEvents', 'scroll mousedown mousewheel touchmove keydown')
+  //Whether or not to activate the last scrollspy, when page/container bottom is reached
+  .value('duScrollBottomSpy', false);
+
+
+angular.module('duScroll.scrollHelpers', ['duScroll.requestAnimation'])
+.run(["$window", "$q", "cancelAnimation", "requestAnimation", "duScrollEasing", "duScrollDuration", "duScrollOffset", "duScrollCancelOnEvents", function($window, $q, cancelAnimation, requestAnimation, duScrollEasing, duScrollDuration, duScrollOffset, duScrollCancelOnEvents) {
+  'use strict';
+
+  var proto = {};
+
+  var isDocument = function(el) {
+    return (typeof HTMLDocument !== 'undefined' && el instanceof HTMLDocument) || (el.nodeType && el.nodeType === el.DOCUMENT_NODE);
+  };
+
+  var isElement = function(el) {
+    return (typeof HTMLElement !== 'undefined' && el instanceof HTMLElement) || (el.nodeType && el.nodeType === el.ELEMENT_NODE);
+  };
+
+  var unwrap = function(el) {
+    return isElement(el) || isDocument(el) ? el : el[0];
+  };
+
+  proto.duScrollTo = function(left, top, duration, easing) {
+    var aliasFn;
+    if(angular.isElement(left)) {
+      aliasFn = this.duScrollToElement;
+    } else if(angular.isDefined(duration)) {
+      aliasFn = this.duScrollToAnimated;
+    }
+    if(aliasFn) {
+      return aliasFn.apply(this, arguments);
+    }
+    var el = unwrap(this);
+    if(isDocument(el)) {
+      return $window.scrollTo(left, top);
+    }
+    el.scrollLeft = left;
+    el.scrollTop = top;
+  };
+
+  var scrollAnimation, deferred;
+  proto.duScrollToAnimated = function(left, top, duration, easing) {
+    if(duration && !easing) {
+      easing = duScrollEasing;
+    }
+    var startLeft = this.duScrollLeft(),
+        startTop = this.duScrollTop(),
+        deltaLeft = Math.round(left - startLeft),
+        deltaTop = Math.round(top - startTop);
+
+    var startTime = null, progress = 0;
+    var el = this;
+
+    var cancelScrollAnimation = function($event) {
+      if (!$event || (progress && $event.which > 0)) {
+        if(duScrollCancelOnEvents) {
+          el.unbind(duScrollCancelOnEvents, cancelScrollAnimation);
+        }
+        cancelAnimation(scrollAnimation);
+        deferred.reject();
+        scrollAnimation = null;
+      }
+    };
+
+    if(scrollAnimation) {
+      cancelScrollAnimation();
+    }
+    deferred = $q.defer();
+
+    if(duration === 0 || (!deltaLeft && !deltaTop)) {
+      if(duration === 0) {
+        el.duScrollTo(left, top);
+      }
+      deferred.resolve();
+      return deferred.promise;
+    }
+
+    var animationStep = function(timestamp) {
+      if (startTime === null) {
+        startTime = timestamp;
+      }
+
+      progress = timestamp - startTime;
+      var percent = (progress >= duration ? 1 : easing(progress/duration));
+
+      el.scrollTo(
+        startLeft + Math.ceil(deltaLeft * percent),
+        startTop + Math.ceil(deltaTop * percent)
+      );
+      if(percent < 1) {
+        scrollAnimation = requestAnimation(animationStep);
+      } else {
+        if(duScrollCancelOnEvents) {
+          el.unbind(duScrollCancelOnEvents, cancelScrollAnimation);
+        }
+        scrollAnimation = null;
+        deferred.resolve();
+      }
+    };
+
+    //Fix random mobile safari bug when scrolling to top by hitting status bar
+    el.duScrollTo(startLeft, startTop);
+
+    if(duScrollCancelOnEvents) {
+      el.bind(duScrollCancelOnEvents, cancelScrollAnimation);
+    }
+
+    scrollAnimation = requestAnimation(animationStep);
+    return deferred.promise;
+  };
+
+  proto.duScrollToElement = function(target, offset, duration, easing) {
+    var el = unwrap(this);
+    if(!angular.isNumber(offset) || isNaN(offset)) {
+      offset = duScrollOffset;
+    }
+    var top = this.duScrollTop() + unwrap(target).getBoundingClientRect().top - offset;
+    if(isElement(el)) {
+      top -= el.getBoundingClientRect().top;
+    }
+    return this.duScrollTo(0, top, duration, easing);
+  };
+
+  proto.duScrollLeft = function(value, duration, easing) {
+    if(angular.isNumber(value)) {
+      return this.duScrollTo(value, this.duScrollTop(), duration, easing);
+    }
+    var el = unwrap(this);
+    if(isDocument(el)) {
+      return $window.scrollX || document.documentElement.scrollLeft || document.body.scrollLeft;
+    }
+    return el.scrollLeft;
+  };
+  proto.duScrollTop = function(value, duration, easing) {
+    if(angular.isNumber(value)) {
+      return this.duScrollTo(this.duScrollLeft(), value, duration, easing);
+    }
+    var el = unwrap(this);
+    if(isDocument(el)) {
+      return $window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
+    }
+    return el.scrollTop;
+  };
+
+  proto.duScrollToElementAnimated = function(target, offset, duration, easing) {
+    return this.duScrollToElement(target, offset, duration || duScrollDuration, easing);
+  };
+
+  proto.duScrollTopAnimated = function(top, duration, easing) {
+    return this.duScrollTop(top, duration || duScrollDuration, easing);
+  };
+
+  proto.duScrollLeftAnimated = function(left, duration, easing) {
+    return this.duScrollLeft(left, duration || duScrollDuration, easing);
+  };
+
+  angular.forEach(proto, function(fn, key) {
+    angular.element.prototype[key] = fn;
+
+    //Remove prefix if not already claimed by jQuery / ui.utils
+    var unprefixed = key.replace(/^duScroll/, 'scroll');
+    if(angular.isUndefined(angular.element.prototype[unprefixed])) {
+      angular.element.prototype[unprefixed] = fn;
+    }
+  });
+
+}]);
+
+
+//Adapted from https://gist.github.com/paulirish/1579671
+angular.module('duScroll.polyfill', [])
+.factory('polyfill', ["$window", function($window) {
+  'use strict';
+
+  var vendors = ['webkit', 'moz', 'o', 'ms'];
+
+  return function(fnName, fallback) {
+    if($window[fnName]) {
+      return $window[fnName];
+    }
+    var suffix = fnName.substr(0, 1).toUpperCase() + fnName.substr(1);
+    for(var key, i = 0; i < vendors.length; i++) {
+      key = vendors[i]+suffix;
+      if($window[key]) {
+        return $window[key];
+      }
+    }
+    return fallback;
+  };
+}]);
+
+angular.module('duScroll.requestAnimation', ['duScroll.polyfill'])
+.factory('requestAnimation', ["polyfill", "$timeout", function(polyfill, $timeout) {
+  'use strict';
+
+  var lastTime = 0;
+  var fallback = function(callback, element) {
+    var currTime = new Date().getTime();
+    var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+    var id = $timeout(function() { callback(currTime + timeToCall); },
+      timeToCall);
+    lastTime = currTime + timeToCall;
+    return id;
+  };
+
+  return polyfill('requestAnimationFrame', fallback);
+}])
+.factory('cancelAnimation', ["polyfill", "$timeout", function(polyfill, $timeout) {
+  'use strict';
+
+  var fallback = function(promise) {
+    $timeout.cancel(promise);
+  };
+
+  return polyfill('cancelAnimationFrame', fallback);
+}]);
+
+
+angular.module('duScroll.spyAPI', ['duScroll.scrollContainerAPI'])
+.factory('spyAPI', ["$rootScope", "$timeout", "$window", "$document", "scrollContainerAPI", "duScrollGreedy", "duScrollSpyWait", "duScrollBottomSpy", function($rootScope, $timeout, $window, $document, scrollContainerAPI, duScrollGreedy, duScrollSpyWait, duScrollBottomSpy) {
+  'use strict';
+
+  var createScrollHandler = function(context) {
+    var timer = false, queued = false;
+    var handler = function() {
+      queued = false;
+      var container = context.container,
+          containerEl = container[0],
+          containerOffset = 0,
+          bottomReached;
+
+      if (typeof HTMLElement !== 'undefined' && containerEl instanceof HTMLElement || containerEl.nodeType && containerEl.nodeType === containerEl.ELEMENT_NODE) {
+        containerOffset = containerEl.getBoundingClientRect().top;
+        bottomReached = Math.round(containerEl.scrollTop + containerEl.clientHeight) >= containerEl.scrollHeight;
+      } else {
+        bottomReached = Math.round($window.pageYOffset + $window.innerHeight) >= $document[0].body.scrollHeight;
+      }
+      var compareProperty = (duScrollBottomSpy && bottomReached ? 'bottom' : 'top');
+
+      var i, currentlyActive, toBeActive, spies, spy, pos;
+      spies = context.spies;
+      currentlyActive = context.currentlyActive;
+      toBeActive = undefined;
+
+      for(i = 0; i < spies.length; i++) {
+        spy = spies[i];
+        pos = spy.getTargetPosition();
+        if (!pos) continue;
+
+        if((duScrollBottomSpy && bottomReached) || (pos.top + spy.offset - containerOffset < 20 && (duScrollGreedy || pos.top*-1 + containerOffset) < pos.height)) {
+          //Find the one closest the viewport top or the page bottom if it's reached
+          if(!toBeActive || toBeActive[compareProperty] < pos[compareProperty]) {
+            toBeActive = {
+              spy: spy
+            };
+            toBeActive[compareProperty] = pos[compareProperty];
+          }
+        }
+      }
+
+      if(toBeActive) {
+        toBeActive = toBeActive.spy;
+      }
+      if(currentlyActive === toBeActive || (duScrollGreedy && !toBeActive)) return;
+      if(currentlyActive) {
+        currentlyActive.$element.removeClass('active');
+        $rootScope.$broadcast('duScrollspy:becameInactive', currentlyActive.$element);
+      }
+      if(toBeActive) {
+        toBeActive.$element.addClass('active');
+        $rootScope.$broadcast('duScrollspy:becameActive', toBeActive.$element);
+      }
+      context.currentlyActive = toBeActive;
+    };
+
+    if(!duScrollSpyWait) {
+      return handler;
+    }
+
+    //Debounce for potential performance savings
+    return function() {
+      if(!timer) {
+        handler();
+        timer = $timeout(function() {
+          timer = false;
+          if(queued) {
+            handler();
+          }
+        }, duScrollSpyWait, false);
+      } else {
+        queued = true;
+      }
+    };
+  };
+
+  var contexts = {};
+
+  var createContext = function($scope) {
+    var id = $scope.$id;
+    var context = {
+      spies: []
+    };
+
+    context.handler = createScrollHandler(context);
+    contexts[id] = context;
+
+    $scope.$on('$destroy', function() {
+      destroyContext($scope);
+    });
+
+    return id;
+  };
+
+  var destroyContext = function($scope) {
+    var id = $scope.$id;
+    var context = contexts[id], container = context.container;
+    if(container) {
+      container.off('scroll', context.handler);
+    }
+    delete contexts[id];
+  };
+
+  var defaultContextId = createContext($rootScope);
+
+  var getContextForScope = function(scope) {
+    if(contexts[scope.$id]) {
+      return contexts[scope.$id];
+    }
+    if(scope.$parent) {
+      return getContextForScope(scope.$parent);
+    }
+    return contexts[defaultContextId];
+  };
+
+  var getContextForSpy = function(spy) {
+    var context, contextId, scope = spy.$scope;
+    if(scope) {
+      return getContextForScope(scope);
+    }
+    //No scope, most likely destroyed
+    for(contextId in contexts) {
+      context = contexts[contextId];
+      if(context.spies.indexOf(spy) !== -1) {
+        return context;
+      }
+    }
+  };
+
+  var isElementInDocument = function(element) {
+    while (element.parentNode) {
+      element = element.parentNode;
+      if (element === document) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  var addSpy = function(spy) {
+    var context = getContextForSpy(spy);
+    if (!context) return;
+    context.spies.push(spy);
+    if (!context.container || !isElementInDocument(context.container)) {
+      if(context.container) {
+        context.container.off('scroll', context.handler);
+      }
+      context.container = scrollContainerAPI.getContainer(spy.$scope);
+      context.container.on('scroll', context.handler).triggerHandler('scroll');
+    }
+  };
+
+  var removeSpy = function(spy) {
+    var context = getContextForSpy(spy);
+    if(spy === context.currentlyActive) {
+      context.currentlyActive = null;
+    }
+    var i = context.spies.indexOf(spy);
+    if(i !== -1) {
+      context.spies.splice(i, 1);
+    }
+		spy.$element = null;
+  };
+
+  return {
+    addSpy: addSpy,
+    removeSpy: removeSpy,
+    createContext: createContext,
+    destroyContext: destroyContext,
+    getContextForScope: getContextForScope
+  };
+}]);
+
+
+angular.module('duScroll.scrollContainerAPI', [])
+.factory('scrollContainerAPI', ["$document", function($document) {
+  'use strict';
+
+  var containers = {};
+
+  var setContainer = function(scope, element) {
+    var id = scope.$id;
+    containers[id] = element;
+    return id;
+  };
+
+  var getContainerId = function(scope) {
+    if(containers[scope.$id]) {
+      return scope.$id;
+    }
+    if(scope.$parent) {
+      return getContainerId(scope.$parent);
+    }
+    return;
+  };
+
+  var getContainer = function(scope) {
+    var id = getContainerId(scope);
+    return id ? containers[id] : $document;
+  };
+
+  var removeContainer = function(scope) {
+    var id = getContainerId(scope);
+    if(id) {
+      delete containers[id];
+    }
+  };
+
+  return {
+    getContainerId:   getContainerId,
+    getContainer:     getContainer,
+    setContainer:     setContainer,
+    removeContainer:  removeContainer
+  };
+}]);
+
+
+angular.module('duScroll.smoothScroll', ['duScroll.scrollHelpers', 'duScroll.scrollContainerAPI'])
+.directive('duSmoothScroll', ["duScrollDuration", "duScrollOffset", "scrollContainerAPI", function(duScrollDuration, duScrollOffset, scrollContainerAPI) {
+  'use strict';
+
+  return {
+    link : function($scope, $element, $attr) {
+      $element.on('click', function(e) {
+        if((!$attr.href || $attr.href.indexOf('#') === -1) && $attr.duSmoothScroll === '') return;
+
+        var id = $attr.href ? $attr.href.replace(/.*(?=#[^\s]+$)/, '').substring(1) : $attr.duSmoothScroll;
+
+        var target = document.getElementById(id) || document.getElementsByName(id)[0];
+        if(!target || !target.getBoundingClientRect) return;
+
+        if (e.stopPropagation) e.stopPropagation();
+        if (e.preventDefault) e.preventDefault();
+
+        var offset    = $attr.offset ? parseInt($attr.offset, 10) : duScrollOffset;
+        var duration  = $attr.duration ? parseInt($attr.duration, 10) : duScrollDuration;
+        var container = scrollContainerAPI.getContainer($scope);
+
+        container.duScrollToElement(
+          angular.element(target),
+          isNaN(offset) ? 0 : offset,
+          isNaN(duration) ? 0 : duration
+        );
+      });
+    }
+  };
+}]);
+
+
+angular.module('duScroll.spyContext', ['duScroll.spyAPI'])
+.directive('duSpyContext', ["spyAPI", function(spyAPI) {
+  'use strict';
+
+  return {
+    restrict: 'A',
+    scope: true,
+    compile: function compile(tElement, tAttrs, transclude) {
+      return {
+        pre: function preLink($scope, iElement, iAttrs, controller) {
+          spyAPI.createContext($scope);
+        }
+      };
+    }
+  };
+}]);
+
+
+angular.module('duScroll.scrollContainer', ['duScroll.scrollContainerAPI'])
+.directive('duScrollContainer', ["scrollContainerAPI", function(scrollContainerAPI){
+  'use strict';
+
+  return {
+    restrict: 'A',
+    scope: true,
+    compile: function compile(tElement, tAttrs, transclude) {
+      return {
+        pre: function preLink($scope, iElement, iAttrs, controller) {
+          iAttrs.$observe('duScrollContainer', function(element) {
+            if(angular.isString(element)) {
+              element = document.getElementById(element);
+            }
+
+            element = (angular.isElement(element) ? angular.element(element) : iElement);
+            scrollContainerAPI.setContainer($scope, element);
+            $scope.$on('$destroy', function() {
+              scrollContainerAPI.removeContainer($scope);
+            });
+          });
+        }
+      };
+    }
+  };
+}]);
+
+
+angular.module('duScroll.scrollspy', ['duScroll.spyAPI'])
+.directive('duScrollspy', ["spyAPI", "duScrollOffset", "$timeout", "$rootScope", function(spyAPI, duScrollOffset, $timeout, $rootScope) {
+  'use strict';
+
+  var Spy = function(targetElementOrId, $scope, $element, offset) {
+    if(angular.isElement(targetElementOrId)) {
+      this.target = targetElementOrId;
+    } else if(angular.isString(targetElementOrId)) {
+      this.targetId = targetElementOrId;
+    }
+    this.$scope = $scope;
+    this.$element = $element;
+    this.offset = offset;
+  };
+
+  Spy.prototype.getTargetElement = function() {
+    if (!this.target && this.targetId) {
+      this.target = document.getElementById(this.targetId) || document.getElementsByName(this.targetId)[0];
+    }
+    return this.target;
+  };
+
+  Spy.prototype.getTargetPosition = function() {
+    var target = this.getTargetElement();
+    if(target) {
+      return target.getBoundingClientRect();
+    }
+  };
+
+  Spy.prototype.flushTargetCache = function() {
+    if(this.targetId) {
+      this.target = undefined;
+    }
+  };
+
+  return {
+    link: function ($scope, $element, $attr) {
+      var href = $attr.ngHref || $attr.href;
+      var targetId;
+
+      if (href && href.indexOf('#') !== -1) {
+        targetId = href.replace(/.*(?=#[^\s]+$)/, '').substring(1);
+      } else if($attr.duScrollspy) {
+        targetId = $attr.duScrollspy;
+      } else if($attr.duSmoothScroll) {
+        targetId = $attr.duSmoothScroll;
+      }
+      if(!targetId) return;
+
+      // Run this in the next execution loop so that the scroll context has a chance
+      // to initialize
+      $timeout(function() {
+        var spy = new Spy(targetId, $scope, $element, -($attr.offset ? parseInt($attr.offset, 10) : duScrollOffset));
+        spyAPI.addSpy(spy);
+
+        $scope.$on('$locationChangeSuccess', spy.flushTargetCache.bind(spy));
+        var deregisterOnStateChange = $rootScope.$on('$stateChangeSuccess', spy.flushTargetCache.bind(spy));
+        $scope.$on('$destroy', function() {
+          spyAPI.removeSpy(spy);
+          deregisterOnStateChange();
+        });
+      }, 0, false);
+    }
+  };
+}]);
+/**
+ * @license AngularJS v1.3.4
+ * (c) 2010-2014 Google, Inc. http://angularjs.org
+ * License: MIT
+ */
+(function(window, angular, undefined) {'use strict';
+
+/**
+ * @ngdoc module
+ * @name ngTouch
+ * @description
+ *
+ * # ngTouch
+ *
+ * The `ngTouch` module provides touch events and other helpers for touch-enabled devices.
+ * The implementation is based on jQuery Mobile touch event handling
+ * ([jquerymobile.com](http://jquerymobile.com/)).
+ *
+ *
+ * See {@link ngTouch.$swipe `$swipe`} for usage.
+ *
+ * <div doc-module-components="ngTouch"></div>
+ *
+ */
+
+// define ngTouch module
+/* global -ngTouch */
+var ngTouch = angular.module('ngTouch', []);
+
+/* global ngTouch: false */
+
+    /**
+     * @ngdoc service
+     * @name $swipe
+     *
+     * @description
+     * The `$swipe` service is a service that abstracts the messier details of hold-and-drag swipe
+     * behavior, to make implementing swipe-related directives more convenient.
+     *
+     * Requires the {@link ngTouch `ngTouch`} module to be installed.
+     *
+     * `$swipe` is used by the `ngSwipeLeft` and `ngSwipeRight` directives in `ngTouch`, and by
+     * `ngCarousel` in a separate component.
+     *
+     * # Usage
+     * The `$swipe` service is an object with a single method: `bind`. `bind` takes an element
+     * which is to be watched for swipes, and an object with four handler functions. See the
+     * documentation for `bind` below.
+     */
+
+ngTouch.factory('$swipe', [function() {
+  // The total distance in any direction before we make the call on swipe vs. scroll.
+  var MOVE_BUFFER_RADIUS = 10;
+
+  var POINTER_EVENTS = {
+    'mouse': {
+      start: 'mousedown',
+      move: 'mousemove',
+      end: 'mouseup'
+    },
+    'touch': {
+      start: 'touchstart',
+      move: 'touchmove',
+      end: 'touchend',
+      cancel: 'touchcancel'
+    }
+  };
+
+  function getCoordinates(event) {
+    var touches = event.touches && event.touches.length ? event.touches : [event];
+    var e = (event.changedTouches && event.changedTouches[0]) ||
+        (event.originalEvent && event.originalEvent.changedTouches &&
+            event.originalEvent.changedTouches[0]) ||
+        touches[0].originalEvent || touches[0];
+
+    return {
+      x: e.clientX,
+      y: e.clientY
+    };
+  }
+
+  function getEvents(pointerTypes, eventType) {
+    var res = [];
+    angular.forEach(pointerTypes, function(pointerType) {
+      var eventName = POINTER_EVENTS[pointerType][eventType];
+      if (eventName) {
+        res.push(eventName);
+      }
+    });
+    return res.join(' ');
+  }
+
+  return {
+    /**
+     * @ngdoc method
+     * @name $swipe#bind
+     *
+     * @description
+     * The main method of `$swipe`. It takes an element to be watched for swipe motions, and an
+     * object containing event handlers.
+     * The pointer types that should be used can be specified via the optional
+     * third argument, which is an array of strings `'mouse'` and `'touch'`. By default,
+     * `$swipe` will listen for `mouse` and `touch` events.
+     *
+     * The four events are `start`, `move`, `end`, and `cancel`. `start`, `move`, and `end`
+     * receive as a parameter a coordinates object of the form `{ x: 150, y: 310 }`.
+     *
+     * `start` is called on either `mousedown` or `touchstart`. After this event, `$swipe` is
+     * watching for `touchmove` or `mousemove` events. These events are ignored until the total
+     * distance moved in either dimension exceeds a small threshold.
+     *
+     * Once this threshold is exceeded, either the horizontal or vertical delta is greater.
+     * - If the horizontal distance is greater, this is a swipe and `move` and `end` events follow.
+     * - If the vertical distance is greater, this is a scroll, and we let the browser take over.
+     *   A `cancel` event is sent.
+     *
+     * `move` is called on `mousemove` and `touchmove` after the above logic has determined that
+     * a swipe is in progress.
+     *
+     * `end` is called when a swipe is successfully completed with a `touchend` or `mouseup`.
+     *
+     * `cancel` is called either on a `touchcancel` from the browser, or when we begin scrolling
+     * as described above.
+     *
+     */
+    bind: function(element, eventHandlers, pointerTypes) {
+      // Absolute total movement, used to control swipe vs. scroll.
+      var totalX, totalY;
+      // Coordinates of the start position.
+      var startCoords;
+      // Last event's position.
+      var lastPos;
+      // Whether a swipe is active.
+      var active = false;
+
+      pointerTypes = pointerTypes || ['mouse', 'touch'];
+      element.on(getEvents(pointerTypes, 'start'), function(event) {
+        startCoords = getCoordinates(event);
+        active = true;
+        totalX = 0;
+        totalY = 0;
+        lastPos = startCoords;
+        eventHandlers['start'] && eventHandlers['start'](startCoords, event);
+      });
+      var events = getEvents(pointerTypes, 'cancel');
+      if (events) {
+        element.on(events, function(event) {
+          active = false;
+          eventHandlers['cancel'] && eventHandlers['cancel'](event);
+        });
+      }
+
+      element.on(getEvents(pointerTypes, 'move'), function(event) {
+        if (!active) return;
+
+        // Android will send a touchcancel if it thinks we're starting to scroll.
+        // So when the total distance (+ or - or both) exceeds 10px in either direction,
+        // we either:
+        // - On totalX > totalY, we send preventDefault() and treat this as a swipe.
+        // - On totalY > totalX, we let the browser handle it as a scroll.
+
+        if (!startCoords) return;
+        var coords = getCoordinates(event);
+
+        totalX += Math.abs(coords.x - lastPos.x);
+        totalY += Math.abs(coords.y - lastPos.y);
+
+        lastPos = coords;
+
+        if (totalX < MOVE_BUFFER_RADIUS && totalY < MOVE_BUFFER_RADIUS) {
+          return;
+        }
+
+        // One of totalX or totalY has exceeded the buffer, so decide on swipe vs. scroll.
+        if (totalY > totalX) {
+          // Allow native scrolling to take over.
+          active = false;
+          eventHandlers['cancel'] && eventHandlers['cancel'](event);
+          return;
+        } else {
+          // Prevent the browser from scrolling.
+          event.preventDefault();
+          eventHandlers['move'] && eventHandlers['move'](coords, event);
+        }
+      });
+
+      element.on(getEvents(pointerTypes, 'end'), function(event) {
+        if (!active) return;
+        active = false;
+        eventHandlers['end'] && eventHandlers['end'](getCoordinates(event), event);
+      });
+    }
+  };
+}]);
+
+/* global ngTouch: false */
+
+/**
+ * @ngdoc directive
+ * @name ngClick
+ *
+ * @description
+ * A more powerful replacement for the default ngClick designed to be used on touchscreen
+ * devices. Most mobile browsers wait about 300ms after a tap-and-release before sending
+ * the click event. This version handles them immediately, and then prevents the
+ * following click event from propagating.
+ *
+ * Requires the {@link ngTouch `ngTouch`} module to be installed.
+ *
+ * This directive can fall back to using an ordinary click event, and so works on desktop
+ * browsers as well as mobile.
+ *
+ * This directive also sets the CSS class `ng-click-active` while the element is being held
+ * down (by a mouse click or touch) so you can restyle the depressed element if you wish.
+ *
+ * @element ANY
+ * @param {expression} ngClick {@link guide/expression Expression} to evaluate
+ * upon tap. (Event object is available as `$event`)
+ *
+ * @example
+    <example module="ngClickExample" deps="angular-touch.js">
+      <file name="index.html">
+        <button ng-click="count = count + 1" ng-init="count=0">
+          Increment
+        </button>
+        count: {{ count }}
+      </file>
+      <file name="script.js">
+        angular.module('ngClickExample', ['ngTouch']);
+      </file>
+    </example>
+ */
+
+ngTouch.config(['$provide', function($provide) {
+  $provide.decorator('ngClickDirective', ['$delegate', function($delegate) {
+    // drop the default ngClick directive
+    $delegate.shift();
+    return $delegate;
+  }]);
+}]);
+
+ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
+    function($parse, $timeout, $rootElement) {
+  var TAP_DURATION = 750; // Shorter than 750ms is a tap, longer is a taphold or drag.
+  var MOVE_TOLERANCE = 12; // 12px seems to work in most mobile browsers.
+  var PREVENT_DURATION = 2500; // 2.5 seconds maximum from preventGhostClick call to click
+  var CLICKBUSTER_THRESHOLD = 25; // 25 pixels in any dimension is the limit for busting clicks.
+
+  var ACTIVE_CLASS_NAME = 'ng-click-active';
+  var lastPreventedTime;
+  var touchCoordinates;
+  var lastLabelClickCoordinates;
+
+
+  // TAP EVENTS AND GHOST CLICKS
+  //
+  // Why tap events?
+  // Mobile browsers detect a tap, then wait a moment (usually ~300ms) to see if you're
+  // double-tapping, and then fire a click event.
+  //
+  // This delay sucks and makes mobile apps feel unresponsive.
+  // So we detect touchstart, touchmove, touchcancel and touchend ourselves and determine when
+  // the user has tapped on something.
+  //
+  // What happens when the browser then generates a click event?
+  // The browser, of course, also detects the tap and fires a click after a delay. This results in
+  // tapping/clicking twice. We do "clickbusting" to prevent it.
+  //
+  // How does it work?
+  // We attach global touchstart and click handlers, that run during the capture (early) phase.
+  // So the sequence for a tap is:
+  // - global touchstart: Sets an "allowable region" at the point touched.
+  // - element's touchstart: Starts a touch
+  // (- touchmove or touchcancel ends the touch, no click follows)
+  // - element's touchend: Determines if the tap is valid (didn't move too far away, didn't hold
+  //   too long) and fires the user's tap handler. The touchend also calls preventGhostClick().
+  // - preventGhostClick() removes the allowable region the global touchstart created.
+  // - The browser generates a click event.
+  // - The global click handler catches the click, and checks whether it was in an allowable region.
+  //     - If preventGhostClick was called, the region will have been removed, the click is busted.
+  //     - If the region is still there, the click proceeds normally. Therefore clicks on links and
+  //       other elements without ngTap on them work normally.
+  //
+  // This is an ugly, terrible hack!
+  // Yeah, tell me about it. The alternatives are using the slow click events, or making our users
+  // deal with the ghost clicks, so I consider this the least of evils. Fortunately Angular
+  // encapsulates this ugly logic away from the user.
+  //
+  // Why not just put click handlers on the element?
+  // We do that too, just to be sure. If the tap event caused the DOM to change,
+  // it is possible another element is now in that position. To take account for these possibly
+  // distinct elements, the handlers are global and care only about coordinates.
+
+  // Checks if the coordinates are close enough to be within the region.
+  function hit(x1, y1, x2, y2) {
+    return Math.abs(x1 - x2) < CLICKBUSTER_THRESHOLD && Math.abs(y1 - y2) < CLICKBUSTER_THRESHOLD;
+  }
+
+  // Checks a list of allowable regions against a click location.
+  // Returns true if the click should be allowed.
+  // Splices out the allowable region from the list after it has been used.
+  function checkAllowableRegions(touchCoordinates, x, y) {
+    for (var i = 0; i < touchCoordinates.length; i += 2) {
+      if (hit(touchCoordinates[i], touchCoordinates[i + 1], x, y)) {
+        touchCoordinates.splice(i, i + 2);
+        return true; // allowable region
+      }
+    }
+    return false; // No allowable region; bust it.
+  }
+
+  // Global click handler that prevents the click if it's in a bustable zone and preventGhostClick
+  // was called recently.
+  function onClick(event) {
+    if (Date.now() - lastPreventedTime > PREVENT_DURATION) {
+      return; // Too old.
+    }
+
+    var touches = event.touches && event.touches.length ? event.touches : [event];
+    var x = touches[0].clientX;
+    var y = touches[0].clientY;
+    // Work around desktop Webkit quirk where clicking a label will fire two clicks (on the label
+    // and on the input element). Depending on the exact browser, this second click we don't want
+    // to bust has either (0,0), negative coordinates, or coordinates equal to triggering label
+    // click event
+    if (x < 1 && y < 1) {
+      return; // offscreen
+    }
+    if (lastLabelClickCoordinates &&
+        lastLabelClickCoordinates[0] === x && lastLabelClickCoordinates[1] === y) {
+      return; // input click triggered by label click
+    }
+    // reset label click coordinates on first subsequent click
+    if (lastLabelClickCoordinates) {
+      lastLabelClickCoordinates = null;
+    }
+    // remember label click coordinates to prevent click busting of trigger click event on input
+    if (event.target.tagName.toLowerCase() === 'label') {
+      lastLabelClickCoordinates = [x, y];
+    }
+
+    // Look for an allowable region containing this click.
+    // If we find one, that means it was created by touchstart and not removed by
+    // preventGhostClick, so we don't bust it.
+    if (checkAllowableRegions(touchCoordinates, x, y)) {
+      return;
+    }
+
+    // If we didn't find an allowable region, bust the click.
+    event.stopPropagation();
+    event.preventDefault();
+
+    // Blur focused form elements
+    event.target && event.target.blur();
+  }
+
+
+  // Global touchstart handler that creates an allowable region for a click event.
+  // This allowable region can be removed by preventGhostClick if we want to bust it.
+  function onTouchStart(event) {
+    var touches = event.touches && event.touches.length ? event.touches : [event];
+    var x = touches[0].clientX;
+    var y = touches[0].clientY;
+    touchCoordinates.push(x, y);
+
+    $timeout(function() {
+      // Remove the allowable region.
+      for (var i = 0; i < touchCoordinates.length; i += 2) {
+        if (touchCoordinates[i] == x && touchCoordinates[i + 1] == y) {
+          touchCoordinates.splice(i, i + 2);
+          return;
+        }
+      }
+    }, PREVENT_DURATION, false);
+  }
+
+  // On the first call, attaches some event handlers. Then whenever it gets called, it creates a
+  // zone around the touchstart where clicks will get busted.
+  function preventGhostClick(x, y) {
+    if (!touchCoordinates) {
+      $rootElement[0].addEventListener('click', onClick, true);
+      $rootElement[0].addEventListener('touchstart', onTouchStart, true);
+      touchCoordinates = [];
+    }
+
+    lastPreventedTime = Date.now();
+
+    checkAllowableRegions(touchCoordinates, x, y);
+  }
+
+  // Actual linking function.
+  return function(scope, element, attr) {
+    var clickHandler = $parse(attr.ngClick),
+        tapping = false,
+        tapElement,  // Used to blur the element after a tap.
+        startTime,   // Used to check if the tap was held too long.
+        touchStartX,
+        touchStartY;
+
+    function resetState() {
+      tapping = false;
+      element.removeClass(ACTIVE_CLASS_NAME);
+    }
+
+    element.on('touchstart', function(event) {
+      tapping = true;
+      tapElement = event.target ? event.target : event.srcElement; // IE uses srcElement.
+      // Hack for Safari, which can target text nodes instead of containers.
+      if (tapElement.nodeType == 3) {
+        tapElement = tapElement.parentNode;
+      }
+
+      element.addClass(ACTIVE_CLASS_NAME);
+
+      startTime = Date.now();
+
+      var touches = event.touches && event.touches.length ? event.touches : [event];
+      var e = touches[0].originalEvent || touches[0];
+      touchStartX = e.clientX;
+      touchStartY = e.clientY;
+    });
+
+    element.on('touchmove', function(event) {
+      resetState();
+    });
+
+    element.on('touchcancel', function(event) {
+      resetState();
+    });
+
+    element.on('touchend', function(event) {
+      var diff = Date.now() - startTime;
+
+      var touches = (event.changedTouches && event.changedTouches.length) ? event.changedTouches :
+          ((event.touches && event.touches.length) ? event.touches : [event]);
+      var e = touches[0].originalEvent || touches[0];
+      var x = e.clientX;
+      var y = e.clientY;
+      var dist = Math.sqrt(Math.pow(x - touchStartX, 2) + Math.pow(y - touchStartY, 2));
+
+      if (tapping && diff < TAP_DURATION && dist < MOVE_TOLERANCE) {
+        // Call preventGhostClick so the clickbuster will catch the corresponding click.
+        preventGhostClick(x, y);
+
+        // Blur the focused element (the button, probably) before firing the callback.
+        // This doesn't work perfectly on Android Chrome, but seems to work elsewhere.
+        // I couldn't get anything to work reliably on Android Chrome.
+        if (tapElement) {
+          tapElement.blur();
+        }
+
+        if (!angular.isDefined(attr.disabled) || attr.disabled === false) {
+          element.triggerHandler('click', [event]);
+        }
+      }
+
+      resetState();
+    });
+
+    // Hack for iOS Safari's benefit. It goes searching for onclick handlers and is liable to click
+    // something else nearby.
+    element.onclick = function(event) { };
+
+    // Actual click handler.
+    // There are three different kinds of clicks, only two of which reach this point.
+    // - On desktop browsers without touch events, their clicks will always come here.
+    // - On mobile browsers, the simulated "fast" click will call this.
+    // - But the browser's follow-up slow click will be "busted" before it reaches this handler.
+    // Therefore it's safe to use this directive on both mobile and desktop.
+    element.on('click', function(event, touchend) {
+      scope.$apply(function() {
+        clickHandler(scope, {$event: (touchend || event)});
+      });
+    });
+
+    element.on('mousedown', function(event) {
+      element.addClass(ACTIVE_CLASS_NAME);
+    });
+
+    element.on('mousemove mouseup', function(event) {
+      element.removeClass(ACTIVE_CLASS_NAME);
+    });
+
+  };
+}]);
+
+/* global ngTouch: false */
+
+/**
+ * @ngdoc directive
+ * @name ngSwipeLeft
+ *
+ * @description
+ * Specify custom behavior when an element is swiped to the left on a touchscreen device.
+ * A leftward swipe is a quick, right-to-left slide of the finger.
+ * Though ngSwipeLeft is designed for touch-based devices, it will work with a mouse click and drag
+ * too.
+ *
+ * To disable the mouse click and drag functionality, add `ng-swipe-disable-mouse` to
+ * the `ng-swipe-left` or `ng-swipe-right` DOM Element.
+ *
+ * Requires the {@link ngTouch `ngTouch`} module to be installed.
+ *
+ * @element ANY
+ * @param {expression} ngSwipeLeft {@link guide/expression Expression} to evaluate
+ * upon left swipe. (Event object is available as `$event`)
+ *
+ * @example
+    <example module="ngSwipeLeftExample" deps="angular-touch.js">
+      <file name="index.html">
+        <div ng-show="!showActions" ng-swipe-left="showActions = true">
+          Some list content, like an email in the inbox
+        </div>
+        <div ng-show="showActions" ng-swipe-right="showActions = false">
+          <button ng-click="reply()">Reply</button>
+          <button ng-click="delete()">Delete</button>
+        </div>
+      </file>
+      <file name="script.js">
+        angular.module('ngSwipeLeftExample', ['ngTouch']);
+      </file>
+    </example>
+ */
+
+/**
+ * @ngdoc directive
+ * @name ngSwipeRight
+ *
+ * @description
+ * Specify custom behavior when an element is swiped to the right on a touchscreen device.
+ * A rightward swipe is a quick, left-to-right slide of the finger.
+ * Though ngSwipeRight is designed for touch-based devices, it will work with a mouse click and drag
+ * too.
+ *
+ * Requires the {@link ngTouch `ngTouch`} module to be installed.
+ *
+ * @element ANY
+ * @param {expression} ngSwipeRight {@link guide/expression Expression} to evaluate
+ * upon right swipe. (Event object is available as `$event`)
+ *
+ * @example
+    <example module="ngSwipeRightExample" deps="angular-touch.js">
+      <file name="index.html">
+        <div ng-show="!showActions" ng-swipe-left="showActions = true">
+          Some list content, like an email in the inbox
+        </div>
+        <div ng-show="showActions" ng-swipe-right="showActions = false">
+          <button ng-click="reply()">Reply</button>
+          <button ng-click="delete()">Delete</button>
+        </div>
+      </file>
+      <file name="script.js">
+        angular.module('ngSwipeRightExample', ['ngTouch']);
+      </file>
+    </example>
+ */
+
+function makeSwipeDirective(directiveName, direction, eventName) {
+  ngTouch.directive(directiveName, ['$parse', '$swipe', function($parse, $swipe) {
+    // The maximum vertical delta for a swipe should be less than 75px.
+    var MAX_VERTICAL_DISTANCE = 75;
+    // Vertical distance should not be more than a fraction of the horizontal distance.
+    var MAX_VERTICAL_RATIO = 0.3;
+    // At least a 30px lateral motion is necessary for a swipe.
+    var MIN_HORIZONTAL_DISTANCE = 30;
+
+    return function(scope, element, attr) {
+      var swipeHandler = $parse(attr[directiveName]);
+
+      var startCoords, valid;
+
+      function validSwipe(coords) {
+        // Check that it's within the coordinates.
+        // Absolute vertical distance must be within tolerances.
+        // Horizontal distance, we take the current X - the starting X.
+        // This is negative for leftward swipes and positive for rightward swipes.
+        // After multiplying by the direction (-1 for left, +1 for right), legal swipes
+        // (ie. same direction as the directive wants) will have a positive delta and
+        // illegal ones a negative delta.
+        // Therefore this delta must be positive, and larger than the minimum.
+        if (!startCoords) return false;
+        var deltaY = Math.abs(coords.y - startCoords.y);
+        var deltaX = (coords.x - startCoords.x) * direction;
+        return valid && // Short circuit for already-invalidated swipes.
+            deltaY < MAX_VERTICAL_DISTANCE &&
+            deltaX > 0 &&
+            deltaX > MIN_HORIZONTAL_DISTANCE &&
+            deltaY / deltaX < MAX_VERTICAL_RATIO;
+      }
+
+      var pointerTypes = ['touch'];
+      if (!angular.isDefined(attr['ngSwipeDisableMouse'])) {
+        pointerTypes.push('mouse');
+      }
+      $swipe.bind(element, {
+        'start': function(coords, event) {
+          startCoords = coords;
+          valid = true;
+        },
+        'cancel': function(event) {
+          valid = false;
+        },
+        'end': function(coords, event) {
+          if (validSwipe(coords)) {
+            scope.$apply(function() {
+              element.triggerHandler(eventName);
+              swipeHandler(scope, {$event: event});
+            });
+          }
+        }
+      }, pointerTypes);
+    };
+  }]);
+}
+
+// Left is negative X-coordinate, right is positive.
+makeSwipeDirective('ngSwipeLeft', -1, 'swipeleft');
+makeSwipeDirective('ngSwipeRight', 1, 'swiperight');
+
+
+
+})(window, window.angular);
+/**
  * @license AngularJS v1.3.4
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
@@ -27591,7 +28823,7 @@ function ngViewFillContentFactory($compile, $controller, $route) {
  * Build: http://modernizr.com/download/#-fontface-backgroundsize-borderimage-borderradius-boxshadow-flexbox-hsla-multiplebgs-opacity-rgba-textshadow-cssanimations-csscolumns-generatedcontent-cssgradients-cssreflections-csstransforms-csstransforms3d-csstransitions-applicationcache-canvas-canvastext-draganddrop-hashchange-history-audio-video-indexeddb-input-inputtypes-localstorage-postmessage-sessionstorage-websockets-websqldatabase-webworkers-geolocation-inlinesvg-smil-svg-svgclippaths-touch-webgl-shiv-cssclasses-addtest-prefixed-teststyles-testprop-testallprops-hasevent-prefixes-domprefixes-load
  */
 ;window.Modernizr=function(a,b,c){function C(a){j.cssText=a}function D(a,b){return C(n.join(a+";")+(b||""))}function E(a,b){return typeof a===b}function F(a,b){return!!~(""+a).indexOf(b)}function G(a,b){for(var d in a){var e=a[d];if(!F(e,"-")&&j[e]!==c)return b=="pfx"?e:!0}return!1}function H(a,b,d){for(var e in a){var f=b[a[e]];if(f!==c)return d===!1?a[e]:E(f,"function")?f.bind(d||b):f}return!1}function I(a,b,c){var d=a.charAt(0).toUpperCase()+a.slice(1),e=(a+" "+p.join(d+" ")+d).split(" ");return E(b,"string")||E(b,"undefined")?G(e,b):(e=(a+" "+q.join(d+" ")+d).split(" "),H(e,b,c))}function J(){e.input=function(c){for(var d=0,e=c.length;d<e;d++)u[c[d]]=c[d]in k;return u.list&&(u.list=!!b.createElement("datalist")&&!!a.HTMLDataListElement),u}("autocomplete autofocus list placeholder max min multiple pattern required step".split(" ")),e.inputtypes=function(a){for(var d=0,e,f,h,i=a.length;d<i;d++)k.setAttribute("type",f=a[d]),e=k.type!=="text",e&&(k.value=l,k.style.cssText="position:absolute;visibility:hidden;",/^range$/.test(f)&&k.style.WebkitAppearance!==c?(g.appendChild(k),h=b.defaultView,e=h.getComputedStyle&&h.getComputedStyle(k,null).WebkitAppearance!=="textfield"&&k.offsetHeight!==0,g.removeChild(k)):/^(search|tel)$/.test(f)||(/^(url|email)$/.test(f)?e=k.checkValidity&&k.checkValidity()===!1:e=k.value!=l)),t[a[d]]=!!e;return t}("search tel url email datetime date month week time datetime-local number range color".split(" "))}var d="2.7.1",e={},f=!0,g=b.documentElement,h="modernizr",i=b.createElement(h),j=i.style,k=b.createElement("input"),l=":)",m={}.toString,n=" -webkit- -moz- -o- -ms- ".split(" "),o="Webkit Moz O ms",p=o.split(" "),q=o.toLowerCase().split(" "),r={svg:"http://www.w3.org/2000/svg"},s={},t={},u={},v=[],w=v.slice,x,y=function(a,c,d,e){var f,i,j,k,l=b.createElement("div"),m=b.body,n=m||b.createElement("body");if(parseInt(d,10))while(d--)j=b.createElement("div"),j.id=e?e[d]:h+(d+1),l.appendChild(j);return f=["&#173;",'<style id="s',h,'">',a,"</style>"].join(""),l.id=h,(m?l:n).innerHTML+=f,n.appendChild(l),m||(n.style.background="",n.style.overflow="hidden",k=g.style.overflow,g.style.overflow="hidden",g.appendChild(n)),i=c(l,a),m?l.parentNode.removeChild(l):(n.parentNode.removeChild(n),g.style.overflow=k),!!i},z=function(){function d(d,e){e=e||b.createElement(a[d]||"div"),d="on"+d;var f=d in e;return f||(e.setAttribute||(e=b.createElement("div")),e.setAttribute&&e.removeAttribute&&(e.setAttribute(d,""),f=E(e[d],"function"),E(e[d],"undefined")||(e[d]=c),e.removeAttribute(d))),e=null,f}var a={select:"input",change:"input",submit:"form",reset:"form",error:"img",load:"img",abort:"img"};return d}(),A={}.hasOwnProperty,B;!E(A,"undefined")&&!E(A.call,"undefined")?B=function(a,b){return A.call(a,b)}:B=function(a,b){return b in a&&E(a.constructor.prototype[b],"undefined")},Function.prototype.bind||(Function.prototype.bind=function(b){var c=this;if(typeof c!="function")throw new TypeError;var d=w.call(arguments,1),e=function(){if(this instanceof e){var a=function(){};a.prototype=c.prototype;var f=new a,g=c.apply(f,d.concat(w.call(arguments)));return Object(g)===g?g:f}return c.apply(b,d.concat(w.call(arguments)))};return e}),s.flexbox=function(){return I("flexWrap")},s.canvas=function(){var a=b.createElement("canvas");return!!a.getContext&&!!a.getContext("2d")},s.canvastext=function(){return!!e.canvas&&!!E(b.createElement("canvas").getContext("2d").fillText,"function")},s.webgl=function(){return!!a.WebGLRenderingContext},s.touch=function(){var c;return"ontouchstart"in a||a.DocumentTouch&&b instanceof DocumentTouch?c=!0:y(["@media (",n.join("touch-enabled),("),h,")","{#modernizr{top:9px;position:absolute}}"].join(""),function(a){c=a.offsetTop===9}),c},s.geolocation=function(){return"geolocation"in navigator},s.postmessage=function(){return!!a.postMessage},s.websqldatabase=function(){return!!a.openDatabase},s.indexedDB=function(){return!!I("indexedDB",a)},s.hashchange=function(){return z("hashchange",a)&&(b.documentMode===c||b.documentMode>7)},s.history=function(){return!!a.history&&!!history.pushState},s.draganddrop=function(){var a=b.createElement("div");return"draggable"in a||"ondragstart"in a&&"ondrop"in a},s.websockets=function(){return"WebSocket"in a||"MozWebSocket"in a},s.rgba=function(){return C("background-color:rgba(150,255,150,.5)"),F(j.backgroundColor,"rgba")},s.hsla=function(){return C("background-color:hsla(120,40%,100%,.5)"),F(j.backgroundColor,"rgba")||F(j.backgroundColor,"hsla")},s.multiplebgs=function(){return C("background:url(https://),url(https://),red url(https://)"),/(url\s*\(.*?){3}/.test(j.background)},s.backgroundsize=function(){return I("backgroundSize")},s.borderimage=function(){return I("borderImage")},s.borderradius=function(){return I("borderRadius")},s.boxshadow=function(){return I("boxShadow")},s.textshadow=function(){return b.createElement("div").style.textShadow===""},s.opacity=function(){return D("opacity:.55"),/^0.55$/.test(j.opacity)},s.cssanimations=function(){return I("animationName")},s.csscolumns=function(){return I("columnCount")},s.cssgradients=function(){var a="background-image:",b="gradient(linear,left top,right bottom,from(#9f9),to(white));",c="linear-gradient(left top,#9f9, white);";return C((a+"-webkit- ".split(" ").join(b+a)+n.join(c+a)).slice(0,-a.length)),F(j.backgroundImage,"gradient")},s.cssreflections=function(){return I("boxReflect")},s.csstransforms=function(){return!!I("transform")},s.csstransforms3d=function(){var a=!!I("perspective");return a&&"webkitPerspective"in g.style&&y("@media (transform-3d),(-webkit-transform-3d){#modernizr{left:9px;position:absolute;height:3px;}}",function(b,c){a=b.offsetLeft===9&&b.offsetHeight===3}),a},s.csstransitions=function(){return I("transition")},s.fontface=function(){var a;return y('@font-face {font-family:"font";src:url("https://")}',function(c,d){var e=b.getElementById("smodernizr"),f=e.sheet||e.styleSheet,g=f?f.cssRules&&f.cssRules[0]?f.cssRules[0].cssText:f.cssText||"":"";a=/src/i.test(g)&&g.indexOf(d.split(" ")[0])===0}),a},s.generatedcontent=function(){var a;return y(["#",h,"{font:0/0 a}#",h,':after{content:"',l,'";visibility:hidden;font:3px/1 a}'].join(""),function(b){a=b.offsetHeight>=3}),a},s.video=function(){var a=b.createElement("video"),c=!1;try{if(c=!!a.canPlayType)c=new Boolean(c),c.ogg=a.canPlayType('video/ogg; codecs="theora"').replace(/^no$/,""),c.h264=a.canPlayType('video/mp4; codecs="avc1.42E01E"').replace(/^no$/,""),c.webm=a.canPlayType('video/webm; codecs="vp8, vorbis"').replace(/^no$/,"")}catch(d){}return c},s.audio=function(){var a=b.createElement("audio"),c=!1;try{if(c=!!a.canPlayType)c=new Boolean(c),c.ogg=a.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/,""),c.mp3=a.canPlayType("audio/mpeg;").replace(/^no$/,""),c.wav=a.canPlayType('audio/wav; codecs="1"').replace(/^no$/,""),c.m4a=(a.canPlayType("audio/x-m4a;")||a.canPlayType("audio/aac;")).replace(/^no$/,"")}catch(d){}return c},s.localstorage=function(){try{return localStorage.setItem(h,h),localStorage.removeItem(h),!0}catch(a){return!1}},s.sessionstorage=function(){try{return sessionStorage.setItem(h,h),sessionStorage.removeItem(h),!0}catch(a){return!1}},s.webworkers=function(){return!!a.Worker},s.applicationcache=function(){return!!a.applicationCache},s.svg=function(){return!!b.createElementNS&&!!b.createElementNS(r.svg,"svg").createSVGRect},s.inlinesvg=function(){var a=b.createElement("div");return a.innerHTML="<svg/>",(a.firstChild&&a.firstChild.namespaceURI)==r.svg},s.smil=function(){return!!b.createElementNS&&/SVGAnimate/.test(m.call(b.createElementNS(r.svg,"animate")))},s.svgclippaths=function(){return!!b.createElementNS&&/SVGClipPath/.test(m.call(b.createElementNS(r.svg,"clipPath")))};for(var K in s)B(s,K)&&(x=K.toLowerCase(),e[x]=s[K](),v.push((e[x]?"":"no-")+x));return e.input||J(),e.addTest=function(a,b){if(typeof a=="object")for(var d in a)B(a,d)&&e.addTest(d,a[d]);else{a=a.toLowerCase();if(e[a]!==c)return e;b=typeof b=="function"?b():b,typeof f!="undefined"&&f&&(g.className+=" "+(b?"":"no-")+a),e[a]=b}return e},C(""),i=k=null,function(a,b){function l(a,b){var c=a.createElement("p"),d=a.getElementsByTagName("head")[0]||a.documentElement;return c.innerHTML="x<style>"+b+"</style>",d.insertBefore(c.lastChild,d.firstChild)}function m(){var a=s.elements;return typeof a=="string"?a.split(" "):a}function n(a){var b=j[a[h]];return b||(b={},i++,a[h]=i,j[i]=b),b}function o(a,c,d){c||(c=b);if(k)return c.createElement(a);d||(d=n(c));var g;return d.cache[a]?g=d.cache[a].cloneNode():f.test(a)?g=(d.cache[a]=d.createElem(a)).cloneNode():g=d.createElem(a),g.canHaveChildren&&!e.test(a)&&!g.tagUrn?d.frag.appendChild(g):g}function p(a,c){a||(a=b);if(k)return a.createDocumentFragment();c=c||n(a);var d=c.frag.cloneNode(),e=0,f=m(),g=f.length;for(;e<g;e++)d.createElement(f[e]);return d}function q(a,b){b.cache||(b.cache={},b.createElem=a.createElement,b.createFrag=a.createDocumentFragment,b.frag=b.createFrag()),a.createElement=function(c){return s.shivMethods?o(c,a,b):b.createElem(c)},a.createDocumentFragment=Function("h,f","return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&("+m().join().replace(/[\w\-]+/g,function(a){return b.createElem(a),b.frag.createElement(a),'c("'+a+'")'})+");return n}")(s,b.frag)}function r(a){a||(a=b);var c=n(a);return s.shivCSS&&!g&&!c.hasCSS&&(c.hasCSS=!!l(a,"article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}mark{background:#FF0;color:#000}template{display:none}")),k||q(a,c),a}var c="3.7.0",d=a.html5||{},e=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i,f=/^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i,g,h="_html5shiv",i=0,j={},k;(function(){try{var a=b.createElement("a");a.innerHTML="<xyz></xyz>",g="hidden"in a,k=a.childNodes.length==1||function(){b.createElement("a");var a=b.createDocumentFragment();return typeof a.cloneNode=="undefined"||typeof a.createDocumentFragment=="undefined"||typeof a.createElement=="undefined"}()}catch(c){g=!0,k=!0}})();var s={elements:d.elements||"abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video",version:c,shivCSS:d.shivCSS!==!1,supportsUnknownElements:k,shivMethods:d.shivMethods!==!1,type:"default",shivDocument:r,createElement:o,createDocumentFragment:p};a.html5=s,r(b)}(this,b),e._version=d,e._prefixes=n,e._domPrefixes=q,e._cssomPrefixes=p,e.hasEvent=z,e.testProp=function(a){return G([a])},e.testAllProps=I,e.testStyles=y,e.prefixed=function(a,b,c){return b?I(a,b,c):I(a,"pfx")},g.className=g.className.replace(/(^|\s)no-js(\s|$)/,"$1$2")+(f?" js "+v.join(" "):""),e}(this,this.document),function(a,b,c){function d(a){return"[object Function]"==o.call(a)}function e(a){return"string"==typeof a}function f(){}function g(a){return!a||"loaded"==a||"complete"==a||"uninitialized"==a}function h(){var a=p.shift();q=1,a?a.t?m(function(){("c"==a.t?B.injectCss:B.injectJs)(a.s,0,a.a,a.x,a.e,1)},0):(a(),h()):q=0}function i(a,c,d,e,f,i,j){function k(b){if(!o&&g(l.readyState)&&(u.r=o=1,!q&&h(),l.onload=l.onreadystatechange=null,b)){"img"!=a&&m(function(){t.removeChild(l)},50);for(var d in y[c])y[c].hasOwnProperty(d)&&y[c][d].onload()}}var j=j||B.errorTimeout,l=b.createElement(a),o=0,r=0,u={t:d,s:c,e:f,a:i,x:j};1===y[c]&&(r=1,y[c]=[]),"object"==a?l.data=c:(l.src=c,l.type=a),l.width=l.height="0",l.onerror=l.onload=l.onreadystatechange=function(){k.call(this,r)},p.splice(e,0,u),"img"!=a&&(r||2===y[c]?(t.insertBefore(l,s?null:n),m(k,j)):y[c].push(l))}function j(a,b,c,d,f){return q=0,b=b||"j",e(a)?i("c"==b?v:u,a,b,this.i++,c,d,f):(p.splice(this.i++,0,a),1==p.length&&h()),this}function k(){var a=B;return a.loader={load:j,i:0},a}var l=b.documentElement,m=a.setTimeout,n=b.getElementsByTagName("script")[0],o={}.toString,p=[],q=0,r="MozAppearance"in l.style,s=r&&!!b.createRange().compareNode,t=s?l:n.parentNode,l=a.opera&&"[object Opera]"==o.call(a.opera),l=!!b.attachEvent&&!l,u=r?"object":l?"script":"img",v=l?"script":u,w=Array.isArray||function(a){return"[object Array]"==o.call(a)},x=[],y={},z={timeout:function(a,b){return b.length&&(a.timeout=b[0]),a}},A,B;B=function(a){function b(a){var a=a.split("!"),b=x.length,c=a.pop(),d=a.length,c={url:c,origUrl:c,prefixes:a},e,f,g;for(f=0;f<d;f++)g=a[f].split("="),(e=z[g.shift()])&&(c=e(c,g));for(f=0;f<b;f++)c=x[f](c);return c}function g(a,e,f,g,h){var i=b(a),j=i.autoCallback;i.url.split(".").pop().split("?").shift(),i.bypass||(e&&(e=d(e)?e:e[a]||e[g]||e[a.split("/").pop().split("?")[0]]),i.instead?i.instead(a,e,f,g,h):(y[i.url]?i.noexec=!0:y[i.url]=1,f.load(i.url,i.forceCSS||!i.forceJS&&"css"==i.url.split(".").pop().split("?").shift()?"c":c,i.noexec,i.attrs,i.timeout),(d(e)||d(j))&&f.load(function(){k(),e&&e(i.origUrl,h,g),j&&j(i.origUrl,h,g),y[i.url]=2})))}function h(a,b){function c(a,c){if(a){if(e(a))c||(j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}),g(a,j,b,0,h);else if(Object(a)===a)for(n in m=function(){var b=0,c;for(c in a)a.hasOwnProperty(c)&&b++;return b}(),a)a.hasOwnProperty(n)&&(!c&&!--m&&(d(j)?j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}:j[n]=function(a){return function(){var b=[].slice.call(arguments);a&&a.apply(this,b),l()}}(k[n])),g(a[n],j,b,n,h))}else!c&&l()}var h=!!a.test,i=a.load||a.both,j=a.callback||f,k=j,l=a.complete||f,m,n;c(h?a.yep:a.nope,!!i),i&&c(i)}var i,j,l=this.yepnope.loader;if(e(a))g(a,0,l,0);else if(w(a))for(i=0;i<a.length;i++)j=a[i],e(j)?g(j,0,l,0):w(j)?B(j):Object(j)===j&&h(j,l);else Object(a)===a&&h(a,l)},B.addPrefix=function(a,b){z[a]=b},B.addFilter=function(a){x.push(a)},B.errorTimeout=1e4,null==b.readyState&&b.addEventListener&&(b.readyState="loading",b.addEventListener("DOMContentLoaded",A=function(){b.removeEventListener("DOMContentLoaded",A,0),b.readyState="complete"},0)),a.yepnope=k(),a.yepnope.executeStack=h,a.yepnope.injectJs=function(a,c,d,e,i,j){var k=b.createElement("script"),l,o,e=e||B.errorTimeout;k.src=a;for(o in d)k.setAttribute(o,d[o]);c=j?h:c||f,k.onreadystatechange=k.onload=function(){!l&&g(k.readyState)&&(l=1,c(),k.onload=k.onreadystatechange=null)},m(function(){l||(l=1,c(1))},e),i?k.onload():n.parentNode.insertBefore(k,n)},a.yepnope.injectCss=function(a,c,d,e,g,i){var e=b.createElement("link"),j,c=i?h:c||f;e.href=a,e.rel="stylesheet",e.type="text/css";for(j in d)e.setAttribute(j,d[j]);g||(n.parentNode.insertBefore(e,n),m(c,0))}}(this,document),Modernizr.load=function(){yepnope.apply(window,[].slice.call(arguments,0))};
-var app = angular.module('portfolio', ['ngSanitize', 'ngRoute']);
+var app = angular.module('portfolio', ['ngSanitize', 'ngRoute', 'ngTouch', 'duScroll']);
 
 app.config( [
     '$compileProvider',
@@ -27613,7 +28845,8 @@ app.controller('main', ['$scope',
 						'api',
 						'$timeout', 
 						'$location',
-						function ($scope, $http, $sce, api, $timeout, $location) {
+						'$document',
+						function ($scope, $http, $sce, api, $timeout, $location, $document) {
 
 	// Urls
 	var location    = window.location.origin,
@@ -27636,36 +28869,6 @@ app.controller('main', ['$scope',
 	$scope.absoluteProj   = true;
 	$scope.slugUrlLoad    = false;
 
-	// Get height to append as min height to right col at all times.
-	// var rightCol = document.getElementById('right-col')
-
-	// $scope.rightHeight = function() {
-
-	// 	$scope.$watch(function() {
-
-	// 		$scope.homePageHeight = document.getElementById('left-col').offsetHeight;
-
-	// 		if ($(window).width() >= 840) { 
-
-	// 			rightCol.style.minHeight = scope.homePageHeight + "px";
-	// 			console.log("resizing big");
-
-	// 		} else {
-
-	// 			rightCol.style.minHeight = "1px";
-	// 			console.log("resizing small");
-	// 		}
-
-	// 	});
-	// };
-
-	// $scope.rightHeight();
-
-	// window.onresize = function() {
-
-	//     $scope.rightHeight();
-	// };
-	
 
 	//====================
 	// Timeout animations
@@ -27694,7 +28897,13 @@ app.controller('main', ['$scope',
 	//==============
 	// Show project
 	//==============
-	$scope.showProject = function(projectUrl, route, slug) {
+	$scope.showProject = function(projectUrl, route, slug, source) {
+
+		// Kill the function if swipe event and no more articles to load
+		if( (source == 'swipe') && (projectUrl == undefined) ) {
+
+			return false;
+		}
 
 		if(route == "home") {
 
@@ -27726,7 +28935,7 @@ app.controller('main', ['$scope',
 		// JSON call
 		api.getData(projectUrl + "?json=1").then(function(data) {
 
-			console.log(data);
+			// console.log(data);
 
 			$scope.projectLoading = false;
 			$scope.project        = data.post;
@@ -27734,8 +28943,18 @@ app.controller('main', ['$scope',
 			$scope.next           = data.previous_url;
 
 			$timeout(function(){
+
 				$scope.projectVisible = true;
 			},200);
+
+			$timeout(function(){
+
+				if ($(window).width() <= 840) { 
+
+		      		$document.scrollTop(0, 500);
+		      	}
+
+			},1000);
 		});
 	};
 
@@ -27768,9 +28987,26 @@ app.controller('main', ['$scope',
 	if(window.location.href.indexOf('projects') > -1) {
 
 		var loadSlug = window.location.href.replace(window.location.origin, "");
-		$scope.showProject(loadSlug, 'project', loadSlug);
+		$scope.showProject(loadSlug, 'project', loadSlug, 'noswipe');
 		$scope.slugUrlLoad  = true;
-	} 
+	};
+
+
+	//====================================================
+	// Listener for back/forward buttons on browser
+	//====================================================
+	window.onpopstate = function(){
+
+		if(window.location.href.indexOf('projects') > -1) {
+
+			var loadSlug = window.location.href.replace(window.location.origin, "");
+			$scope.showProject(loadSlug, 'project', loadSlug, 'noswipe');
+			$scope.slugUrlLoad  = true;
+		} else {
+
+			$scope.showHome();
+		}	    
+	};
 
 
 	//===================
@@ -27800,6 +29036,24 @@ app.controller('main', ['$scope',
 
 
 }]);
+// app.directive('scrollTop', function($document) {
+  
+//   return {
+    
+//     restrict: 'A',
+
+//     link: function(scope, elm) {
+
+//       elm.on('click', function() {
+
+//       	if ($(window).width() <= 767) { 
+
+//       		$document.scrollTop(0, 500);
+//       	}
+//       });
+//     }
+//   }
+// });
 	
 	app.factory('api', ['$http', '$q', function($http, $q) {
 

@@ -23,10 +23,10 @@
 	&.show {
 
 		display: block;
-	}
-	
-	@include breakpoint($tablet) {
 
-		display: none;
+		@include breakpoint($tablet) {
+
+			display: none;
+		}
 	}
 }

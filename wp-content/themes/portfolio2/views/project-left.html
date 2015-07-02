@@ -9,19 +9,19 @@
 	</symbol>
 </svg>
 
-<div ng-class="{active:projectVisible,absolute:absoluteProj}" class="project-left slide-out-left">
+<div ng-class="{active:projectVisible,absolute:absoluteProj}" class="project-left slide-out-left" ng-swipe-right="showProject(prev, 'project', prev, 'swipe')" ng-swipe-left="showProject(next, 'project', next, 'swipe')">
 	<h2 ng-bind-html="project.custom_fields.title"></h2>
 	<!-- <h3 ng-bind-html="project.company"></h3> -->
 	<p ng-bind-html="project.custom_fields.description"></p>
 	<div ng-bind-html="project.custom_fields.languages[0]" class="individual-languages"></div>
 	<a href="{{project.custom_fields.link[0]}}" target="_blank" class="bars">Visit site</a>
 	<div class="scroll-wrapper left">
-		<a href="javascript:;" ng-click="showProject(prev, 'project', prev);" ng-if="prev" class="block prev">
+		<a href="javascript:;" ng-click="showProject(prev, 'project', prev, 'noswipe')" ng-if="prev" class="block prev">
 			<svg class="arrow-left">
 			  <use xlink:href="#arrow-left"></use>
 			<svg>
 		</a>
-		<a href="javascript:;" ng-click="showProject(next, 'project', next)" ng-if="next" class="block next">
+		<a href="javascript:;" ng-click="showProject(next, 'project', next, 'noswipe')" ng-if="next" class="block next">
 			<svg class="arrow-right">
 			  <use xlink:href="#arrow-right"></use>
 			<svg>

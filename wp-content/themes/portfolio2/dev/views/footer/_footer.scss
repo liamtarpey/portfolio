@@ -19,9 +19,12 @@
 
 		&.lang {
 
+			padding-left: 3px; //visual center alignment - for some reason this doesn't look centered
+
 			@include breakpoint($tablet) {
 
 				float: right;
+				padding-left: 0;
 			}
 		}
 
