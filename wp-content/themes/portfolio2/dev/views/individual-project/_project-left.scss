@@ -2,6 +2,17 @@
 
 .project-left {
 
+	background: $col-lightgrey;
+
+	&.stick {
+
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 40%;
+		padding: $baseline $baseline*3 $baseline*3 $baseline*3;
+	}
+
 	.individual-languages {
 
 		margin: $baseline*2 0;

@@ -28,6 +28,7 @@ app.controller('main', ['$scope',
 	$scope.absoluteProj   = true;
 	$scope.slugUrlLoad    = false;
 	$scope.screenHeight   = 1;
+	$scope.stickProject   = false;
 
 
 	//====================
@@ -58,6 +59,25 @@ app.controller('main', ['$scope',
 
 		$scope.screenHeight = window.innerHeight;
 	});
+
+
+	// Get scroll position to stick project description if enough screen height is available
+	// window.onscroll = function() {
+
+	// 	// Limit only to project view and screensizes > 840
+	// 	if( (window.location.href.indexOf('projects') > -1) && (window.innerWidth >= 840) ) {
+
+	// 		if(window.pageYOffset >= 96) {
+
+	// 			$scope.stickProject = true;
+	// 		} else {
+
+	// 			$scope.stickProject = false;
+	// 		}
+	// 	}
+
+	// 	$scope.$apply();
+	// }
 
 
 	//==============
@@ -113,7 +133,7 @@ app.controller('main', ['$scope',
 
 			$timeout(function(){
 
-				if ($(window).width() <= 840) { 
+				if (window.innerWidth <= 840) { 
 
 		      		$document.scrollTop(0, 500);
 		      	}
