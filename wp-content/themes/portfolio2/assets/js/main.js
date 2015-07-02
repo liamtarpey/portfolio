@@ -28868,6 +28868,7 @@ app.controller('main', ['$scope',
 	$scope.absoluteHome   = false;
 	$scope.absoluteProj   = true;
 	$scope.slugUrlLoad    = false;
+	$scope.screenHeight   = 1;
 
 
 	//====================
@@ -28892,6 +28893,12 @@ app.controller('main', ['$scope',
 	$timeout(function() {
 		$scope.firstLoadHide = true;
 	},2500);
+
+	// Get screen height and append this as min height to the body (prevents page jumping between swipes)
+	$scope.$watch(function() {
+
+		$scope.screenHeight = window.innerHeight;
+	});
 
 
 	//==============
@@ -28934,8 +28941,6 @@ app.controller('main', ['$scope',
 	
 		// JSON call
 		api.getData(projectUrl + "?json=1").then(function(data) {
-
-			// console.log(data);
 
 			$scope.projectLoading = false;
 			$scope.project        = data.post;

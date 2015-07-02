@@ -17,7 +17,7 @@
 
 		<!-- <a class="skip-link screen-reader-text" href="#content">Skip to content</a> -->
 
-		<main class="app-content" role="main">
+		<main class="app-content" role="main" style="min-height:{{screenHeight}}px">
 
 			<a href="javascript:;" ng-click="showHome();" ng-if="projectVisible" class="home-btn">
 				<img src="/wp-content/themes/portfolio2/assets/img/home-icon.png" alt="Home Icon"  class="img-full" />
