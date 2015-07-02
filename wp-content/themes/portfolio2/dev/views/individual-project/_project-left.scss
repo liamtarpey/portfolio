@@ -20,43 +20,11 @@
 
 	.scroll-wrapper {
 
-		@include cf;
-		margin: $baseline*2 -60px 0 -60px;
-		padding: $baseline $baseline*3;
-		background: $col-grey;
+		display: none;
 
-		.prev,
-		.next {
-			
-			width: 27px;
-			height: 27px;
-			overflow: hidden;
-			@include transition(all .2s ease-in-out);
+		@include breakpoint($tablet) {
 
-			svg use {
-
-				@include scale(.3);
-			}
-		}
-
-		.prev {
-
-			float: left;
-
-			&:hover {
-
-				margin-left: 6px;
-			}
-		}
-
-		.next {
-
-			float: right;
-
-			&:hover {
-
-				margin-right: 6px;
-			}
+			display: block;
 		}
 	}
 }

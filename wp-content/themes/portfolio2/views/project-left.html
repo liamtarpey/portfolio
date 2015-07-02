@@ -15,7 +15,7 @@
 	<p ng-bind-html="project.custom_fields.description"></p>
 	<div ng-bind-html="project.custom_fields.languages[0]" class="individual-languages"></div>
 	<a href="{{project.custom_fields.link[0]}}" target="_blank" class="bars">Visit site</a>
-	<div class="scroll-wrapper">
+	<div class="scroll-wrapper left">
 		<a href="javascript:;" ng-click="showProject(prev, 'project', prev);" ng-if="prev" class="block prev">
 			<svg class="arrow-left">
 			  <use xlink:href="#arrow-left"></use>

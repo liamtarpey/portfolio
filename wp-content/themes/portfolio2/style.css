@@ -204,6 +204,56 @@ body {
   opacity: 1;
 }
 
+/* line 97, dev/sass/partials/globals/_core.scss */
+.scroll-wrapper {
+  *zoom: 1;
+  margin: 40px -60px 0 -60px;
+  padding: 20px 60px;
+  background: #f4f4f4;
+}
+/* line 38, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.scroll-wrapper:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 105, dev/sass/partials/globals/_core.scss */
+.scroll-wrapper .prev,
+.scroll-wrapper .next {
+  width: 27px;
+  height: 27px;
+  overflow: hidden;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+/* line 112, dev/sass/partials/globals/_core.scss */
+.scroll-wrapper .prev svg use,
+.scroll-wrapper .next svg use {
+  -webkit-transform: scale(0.3, 0.3);
+  -moz-transform: scale(0.3, 0.3);
+  -ms-transform: scale(0.3, 0.3);
+  -o-transform: scale(0.3, 0.3);
+  transform: scale(0.3, 0.3);
+}
+/* line 118, dev/sass/partials/globals/_core.scss */
+.scroll-wrapper .prev {
+  float: left;
+}
+/* line 122, dev/sass/partials/globals/_core.scss */
+.scroll-wrapper .prev:hover {
+  margin-left: 6px;
+}
+/* line 128, dev/sass/partials/globals/_core.scss */
+.scroll-wrapper .next {
+  float: right;
+}
+/* line 132, dev/sass/partials/globals/_core.scss */
+.scroll-wrapper .next:hover {
+  margin-right: 6px;
+}
+
 /* line 13, dev/sass/partials/globals/_blockquotes.scss */
 blockquote {
   quotes: "\201C" "\201D" "\2018" "\2019";
@@ -711,52 +761,13 @@ em {
 }
 /* line 21, dev/views/individual-project/_project-left.scss */
 .project-left .scroll-wrapper {
-  *zoom: 1;
-  margin: 40px -60px 0 -60px;
-  padding: 20px 60px;
-  background: #f4f4f4;
+  display: none;
 }
-/* line 38, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
-.project-left .scroll-wrapper:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-/* line 29, dev/views/individual-project/_project-left.scss */
-.project-left .scroll-wrapper .prev,
-.project-left .scroll-wrapper .next {
-  width: 27px;
-  height: 27px;
-  overflow: hidden;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-/* line 36, dev/views/individual-project/_project-left.scss */
-.project-left .scroll-wrapper .prev svg use,
-.project-left .scroll-wrapper .next svg use {
-  -webkit-transform: scale(0.3, 0.3);
-  -moz-transform: scale(0.3, 0.3);
-  -ms-transform: scale(0.3, 0.3);
-  -o-transform: scale(0.3, 0.3);
-  transform: scale(0.3, 0.3);
-}
-/* line 42, dev/views/individual-project/_project-left.scss */
-.project-left .scroll-wrapper .prev {
-  float: left;
-}
-/* line 46, dev/views/individual-project/_project-left.scss */
-.project-left .scroll-wrapper .prev:hover {
-  margin-left: 6px;
-}
-/* line 52, dev/views/individual-project/_project-left.scss */
-.project-left .scroll-wrapper .next {
-  float: right;
-}
-/* line 56, dev/views/individual-project/_project-left.scss */
-.project-left .scroll-wrapper .next:hover {
-  margin-right: 6px;
+@media (min-width: 840px) {
+  /* line 21, dev/views/individual-project/_project-left.scss */
+  .project-left .scroll-wrapper {
+    display: block;
+  }
 }
 
 /* line 3, dev/views/individual-project/_project-right.scss */
@@ -773,6 +784,22 @@ em {
 /* line 13, dev/views/individual-project/_project-right.scss */
 .project-right img {
   margin-bottom: 20px;
+}
+
+/* line 18, dev/views/individual-project/_project-right.scss */
+.scroll-wrapper.right {
+  margin: 40px 0 0 0;
+  display: none;
+}
+/* line 23, dev/views/individual-project/_project-right.scss */
+.scroll-wrapper.right.show {
+  display: block;
+}
+@media (min-width: 840px) {
+  /* line 18, dev/views/individual-project/_project-right.scss */
+  .scroll-wrapper.right {
+    display: none;
+  }
 }
 
 /* line 3, dev/views/right-col/_right-col.scss */
